@@ -12,6 +12,7 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
+    "aws-sdk": "^2.933.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.5",
     "eslint-config-prettier": "^8.3.0",
@@ -33,7 +34,8 @@
     "react-router-dom": "^5.2.0",
     "react-router-native": "^5.2.0",
     "redux": "^4.1.0",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

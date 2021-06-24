@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
-import {useNavigate} from 'react-router-dom';
 
 export default function Header() {
   const [formValue, setFormValue] = useState("");
@@ -12,7 +11,6 @@ export default function Header() {
     }
   };
 
-  const navigate = useNavigate();
 
   return (
     <View style={styles.form}>
