@@ -1,21 +1,26 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Header from "./src/components/Header/Header";
+import LowerMenu from "./src/components/LowerMenu/LowerMenu";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <StatusBar style="auto" />
+      <Header />
+
+      <Text>Post List Here</Text>
+
+      <LowerMenu />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 });
