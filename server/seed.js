@@ -1,7 +1,7 @@
 const { disconnect, connect } = require('./src/db/connect');
 const mongoose = require('mongoose');
-const Cathegory = require('./src/models/cathegoryModel');
-const Questions = require('./src/models/questionsModel');
+const Comment = require('./src/models/commentModel');
+const Post = require('./src/models/Post');
 
 const cathegory = [
   {
@@ -12,7 +12,7 @@ const cathegory = [
   },
 ];
 
-const questionsCosmos = [
+const Post = [
   {
     questions: 'Какая страна первой запустила спутник?',
     answers: 'Ссср',
