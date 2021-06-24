@@ -4,9 +4,8 @@ import { StyleSheet, View, TextInput, Button } from "react-native";
 export default function Header() {
   const [formValue, setFormValue] = useState('')
 
-  const submitForm = () => {
-    if (formData.trim()) {
-      console.log(formValue);
+  const submitForm = () => { // formValue - это то шо нужно отправлять на поиск 
+    if (formValue.trim()) {
       setFormValue('')
     }
   }
@@ -16,6 +15,7 @@ export default function Header() {
       <Button title="Profile" />
 
       <TextInput
+        onChangeText={text => setFormValue(text)}
         value={formValue}
         style={styles.input}
         autoCorrect={false}
@@ -23,7 +23,7 @@ export default function Header() {
         placeholder="Write here..."
       ></TextInput>
 
-      <Button title="Search" />
+      <Button onPress={submitForm} title="Search" />
     </View>
   )
 }
@@ -42,5 +42,5 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderWidth: 2,
     borderColor: "#3949ab"
-  }
+  },
 })
