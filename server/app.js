@@ -9,8 +9,7 @@ const MongoStore = require('connect-mongo');
 const { dbConnectionURL } = require('./src/db/config');
 const authRouter = require('./src/routes/auth.router');
 const usersRouter = require('./src/routes/users.router');
-const Cathegory = require('./src/models/cathegoryModel');
-const Questions = require('./src/models/questionsModel');
+
 
 const app = express();
 const { PORT_NAME, COOKIE_SECRET, COOKIE_NAME } = process.env;
