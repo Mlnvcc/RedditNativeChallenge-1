@@ -1,96 +1,103 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Icon } from 'react-native-elements'
-import PropTypes from 'prop-types'
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from 'react-native';
 
-import { Colors } from '../constants'
+export default function UserProfileView() {
+
+    return (
+      <View style={styles.container}>
+          <View style={styles.header}>
+            <View style={styles.headerContent}>
+                <Image style={styles.avatar}
+                  source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+
+                <Text style={styles.name}>John Doe </Text>
+                <Text style={styles.userInfo}>jhonnydoe@mail.com </Text>
+            </View>
+          </View>
+
+          <View style={styles.body}>
+
+
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image style={styles.icon} source={{uri: 'https://img.icons8.com/color/70/000000/filled-like.png'}}/>
+              </View>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Subscribes</Text>
+              </View>
+            </View>
+
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image style={styles.icon} source={{uri: 'https://img.icons8.com/color/70/000000/facebook-like.png'}}/>
+              </View>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>News</Text>
+              </View>
+            </View>
+
+          </View>
+      </View>
+    );
+}
 
 const styles = StyleSheet.create({
-  centerRow: {
+  header:{
+    backgroundColor: "#DCDCDC",
+  },
+  headerContent:{
+    padding:30,
     alignItems: 'center',
-    backgroundColor: 'transparent',
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
-  container: {
-    flexDirection: 'row',
-    height: 55,
-    justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 22,
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
   },
-  icon: {
-    justifyContent: 'flex-start',
-    marginTop: 2.8,
+  name:{
+    fontSize:22,
+    color:"#000000",
+    fontWeight:'600',
   },
-  iconContainer: {
-    alignSelf: 'center',
+  userInfo:{
+    fontSize:16,
+    color:"#778899",
+    fontWeight:'600',
   },
-  leftRow: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+  body:{
+    backgroundColor: "#778899",
+    height:500,
+    alignItems:'center',
   },
-  logoutText: {
-    color: Colors.blue,
-    fontSize: 18,
-    fontWeight: '400',
+  item:{
+    flexDirection : 'row',
   },
-  rightRow: {
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  infoContent:{
+    flex:1,
+    alignItems:'flex-start',
+    paddingLeft:5
   },
-  titleText: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: '400',
+  iconContent:{
+    flex:1,
+    alignItems:'flex-end',
+    paddingRight:5,
   },
-})
-
-const Search = ({ title, navigation, leftIcon }) => (
-  <View style={{ backgroundColor: 'white' }}>
-    <View style={styles.container}>
-      <View style={styles.leftRow}>
-        <Icon
-          size={34}
-          type="ionicon"
-          name="ios-arrow-back"
-          underlayColor="transparent"
-          underlineColorAndroid="transparent"
-          hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
-          color={Colors.blue}
-          iconStyle={styles.icon}
-          containerStyle={styles.iconContainer}
-          onPress={() => navigation.goBack(null)}
-          {...leftIcon}
-        />
-      </View>
-      <View style={styles.centerRow}>
-        <Text style={styles.titleText} numberOfLines={1}>
-          {title}
-        </Text>
-      </View>
-      <View style={styles.rightRow}>
-        <Text style={styles.logoutText}>Log out</Text>
-      </View>
-    </View>
-  </View>
-)
-
-Search.propTypes = {
-  title: PropTypes.string.isRequired,
-  navigation: PropTypes.object.isRequired,
-  leftIcon: PropTypes.object,
-}
-
-Search.defaultProps = {
-  leftIcon: {},
-}
-
-export default Search
+  icon:{
+    width:30,
+    height:30,
+    marginTop:20,
+  },
+  info:{
+    fontSize:18,
+    marginTop:20,
+    color: "#FFFFFF",
+  }
+});
