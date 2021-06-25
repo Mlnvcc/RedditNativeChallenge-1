@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import getInitState from "./initialState";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const store = createStore(
   rootReducer,
@@ -10,8 +11,17 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
+const saveUserInStorage = async () => {
+  try {
+    const { user } = store.getState();
+    await AsyncStorage.setItem("userInfo", JSON.stringify(user));
+  } catch (error) {
+    // console.log(error);
+  }
+};
+
 store.subscribe(() => {
-  window.localStorage.setItem("redux", JSON.stringify(store.getState()));
+  saveUserInStorage();
 });
 
 export default store;

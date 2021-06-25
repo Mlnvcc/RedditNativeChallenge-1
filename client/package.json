@@ -13,6 +13,7 @@
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
     "dayjs": "^1.10.5",
+    "dotenv": "^10.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "expo": "~41.0.1",
@@ -27,7 +28,11 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
     "react-native-swipe-list-view": "^3.2.9",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-redux": "^7.2.4",
+    "react-router": "^5.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
