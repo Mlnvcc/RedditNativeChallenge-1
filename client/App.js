@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Header from "./src/components/Header/Header";
+import LowerMenu from "./src/components/LowerMenu/LowerMenu";
+
 import PostList from "./src/components/PostList";
 import { Provider } from "react-redux";
 import store from "./src/redux/store";
@@ -14,6 +16,7 @@ export default function App() {
         <Text>Hello World!</Text>
         <StatusBar style="auto" />
         <PostList />
+        <LowerMenu />
       </View>
     </Provider>
   );
@@ -21,7 +24,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
-    paddingVertical: 30,
+    paddingTop: 20,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 });

@@ -37,7 +37,6 @@ date: moment().subtract(6, 'days').calendar(),
 ]
 
 
-
 const seed = async () => {
   connect()
 

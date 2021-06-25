@@ -2,30 +2,31 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
 
 export default function Header() {
-  const [formValue, setFormValue] = useState('')
+  const [formValue, setFormValue] = useState("");
 
   const submitForm = () => {
-    if (formData.trim()) {
-      console.log(formValue);
-      setFormValue('')
+    // formValue - это то шо нужно отправлять на поиск
+    if (formValue.trim()) {
+      setFormValue("");
     }
-  }
+  };
 
   return (
     <View style={styles.form}>
       <Button title="Profile" />
 
       <TextInput
+        onChangeText={text => setFormValue(text)}
         value={formValue}
         style={styles.input}
         autoCorrect={false}
-        autoCapitalize='none'
+        autoCapitalize="none"
         placeholder="Write here..."
       ></TextInput>
 
-      <Button title="Search" />
+      <Button onPress={submitForm} title="Search" />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -41,6 +42,6 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 7,
     borderWidth: 2,
-    borderColor: "#3949ab"
-  }
-})
+    borderColor: "#3949ab",
+  },
+});

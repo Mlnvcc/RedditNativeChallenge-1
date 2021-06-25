@@ -13,11 +13,11 @@ export default function Item({ el }) {
 
 const styles = StyleSheet.create({
   div: {
-    width: "60%",
+    width: 400,
     flexDirection: "column",
     justifyContent: "space-around",
     borderStyle: "solid",
     borderColor: "black",
-    borderWidth: "1px",
+    borderWidth: 1,
   },
 });
