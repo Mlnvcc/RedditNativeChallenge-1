@@ -36,7 +36,8 @@ export default function PostList() {
             <View>
               <Button
                 title="Go to Details"
-                onPress={() => {navigation.navigate("Post", {
+                onPress={() => {
+                  navigation.navigate("Post", {
                     id: el._id,
                   });
                 }}
