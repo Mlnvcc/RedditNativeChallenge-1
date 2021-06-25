@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
   const [formValue, setFormValue] = useState("");
+
+  const navigation = useNavigation();
+  const loadScene = () => {
+    navigation.navigate("Profile");
+  };
 
   const submitForm = () => {
     // formValue - это то шо нужно отправлять на поиск
@@ -13,7 +19,7 @@ export default function Header() {
 
   return (
     <View style={styles.form}>
-      <Button title="Profile" />
+      <Button title="Profile" onPress={loadScene} />
 
       <TextInput
         onChangeText={text => setFormValue(text)}
