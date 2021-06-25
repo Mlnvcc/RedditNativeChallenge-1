@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Header({ navigation }) {
+export default function Header() {
   const [formValue, setFormValue] = useState("");
 
+  const navigation = useNavigation();
   const loadScene = () => {
-    navigation.navigate("");
+    navigation.navigate("Profile");
   };
 
   const submitForm = () => {

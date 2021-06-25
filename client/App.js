@@ -5,16 +5,7 @@ import LowerMenu from "./src/components/LowerMenu/LowerMenu";
 import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
-  return (
-    // <View style={styles.container}>
-    //   <Header />
-
-    //   <Text>Post List Here</Text>
-
-    //   <LowerMenu />
-    // </View>
-    <Navigate />
-  );
+  return <Navigate style={styles.container} />;
 }
 
 const styles = StyleSheet.create({
