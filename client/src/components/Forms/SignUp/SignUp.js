@@ -14,11 +14,17 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { signUp } from "../../../redux/actions/user.ac";
+import { useNavigation } from "@react-navigation/native";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation(); // для перехода на мэин страницу
+  const loadScene = () => {
+    navigation.navigate("MainPage");
+  };
 
   const dispatch = useDispatch();
 
@@ -34,6 +40,7 @@ const SignUp = () => {
       setUserName("");
       setEmail("");
       setPassword("");
+      loadScene();
     }
   };
 

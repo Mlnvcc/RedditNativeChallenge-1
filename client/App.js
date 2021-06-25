@@ -7,7 +7,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import ExitBtn from "./src/components/ExitBtn/ExitBtn";
 import Navigate from "./src/navigation/AppNavigator";
-import { View, Text, TouchableOpacity } from "react-native";
 
 export default function App() {
   const [newUser, setNewUser] = useState("");
@@ -24,8 +23,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <Navigate style={styles.container} />
-      
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <StatusBar style="auto" />
         {newUser ? (
           <View>
@@ -36,7 +34,7 @@ export default function App() {
           <SignUp />
         )}
       </View>
-      <Navigate style={styles.container} />;
+      <Navigate style={styles.container} />; */}
     </Provider>
   );
 }
