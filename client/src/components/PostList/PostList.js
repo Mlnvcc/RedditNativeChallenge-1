@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, TextInput, Button, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import Item from "./Item";
-import { getContent } from "../redux/actions/content";
+import Item from "../Item";
+import { getContent } from "../../redux/actions/content";
 
 export default function PostList() {
   const dispatch = useDispatch();
