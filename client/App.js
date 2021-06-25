@@ -10,25 +10,21 @@ import ExitBtn from "./src/components/ExitBtn/ExitBtn";
 
 export default function App() {
   const [newUser, setNewUser] = useState("");
-  // const stateUser = useSelector(state => state.user);
-  // console.log("state", stateUser);
+
   const test = async () => {
     const user = await AsyncStorage.getItem("userInfo");
     setNewUser(user);
-    console.log(user);
   };
-  let i = false;
+
   useEffect(() => {
     (async () => test())();
-    console.log("EXIT");
-    i = !i;
   }, [newUser]);
-  console.log(!newUser);
+
   return (
     <Provider store={store}>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        {i ? (
+        {newUser ? (
           <View>
             <Text>Поднажмем!</Text>
             <ExitBtn stateUser={{ newUser, setNewUser }} />
@@ -36,8 +32,6 @@ export default function App() {
         ) : (
           <SignUp />
         )}
-
-        {/* <SignUp /> */}
       </View>
     </Provider>
   );
