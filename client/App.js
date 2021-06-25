@@ -1,11 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Header from "./src/components/Header/Header";
-import LowerMenu from "./src/components/LowerMenu/LowerMenu";
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
+import { StyleSheet } from "react-native";
 import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
-  return <Navigate style={styles.container} />;
+  return (
+    <Provider store={store}>
+      <Navigate style={styles.container} />;
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({

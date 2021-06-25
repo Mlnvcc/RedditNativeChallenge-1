@@ -10,8 +10,8 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-store.subscribe(() => {
-  window.localStorage.setItem("redux", JSON.stringify(store.getState()));
-});
+// store.subscribe(() => {
+//   window.localStorage.setItem("redux", JSON.stringify(store.getState()));
+// });
 
 export default store;

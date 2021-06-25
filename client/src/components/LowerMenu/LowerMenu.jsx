@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
-
+import { useSelector, useDispatch } from "react-redux";
+import { changeStatusAddButton } from "../../redux/actions/addButton";
+import AddPostList from "../addPostList/AddPostList";
 export default function LowerMenu() {
+  const dispatch = useDispatch();
+  const addButtonStatus = useSelector(state => state.addButton);
+
   const goToAddingPost = () => {
-    return console.log("here"); // функция для перехода на создание поста
+    console.log(addButtonStatus);
+    dispatch(changeStatusAddButton());
   };
 
   return (
     <View style={styles.footer}>
-      <TouchableOpacity onPress={goToAddingPost} style={styles.button}>
-        <Text style={{ fontSize: 40, color: "#fff" }}>+</Text>
+      <TouchableOpacity onPress={() => goToAddingPost()} style={styles.button}>
+        {!addButtonStatus ? <Text style={{ fontSize: 40, color: "#fff" }}>+</Text> : <Text style={{ fontSize: 40, color: "#fff" }}>-</Text> }
+        
       </TouchableOpacity>
+      {addButtonStatus && <AddPostList />}
     </View>
   );
 }
