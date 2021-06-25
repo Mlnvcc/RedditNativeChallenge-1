@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Button,
@@ -10,16 +10,19 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { signUp } from "../../../redux/actions/user.ac";
 import { useNavigation } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const curUser = useSelector(state => state.user);
 
   const navigation = useNavigation(); // для перехода на мэин страницу
   const loadScene = () => {
@@ -40,7 +43,10 @@ const SignUp = () => {
       setUserName("");
       setEmail("");
       setPassword("");
-      loadScene();
+      if (curUser) {
+        loadScene();
+        console.log(curUser);
+      }
     }
   };
 

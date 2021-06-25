@@ -6,6 +6,7 @@ import MainPage from "../components/MainPage/MainPage";
 import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
+import Post from "../components/post/post";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,11 @@ export default function Navigate() {
           name="Profile"
           component={UserProfileView}
           options={{ title: "Your profile" }}
+        />
+        <Stack.Screen
+          name="Post"
+          component={Post}
+          options={{ title: "Post" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

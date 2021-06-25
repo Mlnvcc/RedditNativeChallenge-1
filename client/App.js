@@ -9,32 +9,9 @@ import ExitBtn from "./src/components/ExitBtn/ExitBtn";
 import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
-  const [newUser, setNewUser] = useState("");
-
-  const test = async () => {
-    const user = await AsyncStorage.getItem("userInfo");
-    setNewUser(user);
-  };
-
-  useEffect(() => {
-    (async () => test())();
-  }, [newUser]);
-
   return (
     <Provider store={store}>
       <Navigate style={styles.container} />
-      {/* <View style={styles.container}>
-        <StatusBar style="auto" />
-        {newUser ? (
-          <View>
-            <Text>Поднажмем!</Text>
-            <ExitBtn stateUser={{ newUser, setNewUser }} />
-          </View>
-        ) : (
-          <SignUp />
-        )}
-      </View>
-      <Navigate style={styles.container} />; */}
     </Provider>
   );
 }
