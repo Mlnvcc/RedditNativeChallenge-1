@@ -1,12 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Text, StatusBar } from "react-native";
 import SignUp from "./src/components/Forms/SignUp/SignUp";
 import store from "./src/redux/store";
 import { Provider, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import ExitBtn from "./src/components/ExitBtn/ExitBtn";
+import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
   const [newUser, setNewUser] = useState("");
@@ -33,6 +33,7 @@ export default function App() {
           <SignUp />
         )}
       </View>
+      <Navigate style={styles.container} />;
     </Provider>
   );
 }
@@ -41,6 +42,7 @@ const resizeMode = "center";
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -119,7 +121,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   btnText: {
     color: "white",

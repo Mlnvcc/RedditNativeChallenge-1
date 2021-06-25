@@ -3,6 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const initialState = {
   user: null,
   loader: false,
+  content: [],
+  addButton: false,
 };
 
 const retrieveData = async () => {
@@ -17,9 +19,8 @@ const retrieveData = async () => {
 };
 
 const getInitState = () => {
-  // const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
   const stateFromLS = retrieveData();
-  console.log(stateFromLS);
+
   return stateFromLS ? stateFromLS : initialState;
 };
 
