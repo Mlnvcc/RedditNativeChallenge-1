@@ -1,11 +1,11 @@
 export const initialState = {
   user: null,
   loader: false,
+  content: [],
 };
 
 const getInitState = () => {
-  const stateFromLS = JSON.parse(window.localStorage.getItem("redux"));
-  return stateFromLS ? stateFromLS : initialState;
+  return initialState;
 };
 
 export default getInitState;
