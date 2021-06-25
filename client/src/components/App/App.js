@@ -7,7 +7,6 @@ import SignIn from "../Forms/SignIn/SignIn";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { checkAuth } from "../../redux/actions/user.ac";
-import Main from "../Main/Main";
 
 const App = () => {
   // const dispatch = useDispatch();

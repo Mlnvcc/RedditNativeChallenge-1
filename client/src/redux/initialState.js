@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export const initialState = {
   user: null,
   loader: false,
@@ -5,8 +7,21 @@ export const initialState = {
   addButton: false,
 };
 
+const retrieveData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("userInfo");
+    if (value !== null) {
+      return value;
+    }
+  } catch (error) {
+    // Error retrieving data
+  }
+};
+
 const getInitState = () => {
-  return initialState;
+  const stateFromLS = retrieveData();
+
+  return stateFromLS ? stateFromLS : initialState;
 };
 
 export default getInitState;

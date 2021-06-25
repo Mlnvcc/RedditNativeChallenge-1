@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import React from "react";
 import { signOut } from "../../../redux/actions/user.ac";
 
 const SignOut = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
+  const signOutFunc = () => dispatch(signOut());
+
   useEffect(() => {
-    dispatch(signOut());
-    history.push("/");
+    signOutFunc();
+    // history.push("/");
   }, []);
 
   return null;
