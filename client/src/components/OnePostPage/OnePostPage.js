@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { createComMain } from "../../redux/actions/comments";
+import { addLike } from "../../redux/actions/content";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const el = route.params.el;
-  const mainId = el._id;
-  console.log(el._id);
+  const mainId = el._id; // НОРМАЛЬНО!!!!
   const [comment, setComment] = useState();
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
@@ -20,6 +20,11 @@ export default function Post({ route }) {
       const post = { text: comment, autorId: userId, postId: el._id };
       dispatch(createComMain(post));
     }
+  };
+
+  const like = (userId, postId) => {
+    console.log(userId, postId);
+    dispatch(addLike(userId, postId));
   };
 
   return (
@@ -35,7 +40,7 @@ export default function Post({ route }) {
             <Icon.Button
               name="thumbs-up"
               backgroundColor="gray"
-              onPress={() => console.log("like")}
+              onPress={() => like(userId, el._id)}
             >
               {el.likes.length}
             </Icon.Button>
