@@ -10,6 +10,6 @@ export const createComMain = description => async dispatch => {
     body: JSON.stringify(description),
   });
   const comment = await response.json();
-
+  console.log(comment);
   dispatch(getCommentCreate(description));
 };

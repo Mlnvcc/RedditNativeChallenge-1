@@ -26,7 +26,7 @@ export default function Navigate() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* {curUser ? (
+        {curUser ? (
           <Stack.Screen
             name="MainPage"
             component={MainPage}
@@ -38,13 +38,7 @@ export default function Navigate() {
             component={SignUp}
             options={{ title: "Registration" }}
           />
-        )} */}
-
-        <Stack.Screen
-          name="MainPage"
-          component={MainPage}
-          options={{ title: "Main Page" }}
-        />
+        )}
 
         <Stack.Screen
           name="CreatePost"
