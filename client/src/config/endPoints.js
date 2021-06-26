@@ -1,6 +1,8 @@
 // const { REACT_APP_HOST: host } = process.env;
 
-const host = "http://localhost:8080";
+//const host = "http://localhost:8080";
+const host = "http://192.168.1.140:8080"; //vlad
+
 // console.log("http://localhost:8080/api/v2/auth/signup");
 export const signUp = () => `${host}/api/v2/auth/signup`;
 // ("http://localhost:8080/api/v2/auth/signup");

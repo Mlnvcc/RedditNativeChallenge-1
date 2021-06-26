@@ -16,6 +16,8 @@ postRouter.post('/add', async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     date: moment().subtract(6, 'days').calendar(),
+    tags: req.body.tags,
+    author: req.body.author,
   });
 
   res.json(post);

@@ -19,7 +19,6 @@ export default function AddPostList() {
       title: title,
       description: description,
     };
-
     dispatch(createPost(post));
   };
   return (
