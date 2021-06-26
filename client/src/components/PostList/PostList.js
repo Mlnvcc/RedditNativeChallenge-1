@@ -27,7 +27,7 @@ export default function PostList() {
   // };
 
   return (
-    <View style={styles.container}>
+    <>
       <Text>Последние посты</Text>
 
       <FlatList
@@ -35,7 +35,6 @@ export default function PostList() {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              /* 1. Navigate to the Details route with params */
               navigation.navigate("Post", {
                 el: item,
               });
@@ -46,7 +45,7 @@ export default function PostList() {
         )}
         keyExtractor={item => item.id}
       />
-    </View>
+    </>
   );
 }
 

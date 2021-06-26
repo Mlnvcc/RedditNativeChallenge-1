@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import SignOut from "../Forms/SignOut/SignOut";
 
 export default function UserProfileView() {
   return (
@@ -9,12 +10,12 @@ export default function UserProfileView() {
           <Image
             style={styles.avatar}
             source={{
-              uri: "https://bootdey.com/img/Content/avatar/avatar6.png",
+              uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
             }}
           />
 
-          <Text style={styles.name}>John Doe </Text>
-          <Text style={styles.userInfo}>jhonnydoe@mail.com </Text>
+          <Text style={styles.name}>Big Floppa</Text>
+          <Text style={styles.userInfo}>bigfloppa@mail.com</Text>
         </View>
       </View>
 
@@ -47,6 +48,7 @@ export default function UserProfileView() {
           </View>
         </View>
       </View>
+          <SignOut style={styles.logout}/>
     </View>
   );
 }
@@ -104,5 +106,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: "#FFFFFF",
+  },
+  logout: {
+    height:45,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:15,
+    width:300,
+    borderRadius:30,
+    backgroundColor:'transparent',
+    position: 'absolute',
+    bottom: 10,
   },
 });
