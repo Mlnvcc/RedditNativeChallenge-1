@@ -35,7 +35,6 @@ export default function PostList() {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              /* 1. Navigate to the Details route with params */
               navigation.navigate("Post", {
                 el: item,
               });

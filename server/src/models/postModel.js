@@ -27,6 +27,9 @@ const postSchema = mongoose.Schema({
   date: {
     type: String,
   },
+  tags: {
+    type: Array,
+  }
 });
 
 module.exports = mongoose.model('Post', postSchema);
