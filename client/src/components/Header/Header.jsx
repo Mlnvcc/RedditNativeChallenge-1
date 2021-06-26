@@ -32,7 +32,8 @@ export default function Header() {
           style={styles.image}
           source={{
             uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-          }} />
+          }}
+        />
       </TouchableOpacity>
 
       <TextInput

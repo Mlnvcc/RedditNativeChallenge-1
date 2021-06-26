@@ -65,30 +65,30 @@ const styles = StyleSheet.create({
   },
   /******** card **************/
   card: {
-    shadowColor: '#00000021',
+    shadowColor: "#00000021",
     shadowOffset: {
-      width: 2
+      width: 2,
     },
     shadowOpacity: 0.5,
     shadowRadius: 4,
     marginVertical: 8,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   cardHeader: {
     paddingVertical: 17,
     paddingHorizontal: 16,
     borderTopLeftRadius: 1,
     borderTopRightRadius: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   cardContent: {
     paddingVertical: 12.5,
     paddingHorizontal: 16,
   },
   cardFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingTop: 12.5,
     paddingBottom: 25,
     paddingHorizontal: 16,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 13,
     color: "#808080",
-    marginTop: 5
+    marginTop: 5,
   },
   icon: {
     width: 25,
@@ -126,31 +126,31 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     marginTop: 5,
-    marginRight: 5
+    marginRight: 5,
   },
   timeContainer: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   /******** social bar ******************/
   socialBarContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    flex: 1
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    flex: 1,
   },
   socialBarSection: {
-    justifyContent: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    flexDirection: "row",
     flex: 1,
   },
   socialBarlabel: {
     marginLeft: 8,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
+    alignSelf: "flex-end",
+    justifyContent: "center",
   },
   socialBarButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
