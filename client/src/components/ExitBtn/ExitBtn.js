@@ -19,7 +19,7 @@ const ExitBtn = ({ stateUser }) => {
         onPress={handleClickLogOut}
         title="LogOut"
         color="#841584"
-        accessibilityLabel="Learn more about this purple button"
+        accessibilityLabel="LogOut"
       />
     </View>
   );
