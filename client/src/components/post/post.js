@@ -26,8 +26,10 @@ export default function Post({ route }) {
   const comments = mainPost.comments;
   const userId = useSelector(state => state.user.id);
   const createComment = () => {
-    const post = { text: comment, autorId: userId, postId: el._id };
-    dispatch(createComMain(post));
+    if (comment.trim().length > 5) {
+      const post = { text: comment, autorId: userId, postId: el._id };
+      dispatch(createComMain(post));
+    }
   };
 
   console.log("ya tut", comments);
@@ -58,24 +60,19 @@ export default function Post({ route }) {
           </View>
         </Card>
       </View>
+      <Text style={{ alignItems: "center", justifyContent: "center" }}></Text>
+      <FlatList
+        data={comments}
+        renderItem={({ item }) => (
+          <Card>
+            <Card.Image /*source={"ASd"}*/>
+              <Text style={{ marginBottom: 10 }}>{item.text}</Text>
+            </Card.Image>
+          </Card>
+        )}
+        keyExtractor={item => item.id}
+      />
 
-      {el.comments.length == 0 ? (
-        <Text style={{ alignItems: "center", justifyContent: "center" }}>
-          Ваш комментарий будет первым
-        </Text>
-      ) : (
-        <FlatList
-          data={comments}
-          renderItem={({ item }) => (
-            <Card>
-              <Card.Image /*source={"ASd"}*/>
-                <Text style={{ marginBottom: 10 }}>{item.text}</Text>
-              </Card.Image>
-            </Card>
-          )}
-          keyExtractor={item => item.id}
-        />
-      )}
       <Input
         value={comment}
         onChangeText={text => setComment(text)}
