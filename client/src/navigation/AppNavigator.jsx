@@ -8,6 +8,7 @@ import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
 import Post from "../components/post/post";
 import AddPostList from "../components/addPostList/AddPostList";
+import CreateNewPost from "../components/CreatePost/CreatePost";
 import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
@@ -39,6 +40,12 @@ export default function Navigate() {
         )}
 
         <Stack.Screen
+          name="CreatePost"
+          component={CreateNewPost}
+          options={{ title: "Add new Post" }}
+        />
+
+        <Stack.Screen
           name="Profile"
           component={UserProfileView}
           options={{ title: "Your profile" }}
@@ -47,11 +54,6 @@ export default function Navigate() {
           name="Post"
           component={Post}
           options={{ title: "Post" }}
-        />
-        <Stack.Screen
-          name="CreatePost"
-          component={AddPostList}
-          options={{ title: "Add new Post" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

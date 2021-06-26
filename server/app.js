@@ -8,7 +8,7 @@ const { dbConnectionURL } = require('./src/db/config');
 const authRouter = require('./src/routes/auth.router');
 const usersRouter = require('./src/routes/users.router');
 const postRouter = require('./src/routes/post.router');
-const likesRouter = require('./src/routes/likes.router')
+const commentRouter = require('./src/routes/comments.router');
 const app = express();
 const { PORT_NAME, TOKEN_SECRET, COOKIE_NAME } = process.env;
 const jwt = require('jsonwebtoken');
@@ -41,8 +41,8 @@ app.use(cors());
 
 app.use('/api/v2/auth', authRouter);
 app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 app.use('/api/v2/users', usersRouter);
-app.use('/likes',likesRouter)
 
 app.listen(PORT, () => {
   console.log('Server has been started on port', PORT);

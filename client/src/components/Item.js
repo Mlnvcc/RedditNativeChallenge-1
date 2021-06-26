@@ -2,8 +2,19 @@ import React, { useEffect } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { Card, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { addLike } from "../redux/actions/content";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 export default function Item({ el }) {
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.user.id);
+
+  const like = (userId, postId) => {
+    dispatch(addLike(userId, postId))
+ }
+
   return (
     <View style={styles.div}>
       <Card>
@@ -16,7 +27,7 @@ export default function Item({ el }) {
           <Icon.Button
             name="thumbs-up"
             backgroundColor="gray"
-            onPress={() => console.log("like")}
+            onPress={() => like(userId, el._id)}
           >
             {el.likes.length}
           </Icon.Button>
@@ -25,14 +36,13 @@ export default function Item({ el }) {
             backgroundColor="gray"
             onPress={() => console.log("comment")}
           >
-            {el.length}
+            {el.comments.length}
           </Icon.Button>
         </View>
       </Card>
-    </View>  
+    </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   div: {
