@@ -1,4 +1,4 @@
-import { GET_CONTENT_START, POST_CREATE } from "../types/content";
+import { GET_CONTENT_START, POST_CREATE, LIKE_ADD } from "../types/content";
 
 const contentReducer = (state = [], action) => {
   const { type, payload } = action;
@@ -9,6 +9,9 @@ const contentReducer = (state = [], action) => {
     }
     case POST_CREATE: {
       return [...state, payload];
+    }
+    case LIKE_ADD: {
+      return [...state, payload]
     }
     default:
       return state;

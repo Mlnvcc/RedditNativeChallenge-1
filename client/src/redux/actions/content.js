@@ -1,4 +1,4 @@
-import { GET_CONTENT_START, POST_CREATE } from "../types/content";
+import { GET_CONTENT_START, POST_CREATE, LIKE_ADD } from "../types/content";
 
 const getContentStart = payload => ({ type: GET_CONTENT_START, payload });
 const getPostCreate = payload => ({ type: POST_CREATE, payload });
@@ -25,3 +25,20 @@ export const createPost = description => async dispatch => {
   dispatch(getPostCreate(post));
   // dispatch(getContentStart(post));
 };
+
+
+export const addLike = (idPost, idUser) => async (dispatch) => {
+  const response = await fetch(`http://${ip.vlad}:8080/post/likes`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({idPost, idUser}),
+  })
+  const res = await response.json();
+
+  return dispatch({
+    type: LIKE_ADD,
+    payload: res,
+ }); 
+}
