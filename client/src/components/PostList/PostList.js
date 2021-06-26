@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import Item from "../Item";
@@ -24,30 +25,27 @@ export default function PostList() {
   // const loadScene = () => {
   //   navigation.navigate("Profile");
   // };
-  const changeVis = () => {
-    navigation.navigate("Post");
-  };
 
   return (
     <View style={styles.container}>
       <Text>Последние посты</Text>
-      <ScrollView>
-        {posts.map(el => {
-          return (
-            <View>
-              <Button
-                title="Go to Details"
-                onPress={() => {
-                  navigation.navigate("Post", {
-                    id: el._id,
-                  });
-                }}
-              />
-              <Item key={el._id} el={el} />
-            </View>
-          );
-        })}
-      </ScrollView>
+
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => {
+              /* 1. Navigate to the Details route with params */
+              navigation.navigate("Post", {
+                el: item,
+              });
+            }}
+          >
+            <Item el={item} />
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.id}
+      />
     </>
   );
 }

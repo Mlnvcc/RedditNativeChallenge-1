@@ -1,51 +1,34 @@
 import React, { useEffect } from "react";
-import {  
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Alert,
-  ScrollView,
-  FlatList,
-  Button 
-} from "react-native";
+import { StyleSheet, View, TextInput, Text } from "react-native";
+import { Card, ListItem, Button } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Item({ el }) {
   return (
-    // <View style={styles.div}>
-    //   <Text>{el.title}</Text>
-    //   <Text>{el.description}</Text>
-    //   <Text>{el.date}</Text>
-    // </View>
-
-    <View style={styles.card}>
-    <Image style={styles.cardImage} source={{uri:item.image}}/>
-    <View style={styles.cardHeader}>
-      <View>
-        <Text style={styles.title}>{el.title}</Text>
-        <Text style={styles.description}>{el.description}</Text>
-        <View style={styles.timeContainer}>
-          <Image style={styles.iconData} source={{uri: 'https://img.icons8.com/color/96/3498db/calendar.png'}}/>
-          <Text style={styles.time}>{el.date}</Text>
+    <View style={styles.div}>
+      <Card>
+        <Card.Title>{el.title}</Card.Title>
+        <Card.Divider />
+        <Card.Image>
+          <Text style={{ marginBottom: 10 }}>{el.description}</Text>
+        </Card.Image>
+        <View style={styles.icons}>
+          <Icon.Button
+            name="thumbs-up"
+            backgroundColor="gray"
+            onPress={() => console.log("like")}
+          >
+            {el.likes.length}
+          </Icon.Button>
+          <Icon.Button
+            name="comments"
+            backgroundColor="gray"
+            onPress={() => console.log("comment")}
+          >
+            {el.length}
+          </Icon.Button>
         </View>
-      </View>
-    </View>
-    <View style={styles.cardFooter}>
-      <View style={styles.socialBarContainer}>
-        <View style={styles.socialBarSection}>
-          <TouchableOpacity style={styles.socialBarButton}>
-            <Image style={styles.icon} source={{uri: 'https://img.icons8.com/color/70/000000/facebook-like.png'}}/>
-            <Text style={styles.socialBarLabel}>78</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.socialBarSection}>
-          <TouchableOpacity style={styles.socialBarButton}>
-            <Image style={styles.icon} source={{uri: 'https://img.icons8.com/ios-glyphs/75/2ecc71/comments.png'}}/>
-            <Text style={styles.socialBarLabel}>25</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </Card>
     </View>
   </View>    
   );
@@ -53,117 +36,17 @@ export default function Item({ el }) {
 
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    marginTop:20,
+  div: {
+    width: 400,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    borderStyle: "solid",
+    borderColor: "black",
+    borderWidth: 1,
   },
-  list: {
-    paddingHorizontal: 17,
-    backgroundColor:"#E6E6E6",
-  },
-  separator: {
-    marginTop: 10,
-  },
-  /******** card **************/
-  card:{
-    shadowColor: '#00000021',
-    shadowOffset: {
-      width: 2
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    marginVertical: 8,
-    backgroundColor:"white"
-  },
-  cardHeader: {
-    paddingVertical: 17,
-    paddingHorizontal: 16,
-    borderTopLeftRadius: 1,
-    borderTopRightRadius: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  cardContent: {
-    paddingVertical: 12.5,
-    paddingHorizontal: 16,
-  },
-  cardFooter:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 12.5,
-    paddingBottom: 25,
-    paddingHorizontal: 16,
-    borderBottomLeftRadius: 1,
-    borderBottomRightRadius: 1,
-    backgroundColor:"#EEEEEE",
-  },
-  cardImage:{
+  icons: {
     flex: 1,
-    height: 150,
-    width: null,
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  /******** card components **************/
-  title:{
-    fontSize:18,
-    flex:1,
-  }, 
-  description:{
-    fontSize:15,
-    color:"#888",
-    flex:1,
-    marginTop:5,
-    marginBottom:5,
-  },
-  time:{
-    fontSize:13,
-    color: "#808080",
-    marginTop: 5
-  },
-  icon: {
-    width:25,
-    height:25,
-  },
-  iconData:{
-    width:15,
-    height:15,
-    marginTop:5,
-    marginRight:5
-  },
-  timeContainer:{
-    flexDirection:'row'
-  },
-  /******** social bar ******************/
-  socialBarContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    flex: 1
-  },
-  socialBarSection: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    flex: 1,
-  },
-  socialBarlabel: {
-    marginLeft: 8,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-  },
-  socialBarButton:{
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-}); 
-
-
-// const styles = StyleSheet.create({
-//   div: {
-//     width: 400,
-//     flexDirection: "column",
-//     justifyContent: "space-around",
-//     borderStyle: "solid",
-//     borderColor: "black",
-//     borderWidth: 1,
-//   },
-// });
+});
