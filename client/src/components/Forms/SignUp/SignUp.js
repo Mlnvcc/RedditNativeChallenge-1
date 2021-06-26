@@ -37,7 +37,7 @@ const SignUp = () => {
       email,
       password,
     };
-
+    console.log(userInfo);
     if (userInfo.userName && userInfo.email && userInfo.password) {
       dispatch(signUp(userInfo));
       setUserName("");
@@ -108,6 +108,9 @@ const SignUp = () => {
         onPress={handleClick}
       >
         <Text style={styles.loginText}>SignUp</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}>
+        <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
       {/* <TouchableOpacity style={[styles.buttonContainer, styles.googleButton]}>

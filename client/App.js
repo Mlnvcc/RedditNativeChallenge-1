@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, StatusBar } from "react-native";
 import SignUp from "./src/components/Forms/SignUp/SignUp";
 import store from "./src/redux/store";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import ExitBtn from "./src/components/ExitBtn/ExitBtn";

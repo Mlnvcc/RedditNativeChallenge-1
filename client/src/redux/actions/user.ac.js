@@ -21,25 +21,25 @@ export const setUser = user => ({
 
 export const signUp = payload => async dispatch => {
   dispatch(enableLoader());
-  console.log("PAYLOAD SIGNUP", payload);
-  // console.log(endPoints.signUp());
+  // console.log("PAYLOAD SIGNUP", payload);
+  // console.log(123, endPoints.signUp());
   const response = await fetch(endPoints.signUp(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(payload),
   });
   if (response.status === 200) {
     const user = await response.json();
-    console.log("inSignUP", user);
+    // console.log("inSignUP", user);
     dispatch(setUser(user));
   }
   dispatch(disableLoader());
 };
 
-export const signIn = (payload, history, from) => async dispatch => {
+export const signIn = payload => async dispatch => {
   dispatch(enableLoader());
   const response = await fetch(endPoints.signIn(), {
     method: "POST",
@@ -52,9 +52,6 @@ export const signIn = (payload, history, from) => async dispatch => {
   if (response.status === 200) {
     const user = await response.json();
     dispatch(setUser(user));
-    history.replace(from);
-  } else {
-    history.replace("/signin");
   }
   dispatch(disableLoader());
 };
