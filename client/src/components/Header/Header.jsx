@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
@@ -20,7 +20,11 @@ export default function Header() {
 
   return (
     <View style={styles.form}>
-      <Button title="Profile" onPress={loadScene} />
+      <TouchableOpacity onPress={loadScene}>
+      <Image style={styles.image}  source={{
+              uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+            }}/>
+            </TouchableOpacity>
 
       <TextInput
         onChangeText={text => setFormValue(text)}
@@ -50,5 +54,10 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderWidth: 2,
     borderColor: "#3949ab",
+  },
+  image:{
+    width:90,
+    height:90,
+    borderRadius:45,
   },
 });

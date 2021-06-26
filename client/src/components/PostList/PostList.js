@@ -28,6 +28,7 @@ export default function PostList() {
 
   return (
     <>
+      <View style={styles.container}>
       <Text>Последние посты</Text>
 
       <FlatList
@@ -45,6 +46,7 @@ export default function PostList() {
         )}
         keyExtractor={item => item.id}
       />
+      </View>
     </>
   );
 }
