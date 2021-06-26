@@ -36,7 +36,11 @@ export default function Navigate() {
             options={{ title: "Registration" }}
           />
         )}
-
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{ title: "Registration" }}
+        />
         <Stack.Screen
           name="Profile"
           component={UserProfileView}

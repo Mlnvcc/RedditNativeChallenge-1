@@ -21,9 +21,8 @@ export const setUser = user => ({
 
 export const signUp = payload => async dispatch => {
   dispatch(enableLoader());
-  console.log("PAYLOAD SIGNUP", payload);
-  // console.log(123, endPoints.signUp());
-  const response = await fetch(endPoints.signUp(), {
+
+  const response = fetch(endPoints.signUp(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

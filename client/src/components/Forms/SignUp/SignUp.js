@@ -15,39 +15,62 @@ import { signUp } from "../../../redux/actions/user.ac";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const initialFieldsValues = {
+  email: "",
+  userName: "",
+  password: "",
+};
+
 const SignUp = () => {
+  const navigation = useNavigation();
+
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [signUpFormFields, setSignUpFormFields] = useState(initialFieldsValues);
+
+  const handleUserNameChange = userName => {
+    setSignUpFormFields(prevSignUpFormFields => ({
+      ...prevSignUpFormFields,
+      userName,
+    }));
+  };
+  const handleEmailChange = email => {
+    setSignUpFormFields(prevSignUpFormFields => ({
+      ...prevSignUpFormFields,
+      email,
+    }));
+  };
+  const handlePasswordChange = password => {
+    setSignUpFormFields(prevSignUpFormFields => ({
+      ...prevSignUpFormFields,
+      password,
+    }));
+  };
 
   const [newUser, setNewUser] = useState("");
 
   const userFromStorage = async () => {
     const user = await AsyncStorage.getItem("userInfo");
     setNewUser(user);
-    console.log("User", user);
   };
 
-  const navigation = useNavigation(); // для перехода на мэин страницу
   const loadScene = () => {
     navigation.navigate("MainPage");
   };
 
-  const handleClick = () => {
-    const userInfo = {
-      userName,
-      email,
-      password,
-    };
-    console.log(userInfo);
-    if (userInfo.userName && userInfo.email && userInfo.password) {
-      dispatch(signUp(userInfo));
-      setUserName("");
-      setEmail("");
-      setPassword("");
+  const handleClickSignUp = () => {
+    if (
+      signUpFormFields.userName &&
+      signUpFormFields.email &&
+      signUpFormFields.password
+    ) {
+      dispatch(signUp(signUpFormFields));
+      setSignUpFormFields(initialFieldsValues);
     }
+  };
+
+  const handleClickLoadLogin = () => {
+    navigation.navigate("SignIn");
   };
 
   useEffect(() => {
@@ -67,11 +90,12 @@ const SignUp = () => {
       />
       <View style={styles.inputContainer}>
         <TextInput
+          name="userName"
           style={styles.inputs}
           placeholder="Username"
           underlineColorAndroid="transparent"
-          onChangeText={userName => setUserName(userName)}
-          defaultValue={userName}
+          onChangeText={handleUserNameChange}
+          defaultValue={signUpFormFields.userName}
         />
         <Image
           style={styles.inputIcon}
@@ -80,13 +104,15 @@ const SignUp = () => {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+          name="email"
           style={styles.inputs}
           placeholder="Email"
           keyboardType="email-address"
           underlineColorAndroid="transparent"
-          onChangeText={email => setEmail(email)}
-          defaultValue={email}
+          onChangeText={handleEmailChange}
+          defaultValue={signUpFormFields.email}
         />
+
         <Image
           style={styles.inputIcon}
           source={{ uri: "https://img.icons8.com/nolan/40/000000/email.png" }}
@@ -95,12 +121,13 @@ const SignUp = () => {
 
       <View style={styles.inputContainer}>
         <TextInput
+          name="password"
           style={styles.inputs}
           placeholder="Password"
           secureTextEntry={true}
           underlineColorAndroid="transparent"
-          onChangeText={password => setPassword(password)}
-          defaultValue={password}
+          onChangeText={handlePasswordChange}
+          defaultValue={signUpFormFields.password}
         />
         <Image
           style={styles.inputIcon}
@@ -110,11 +137,14 @@ const SignUp = () => {
 
       <TouchableOpacity
         style={[styles.buttonContainer, styles.loginButton]}
-        onPress={handleClick}
+        onPress={handleClickSignUp}
       >
         <Text style={styles.loginText}>SignUp</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}>
+      <TouchableOpacity
+        style={[styles.buttonContainer, styles.loginButton]}
+        onPress={handleClickLoadLogin}
+      >
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
     </View>

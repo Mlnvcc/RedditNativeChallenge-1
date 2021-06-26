@@ -3,11 +3,14 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const { TOKEN_SECRET } = process.env;
 
+const generateAccessToken = email =>
+  jwt.sign(email, TOKEN_SECRET, {
+    expiresIn: '1800s',
+  });
+
 const signUp = async (req, res) => {
   const { userName, password, email } = req.body;
-  console.log('BACK IS WORKING');
-  console.log('111', req.body);
-  console.log(typeof TOKEN_SECRET);
+
   if (userName && password && email) {
     try {
       const hashPassword = await bcrypt.hash(password, 11);
@@ -17,25 +20,13 @@ const signUp = async (req, res) => {
         email,
       });
 
-      // req.session.user = {
-      //   id: newUser._id,
-      //   name: newUser.name,
-      //   email: newUser.email,
-      // };
-      console.log(1, user);
-      // const token = jwt.sign(
-      //   { id: user._id },
-      //   { TOKEN_SECRET },
-      //   {
-      //     expressIn: '1h',
-      //   }
-      // );
+      const accessToken = generateAccessToken(req.body);
 
-      // console.log(2, token);
-
-      return res.json({ id: user._id, name: user.userName, email: user.email });
+      return res.json({
+        auth: { accessToken },
+      });
     } catch (error) {
-      return res.sendStatus(500);
+      return res.sendStatus(401);
     }
   }
 
@@ -49,19 +40,10 @@ const signIn = async (req, res) => {
     try {
       const user = await User.findOne({ email });
       if (user && (await bcrypt.compare(password, user.password))) {
-        // req.session.user = {
-        //   id: user._id,
-        //   name: user.name,
-        // };
-
-        // const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
-        //   expressIn: '1h',
-        // });
+        const accessToken = generateAccessToken(req.body);
 
         return res.json({
-          id: user._id,
-          name: user.userName,
-          email: user.email,
+          auth: { accessToken },
         });
       }
       return res.sendStatus(401);
@@ -73,15 +55,7 @@ const signIn = async (req, res) => {
   return res.sendStatus(400);
 };
 
-const signOut = async (req, res) => {
-  req.session.destroy(err => {
-    if (err) return res.sendStatus(500);
-
-    res.clearCookie(req.app.get('cookieName'));
-
-    return res.sendStatus(200);
-  });
-};
+const signOut = async (req, res) => {};
 
 const checkAuth = async (req, res) => {
   try {

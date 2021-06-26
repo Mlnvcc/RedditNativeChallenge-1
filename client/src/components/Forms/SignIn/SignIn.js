@@ -1,4 +1,3 @@
-import React from "react";
 import {
   StyleSheet,
   View,
@@ -7,15 +6,26 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../../redux/actions/user.ac";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { checkAuth } from "../../../redux/actions/user.ac";
 
 const SignIn = () => {
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [newUser, setNewUser] = useState("");
+
   const dispatch = useDispatch();
+
+  const loadScene = () => {
+    navigation.navigate("MainPage");
+  };
 
   const handleClick = () => {
     const userInfo = {
@@ -30,6 +40,29 @@ const SignIn = () => {
       setPassword("");
     }
   };
+
+  const userFromStorage = async () => {
+    const user = await AsyncStorage.getItem("userInfo");
+    setNewUser(user);
+    console.log("User", user);
+  };
+
+  const handleClickLoadSignUp = () => {
+    navigation.navigate("SignUp");
+  };
+
+  useEffect(() => {
+    (async () => userFromStorage())();
+    console.log("useEffect");
+    if (newUser) {
+      loadScene();
+      console.log("DONE", newUser);
+    }
+  }, [newUser]);
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -73,6 +106,13 @@ const SignIn = () => {
         onPress={handleClick}
       >
         <Text style={styles.loginText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.buttonContainer, styles.loginButton]}
+        onPress={handleClickLoadSignUp}
+      >
+        <Text style={styles.loginText}>SignUp</Text>
       </TouchableOpacity>
     </View>
   );
