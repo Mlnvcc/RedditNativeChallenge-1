@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
-  TextInput,
   Button,
   Text,
-  ScrollView,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -13,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Item from "../Item";
 import { getContent } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationInjectedProps, withNavigation } from "react-navigation";
 
 export default function PostList() {
   const navigation = useNavigation();
@@ -22,22 +19,18 @@ export default function PostList() {
     dispatch(getContent());
   }, [dispatch]);
   const posts = useSelector(state => state.content);
- 
-  // const loadScene = () => {
-  //   navigation.navigate("Profile");
-  // };
 
   return (
     <>
       <View style={styles.container}>
-        <Text>Последние посты</Text>
+        <Text>Last posts</Text>
 
         <FlatList
           data={posts}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Post", {
+                navigation.navigate("OnePostPage", {
                   el: item,
                 });
               }}
@@ -56,6 +49,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
+    alignItems: "center",
+    fontSize: 13,
   },
   list: {
     paddingHorizontal: 17,

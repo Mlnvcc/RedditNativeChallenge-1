@@ -1,7 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { changeStatusAddButton } from "../../redux/actions/addButton";
 import { useNavigation } from "@react-navigation/native";
 export default function LowerMenu() {
   const navigation = useNavigation();

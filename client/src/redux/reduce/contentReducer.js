@@ -12,8 +12,6 @@ const contentReducer = (state = [], action) => {
       return [...state, payload];
     }
     case LIKE_ADD: {
-      // return [...state, payload]
-      console.log(payload);
       return state.map(el => (el._id === payload._id ? payload : el));
     }
     case CREATE_COMMENT: {
