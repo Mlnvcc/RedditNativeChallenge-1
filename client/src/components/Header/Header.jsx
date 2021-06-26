@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import SignOut from "../Forms/SignOut/SignOut";
 
 export default function Header() {
   const [formValue, setFormValue] = useState("");
 
   const navigation = useNavigation();
+
   const loadScene = () => {
     navigation.navigate("Profile");
   };
@@ -31,6 +33,7 @@ export default function Header() {
       ></TextInput>
 
       <Button onPress={submitForm} title="Search" />
+      <SignOut />
     </View>
   );
 }

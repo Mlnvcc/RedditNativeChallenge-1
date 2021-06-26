@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Button,
@@ -10,17 +10,30 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../../redux/actions/user.ac";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useDispatch();
+  const [newUser, setNewUser] = useState("");
+
+  const userFromStorage = async () => {
+    const user = await AsyncStorage.getItem("userInfo");
+    setNewUser(user);
+    console.log("User", user);
+  };
+
+  const navigation = useNavigation(); // для перехода на мэин страницу
+  const loadScene = () => {
+    navigation.navigate("MainPage");
+  };
 
   const handleClick = () => {
     const userInfo = {
@@ -36,6 +49,15 @@ const SignUp = () => {
       setPassword("");
     }
   };
+
+  useEffect(() => {
+    (async () => userFromStorage())();
+    console.log("useEffect");
+    if (newUser) {
+      loadScene();
+      console.log("DONE", newUser);
+    }
+  }, [newUser]);
 
   return (
     <View style={styles.container}>
@@ -86,10 +108,6 @@ const SignUp = () => {
         />
       </View>
 
-      {/* <TouchableOpacity style={styles.btnForgotPassword}>
-        <Text style={styles.btnText}>Forgot your password?</Text>
-      </TouchableOpacity> */}
-
       <TouchableOpacity
         style={[styles.buttonContainer, styles.loginButton]}
         onPress={handleClick}
@@ -99,48 +117,6 @@ const SignUp = () => {
       <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity style={[styles.buttonContainer, styles.googleButton]}>
-        <View style={styles.socialButtonContent}>
-          <Image
-            style={styles.icon}
-            source={{ uri: "https://png.icons8.com/google/androidL/40/FFFFFF" }}
-          />
-          <Text style={styles.loginText}>Sign in with google</Text>
-        </View>
-      </TouchableOpacity> */}
-
-      {/* <TouchableOpacity style={styles.register} onPress={handleClick}>
-        <Text style={styles.btnText}>Register</Text>
-      </TouchableOpacity> */}
-      {/* <TextInput
-        style={styles.inputs}
-        placeholder="Enter username..."
-        onChangeText={userName => setUserName(userName)}
-        defaultValue={userName}
-      />
-      <TextInput
-        keyboardType="email-address"
-        style={styles.inputs}
-        placeholder="Enter email..."
-        onChangeText={email => setEmail(email)}
-        defaultValue={email}
-      />
-      <TextInput
-        secureTextEntry
-        style={styles.inputs}
-        placeholder="Enter password..."
-        onChangeText={password => setPassword(password)}
-        defaultValue={password}
-      />
-
-      <Button
-        style={[styles.buttonContainer, styles.loginButton]}
-        onPress={handleClick}
-        title="SignUp"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      /> */}
     </View>
   );
 };
