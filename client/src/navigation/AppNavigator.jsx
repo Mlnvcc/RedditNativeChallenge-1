@@ -6,7 +6,7 @@ import MainPage from "../components/MainPage/MainPage";
 import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
-import Post from "../components/post/post";
+import OnePostPage from "../components/OnePostPage/OnePostPage";
 import AddPostList from "../components/addPostList/AddPostList";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 import { useSelector } from "react-redux";
@@ -17,7 +17,6 @@ export default function Navigate() {
   const user = useSelector(state => state.user);
 
   const [curUser, setCurUser] = useState(null);
-  console.log("----->", curUser);
 
   useEffect(() => {
     setCurUser(user);
@@ -52,8 +51,8 @@ export default function Navigate() {
           options={{ title: "Your profile" }}
         />
         <Stack.Screen
-          name="Post"
-          component={Post}
+          name="OnePostPage"
+          component={OnePostPage}
           options={{ title: "Post" }}
         />
       </Stack.Navigator>

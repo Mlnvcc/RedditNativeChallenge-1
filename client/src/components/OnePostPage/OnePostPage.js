@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Card, ListItem, Button, Input } from "react-native-elements";
+import { Card, Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import { useRoute } from "@react-navigation/native";
-import { createPost } from "../../redux/actions/content";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { createComMain } from "../../redux/actions/comments";
+
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const el = route.params.el;
@@ -32,7 +22,6 @@ export default function Post({ route }) {
     }
   };
 
-  console.log("ya tut", comments);
   return (
     <>
       <View>
@@ -58,6 +47,7 @@ export default function Post({ route }) {
               {el.likes.length}
             </Icon.Button>
           </View>
+
         </Card>
       </View>
       <Text style={{ alignItems: "center", justifyContent: "center" }}></Text>
