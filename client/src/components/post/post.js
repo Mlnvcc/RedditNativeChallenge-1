@@ -17,7 +17,6 @@ import { useDispatch } from "react-redux";
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const el = route.params.el;
-  console.log(el.comments.length);
   const [comment, setComment] = useState();
   const createPost = () => {
     const post = { text: comment };
@@ -39,20 +38,20 @@ export default function Post({ route }) {
               backgroundColor="gray"
               onPress={() => console.log("like")}
             >
-              {el.likes.length}
+              {el.length}
             </Icon.Button>
             <Icon.Button
               name="comments"
               backgroundColor="gray"
               onPress={() => console.log("comment")}
             >
-              {el.comments.length}
+              {el.length}
             </Icon.Button>
           </View>
         </Card>
       </View>
 
-      {el.comments.length === 0 ? (
+      {el.length === 0 ? (
         <Text style={{ alignItems: "center", justifyContent: "center" }}>
           Ваш комментарий будет первым
         </Text>

@@ -1,29 +1,33 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const { TOKEN_SECRET } = process.env;
 
 const signUp = async (req, res) => {
   const { userName, password, email } = req.body;
-  console.log('BACK IS WORKING');
-  console.log('111', req.body);
+  // console.log('BACK IS WORKING');
+  // console.log('111', req.body);
   if (userName && password && email) {
     try {
       const hashPassword = await bcrypt.hash(password, 11);
-      const newUser = await User.create({
+      const user = await User.create({
         userName,
         password: hashPassword,
         email,
       });
 
-      req.session.user = {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-      };
+      // req.session.user = {
+      //   id: newUser._id,
+      //   name: newUser.name,
+      //   email: newUser.email,
+      // };
+      const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
+        expressIn: '1h',
+      });
 
       return res.json({
-        _id: newUser._id,
-        name: newUser.userName,
-        email: newUser.email,
+        token,
+        user: { id: user._id, name: user.userName, email: user.email },
       });
     } catch (error) {
       return res.sendStatus(500);
@@ -38,17 +42,21 @@ const signIn = async (req, res) => {
 
   if (password && email) {
     try {
-      const currentUser = await User.findOne({ email });
-      if (
-        currentUser &&
-        (await bcrypt.compare(password, currentUser.password))
-      ) {
-        req.session.user = {
-          id: currentUser._id,
-          name: currentUser.name,
-        };
+      const user = await User.findOne({ email });
+      if (user && (await bcrypt.compare(password, user.password))) {
+        // req.session.user = {
+        //   id: user._id,
+        //   name: user.name,
+        // };
 
-        return res.json({ _id: currentUser._id, name: currentUser.userName });
+        const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
+          expressIn: '1h',
+        });
+
+        return res.json({
+          token,
+          user: { id: user._id, name: user.userName, email: user.email },
+        });
       }
       return res.sendStatus(401);
     } catch (error) {

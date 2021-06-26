@@ -21,14 +21,14 @@ export const setUser = user => ({
 
 export const signUp = payload => async dispatch => {
   dispatch(enableLoader());
-  console.log("PAYLOAD SIGNUP", payload);
-  // console.log(endPoints.signUp());
+  // console.log("PAYLOAD SIGNUP", payload);
+  // console.log(123, endPoints.signUp());
   const response = await fetch(endPoints.signUp(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(payload),
   });
   if (response.status === 200) {
@@ -39,38 +39,36 @@ export const signUp = payload => async dispatch => {
   dispatch(disableLoader());
 };
 
-export const signIn = (payload, history, from) => async dispatch => {
+export const signIn = payload => async dispatch => {
   dispatch(enableLoader());
   const response = await fetch(endPoints.signIn(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(payload),
   });
   if (response.status === 200) {
     const user = await response.json();
     dispatch(setUser(user));
-    history.replace(from);
-  } else {
-    history.replace("/signin");
   }
   dispatch(disableLoader());
 };
 
 export const signOut = () => async dispatch => {
-  const response = await fetch(endPoints.signOut(), {
-    credentials: "include",
-  });
-  if (response.status === 200) {
-    dispatch(deleteUser());
-  }
+  // const response = await fetch(endPoints.signOut(), {
+  //   credentials: "include",
+  // });
+  // if (response.status === 200) {
+  //   dispatch(deleteUser());
+  // }
+  dispatch(deleteUser());
 };
 
 export const checkAuth = () => async dispatch => {
   const response = await fetch(endPoints.checkAuth(), {
-    credentials: "include",
+    // credentials: "include",
   });
   if (response.status === 200) {
     const user = await response.json();
@@ -88,7 +86,7 @@ export const editUser = (user, history) => async (dispatch, getState) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    // credentials: "include",
     body: JSON.stringify(user),
   });
   if (response.status === 200) {

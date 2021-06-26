@@ -25,7 +25,7 @@ export default function Item({ el }) {
             backgroundColor="gray"
             onPress={() => console.log("comment")}
           >
-            {el.comments.length}
+            {el.length}
           </Icon.Button>
         </View>
       </Card>

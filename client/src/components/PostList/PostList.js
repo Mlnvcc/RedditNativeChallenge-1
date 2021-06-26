@@ -25,9 +25,6 @@ export default function PostList() {
   // const loadScene = () => {
   //   navigation.navigate("Profile");
   // };
-  // const changeVis = () => {
-  //   navigation.navigate("Post");
-  // };
 
   return (
     <>
