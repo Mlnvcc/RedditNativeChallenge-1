@@ -46,7 +46,7 @@ export default function PostList() {
         )}
         keyExtractor={item => item.id}
       />
-    </>
+    </View>
   );
 }
 

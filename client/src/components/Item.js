@@ -29,8 +29,7 @@ export default function Item({ el }) {
           </Icon.Button>
         </View>
       </Card>
-    </View>
-  </View>    
+    </View>  
   );
 }
 
