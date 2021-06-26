@@ -5,8 +5,9 @@ const { TOKEN_SECRET } = process.env;
 
 const signUp = async (req, res) => {
   const { userName, password, email } = req.body;
-  // console.log('BACK IS WORKING');
-  // console.log('111', req.body);
+  console.log('BACK IS WORKING');
+  console.log('111', req.body);
+  console.log(typeof TOKEN_SECRET);
   if (userName && password && email) {
     try {
       const hashPassword = await bcrypt.hash(password, 11);
@@ -21,14 +22,18 @@ const signUp = async (req, res) => {
       //   name: newUser.name,
       //   email: newUser.email,
       // };
-      const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
-        expressIn: '1h',
-      });
+      console.log(1, user);
+      // const token = jwt.sign(
+      //   { id: user._id },
+      //   { TOKEN_SECRET },
+      //   {
+      //     expressIn: '1h',
+      //   }
+      // );
 
-      return res.json({
-        token,
-        user: { id: user._id, name: user.userName, email: user.email },
-      });
+      // console.log(2, token);
+
+      return res.json({ id: user._id, name: user.userName, email: user.email });
     } catch (error) {
       return res.sendStatus(500);
     }
@@ -49,13 +54,14 @@ const signIn = async (req, res) => {
         //   name: user.name,
         // };
 
-        const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
-          expressIn: '1h',
-        });
+        // const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
+        //   expressIn: '1h',
+        // });
 
         return res.json({
-          token,
-          user: { id: user._id, name: user.userName, email: user.email },
+          id: user._id,
+          name: user.userName,
+          email: user.email,
         });
       }
       return res.sendStatus(401);

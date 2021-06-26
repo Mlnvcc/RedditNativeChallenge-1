@@ -1,11 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Text, StatusBar } from "react-native";
-import SignUp from "./src/components/Forms/SignUp/SignUp";
+import { StyleSheet } from "react-native";
 import store from "./src/redux/store";
 import { Provider } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
-import ExitBtn from "./src/components/ExitBtn/ExitBtn";
 import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
