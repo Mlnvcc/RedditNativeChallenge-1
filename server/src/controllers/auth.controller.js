@@ -3,6 +3,8 @@ const User = require('../models/userModel');
 
 const signUp = async (req, res) => {
   const { userName, password, email } = req.body;
+  console.log('BACK IS WORKING');
+  console.log('111', req.body);
   if (userName && password && email) {
     try {
       const hashPassword = await bcrypt.hash(password, 11);
@@ -15,9 +17,14 @@ const signUp = async (req, res) => {
       req.session.user = {
         id: newUser._id,
         name: newUser.name,
+        email: newUser.email,
       };
 
-      return res.json({ _id: newUser._id, name: newUser.userName });
+      return res.json({
+        _id: newUser._id,
+        name: newUser.userName,
+        email: newUser.email,
+      });
     } catch (error) {
       return res.sendStatus(500);
     }

@@ -19,8 +19,10 @@ export const setUser = user => ({
   payload: user,
 });
 
-export const signUp = (payload, history) => async dispatch => {
+export const signUp = payload => async dispatch => {
   dispatch(enableLoader());
+  console.log("PAYLOAD SIGNUP", payload);
+  // console.log(endPoints.signUp());
   const response = await fetch(endPoints.signUp(), {
     method: "POST",
     headers: {
@@ -31,10 +33,8 @@ export const signUp = (payload, history) => async dispatch => {
   });
   if (response.status === 200) {
     const user = await response.json();
+    console.log("inSignUP", user);
     dispatch(setUser(user));
-    history.replace("/");
-  } else {
-    history.replace("/signup");
   }
   dispatch(disableLoader());
 };
