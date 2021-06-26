@@ -8,7 +8,6 @@ export default function LowerMenu() {
   const addButtonStatus = useSelector(state => state.addButton);
 
   const goToAddingPost = () => {
-    console.log(addButtonStatus);
     dispatch(changeStatusAddButton());
   };
 

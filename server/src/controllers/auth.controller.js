@@ -21,13 +21,14 @@ const signUp = async (req, res) => {
       //   name: newUser.name,
       //   email: newUser.email,
       // };
-      const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
-        expressIn: '1h',
-      });
+
+      // const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
+      //   expressIn: '1h',
+      // });
 
       return res.json({
-        token,
-        user: { id: user._id, name: user.userName, email: user.email },
+        // token,
+        id: user._id, name: user.userName, email: user.email
       });
     } catch (error) {
       return res.sendStatus(500);
@@ -49,13 +50,13 @@ const signIn = async (req, res) => {
         //   name: user.name,
         // };
 
-        const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
-          expressIn: '1h',
-        });
+        // const token = jwt.sign({ id: user._id }, TOKEN_SECRET, {
+        //   expressIn: '1h',
+        // });
 
         return res.json({
-          token,
-          user: { id: user._id, name: user.userName, email: user.email },
+          // token,
+          id: user._id, name: user.userName, email: user.email 
         });
       }
       return res.sendStatus(401);
