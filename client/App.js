@@ -11,7 +11,7 @@ import Navigate from "./src/navigation/AppNavigator";
 export default function App() {
   return (
     <Provider store={store}>
-      <Navigate style={styles.container} />;
+      <Navigate style={styles.container} />
     </Provider>
   );
 }

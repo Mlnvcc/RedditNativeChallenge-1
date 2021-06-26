@@ -27,6 +27,7 @@ export default function PostList() {
   const changeVis = () => {
     navigation.navigate("Post");
   };
+
   return (
     <>
       <Text>Последние посты</Text>
