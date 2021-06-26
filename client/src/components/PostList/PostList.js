@@ -22,6 +22,7 @@ export default function PostList() {
     dispatch(getContent());
   }, [dispatch]);
   const posts = useSelector(state => state.content);
+ 
   // const loadScene = () => {
   //   navigation.navigate("Profile");
   // };
