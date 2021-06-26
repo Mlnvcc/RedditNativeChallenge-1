@@ -6,7 +6,7 @@ const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
 
 postRouter.get('/', async (req, res) => {
-  const Posts = await Post.find();
+  const Posts = await Post.find().populate("comments");
   // console.log(123, Posts);
   res.json({ Posts });
 });

@@ -13,16 +13,24 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { createPost } from "../../redux/actions/content";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createComMain } from "../../redux/actions/comments";
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const el = route.params.el;
+  const mainId = el._id;
+  console.log(el._id);
   const [comment, setComment] = useState();
-  const createPost = () => {
-    const post = { text: comment };
-    dispatch();
+  const posts = useSelector(state => state.content);
+  const mainPost = posts.filter(post => post._id == mainId)[0];
+  const comments = mainPost.comments;
+  const userId = useSelector(state => state.user.id);
+  const createComment = () => {
+    const post = { text: comment, autorId: userId, postId: el._id };
+    dispatch(createComMain(post));
   };
 
+  console.log("ya tut", comments);
   return (
     <>
       <View>
@@ -38,40 +46,30 @@ export default function Post({ route }) {
               backgroundColor="gray"
               onPress={() => console.log("like")}
             >
-              {el.length}
+              {el.likes.length}
             </Icon.Button>
             <Icon.Button
               name="comments"
               backgroundColor="gray"
               onPress={() => console.log("comment")}
             >
-              {el.length}
+              {el.likes.length}
             </Icon.Button>
           </View>
         </Card>
       </View>
 
-      {el.length === 0 ? (
+      {el.comments.length == 0 ? (
         <Text style={{ alignItems: "center", justifyContent: "center" }}>
           Ваш комментарий будет первым
         </Text>
       ) : (
         <FlatList
-          data={el.comments}
+          data={comments}
           renderItem={({ item }) => (
             <Card>
               <Card.Image /*source={"ASd"}*/>
-                <Text style={{ marginBottom: 10 }}></Text>
-                <Button
-                  icon={<Icon name="code" color="#ffffff" />}
-                  buttonStyle={{
-                    borderRadius: 0,
-                    marginLeft: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                  }}
-                  title="VIEW NOW"
-                />
+                <Text style={{ marginBottom: 10 }}>{item.text}</Text>
               </Card.Image>
             </Card>
           )}
@@ -85,7 +83,7 @@ export default function Post({ route }) {
       />
       <Button
         onPress={() => {
-          createPost();
+          createComment();
         }}
         title="Отправить комментарий"
       />

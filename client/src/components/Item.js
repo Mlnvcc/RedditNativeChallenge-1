@@ -4,6 +4,7 @@ import { Card, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Item({ el }) {
+  console.log("vot tut", el.comments.length);
   return (
     <View style={styles.div}>
       <Card>
@@ -25,14 +26,13 @@ export default function Item({ el }) {
             backgroundColor="gray"
             onPress={() => console.log("comment")}
           >
-            {el.length}
+            {el.comments.length}
           </Icon.Button>
         </View>
       </Card>
-    </View>  
+    </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   div: {
