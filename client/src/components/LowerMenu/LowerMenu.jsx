@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { changeStatusAddButton } from "../../redux/actions/addButton";
 import AddPostList from "../addPostList/AddPostList";
@@ -15,8 +15,11 @@ export default function LowerMenu() {
   return (
     <View style={styles.footer}>
       <TouchableOpacity onPress={() => goToAddingPost()} style={styles.button}>
-        {!addButtonStatus ? <Text style={{ fontSize: 40, color: "#fff" }}>+</Text> : <Text style={{ fontSize: 40, color: "#fff" }}>-</Text> }
-        
+        {!addButtonStatus ? (
+          <Text style={{ fontSize: 40, color: "#fff" }}>+</Text>
+        ) : (
+          <Text style={{ fontSize: 40, color: "#fff" }}>-</Text>
+        )}
       </TouchableOpacity>
       {addButtonStatus && <AddPostList />}
     </View>

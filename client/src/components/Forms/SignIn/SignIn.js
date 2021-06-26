@@ -1,71 +1,183 @@
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router";
 import { signIn } from "../../../redux/actions/user.ac";
 
 const SignIn = () => {
-  const [userSignIn, setUserSignIn] = useState({
-    email: "",
-    password: "",
-  });
-
-  let history = useHistory();
-  let location = useLocation();
-
-  let { from } = location.state || { from: { pathname: "/" } };
-
-  const changeHandler = e => {
-    setUserSignIn(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
-  const submitHandler = e => {
-    e.preventDefault();
-    let payload = Object.entries(userSignIn).filter(el =>
-      el[1] ? el[1].trim() : el[1]
-    );
-    if (payload.length) {
-      payload = Object.fromEntries(payload);
-      dispatch(signIn(payload, history, from));
+  const handleClick = () => {
+    const userInfo = {
+      email,
+      password,
+    };
+
+    if (userInfo.email && userInfo.password) {
+      dispatch(signIn(userInfo));
+
+      setEmail("");
+      setPassword("");
     }
   };
 
   return (
-    <div className="d-flex justify-content-center">
-      <form
-        onSubmit={submitHandler}
-        className="d-flex flex-column align-items-center bg-light text-dark p-3 border rounded-3"
+    <View style={styles.container}>
+      <Image
+        style={styles.bgImage}
+        source={{ uri: "https://lorempixel.com/900/1400/nightlife/2/" }}
+      />
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputs}
+          placeholder="Email"
+          keyboardType="email-address"
+          underlineColorAndroid="transparent"
+          onChangeText={email => setEmail(email)}
+          defaultValue={email}
+        />
+        <Image
+          style={styles.inputIcon}
+          source={{ uri: "https://img.icons8.com/nolan/40/000000/email.png" }}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputs}
+          placeholder="Password"
+          secureTextEntry={true}
+          underlineColorAndroid="transparent"
+          onChangeText={password => setPassword(password)}
+          defaultValue={password}
+        />
+        <Image
+          style={styles.inputIcon}
+          source={{ uri: "https://img.icons8.com/nolan/40/000000/key.png" }}
+        />
+      </View>
+
+      <TouchableOpacity
+        style={[styles.buttonContainer, styles.loginButton]}
+        onPress={handleClick}
       >
-        <legend className="text-center mb-4">User Sign In</legend>
-        <div className="mb-3">
-          <input
-            onChange={changeHandler}
-            value={userSignIn.email}
-            className="form-control"
-            type="email"
-            name="email"
-            placeholder="Email"
-          />
-        </div>
-
-        <div className="mb-3">
-          <input
-            onChange={changeHandler}
-            value={userSignIn.password}
-            className="form-control"
-            type="password"
-            name="password"
-            placeholder="Pass"
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary">
-          Sign In
-        </button>
-      </form>
-    </div>
+        <Text style={styles.loginText}>Login</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default SignIn;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DCDCDC",
+  },
+  inputContainer: {
+    borderBottomColor: "#F5FCFF",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    borderBottomWidth: 1,
+    width: 300,
+    height: 45,
+    marginBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+
+    shadowColor: "#808080",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  inputs: {
+    height: 45,
+    marginLeft: 16,
+    borderBottomColor: "#FFFFFF",
+    flex: 1,
+  },
+  inputIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 15,
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    width: 300,
+    borderRadius: 30,
+    backgroundColor: "transparent",
+  },
+  btnForgotPassword: {
+    height: 15,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    marginBottom: 10,
+    width: 300,
+    backgroundColor: "transparent",
+  },
+  loginButton: {
+    backgroundColor: "#00b5ec",
+
+    shadowColor: "#808080",
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 12.35,
+
+    elevation: 19,
+  },
+  loginText: {
+    color: "white",
+  },
+  bgImage: {
+    flex: 1,
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+  },
+  btnText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  googleButton: {
+    backgroundColor: "#ff0000",
+  },
+  register: {
+    height: 45,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    width: 300,
+    borderRadius: 30,
+    backgroundColor: "transparent",
+    position: "absolute",
+    bottom: 10,
+  },
+});

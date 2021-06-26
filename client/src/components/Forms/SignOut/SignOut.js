@@ -1,17 +1,30 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import React from "react";
 import { signOut } from "../../../redux/actions/user.ac";
+import { View, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const SignOut = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  useEffect(() => {
+  const navigation = useNavigation();
+  // const history = useHistory();
+  const signOutFunc = () => {
     dispatch(signOut());
-    history.push("/");
-  }, []);
 
-  return null;
+    navigation.navigate("SignUp");
+  };
+
+  // useEffect(() => {
+  //   signOutFunc();
+  //   // history.push("/");
+  // }, []);
+
+  return (
+    <View>
+      <Button onPress={() => signOutFunc()} title="LogOut" />
+    </View>
+  );
 };
 
 export default SignOut;

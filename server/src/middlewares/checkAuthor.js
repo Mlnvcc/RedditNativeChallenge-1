@@ -1,8 +1,8 @@
 const checkAuth = (req, res, next) => {
   if (!req.session.user.id === req.params.id) {
-    return res.sendStatus(403)
+    return res.sendStatus(403);
   }
-  return next()
-}
+  return next();
+};
 
-module.exports = checkAuth
+module.exports = checkAuth;
