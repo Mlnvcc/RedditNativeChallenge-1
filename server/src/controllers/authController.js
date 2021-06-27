@@ -24,6 +24,7 @@ const signUp = async (req, res) => {
 
       return res.json({
         auth: { accessToken },
+        userInfo: { id: user._id, email: user.email, userName: user.userName },
       });
     } catch (error) {
       return res.sendStatus(401);
@@ -44,6 +45,11 @@ const signIn = async (req, res) => {
 
         return res.json({
           auth: { accessToken },
+          userInfo: {
+            id: user._id,
+            email: user.email,
+            userName: user.userName,
+          },
         });
       }
       return res.sendStatus(401);

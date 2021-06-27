@@ -47,13 +47,6 @@ const SignUp = () => {
     }));
   };
 
-  const [newUser, setNewUser] = useState("");
-
-  const userFromStorage = async () => {
-    const user = await AsyncStorage.getItem("userInfo");
-    setNewUser(user);
-  };
-
   const loadScene = () => {
     navigation.navigate("MainPage");
   };
@@ -72,15 +65,6 @@ const SignUp = () => {
   const handleClickLoadLogin = () => {
     navigation.navigate("SignIn");
   };
-
-  useEffect(() => {
-    (async () => userFromStorage())();
-    console.log("useEffect");
-    if (newUser) {
-      loadScene();
-      console.log("DONE", newUser);
-    }
-  }, [newUser]);
 
   return (
     <View style={styles.container}>

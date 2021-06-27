@@ -1,2 +1,4 @@
-export const SET_USER = "SET_USER";
-export const DELETE_USER = "DELETE_USER";
+export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN";
+export const REMOVE_ACCESS_TOKEN = "REMOVE_ACCESS_TOKEN";
+export const SET_USER_INFO = "SET_USER_INFO";
+export const REMOVE_USER_INFO = "REMOVE_USER_INFO";

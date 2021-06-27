@@ -1,5 +1,8 @@
 import { CHANGE_STATUS_ADDBUTTON } from "../types/addButton";
-const addButtonReducer = (state = null, action) => {
+
+const initialState = false;
+
+const addButtonReducer = (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {
@@ -10,4 +13,5 @@ const addButtonReducer = (state = null, action) => {
       return state;
   }
 };
+
 export default addButtonReducer;

@@ -1,27 +1,15 @@
-import { rootReducer } from "./reduce/rootReducer";
+import { persistStore } from "redux-persist";
 import thunk from "redux-thunk";
-import getInitState from "./initialState";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { rootReducer } from "./reduce/rootReducer";
 
 const store = createStore(
   rootReducer,
-  getInitState(),
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-const saveUserInStorage = async () => {
-  try {
-    const { user } = store.getState();
-    await AsyncStorage.setItem("userInfo", JSON.stringify(user));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-store.subscribe(() => {
-  saveUserInStorage();
-});
+export const persistor = persistStore(store);
 
 export default store;

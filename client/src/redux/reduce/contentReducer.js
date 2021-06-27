@@ -1,6 +1,8 @@
 import { GET_CONTENT_START, POST_CREATE } from "../types/content";
 
-const contentReducer = (state = [], action) => {
+const initialState = [];
+
+const contentReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {

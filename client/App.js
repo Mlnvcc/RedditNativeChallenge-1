@@ -1,13 +1,17 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import store from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
+
+import store, { persistor } from "./src/redux/store";
 import Navigate from "./src/navigation/AppNavigator";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Navigate style={styles.container} />
+      <PersistGate persistor={persistor} loading={null}>
+        <Navigate style={styles.container} />
+      </PersistGate>
     </Provider>
   );
 }

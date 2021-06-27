@@ -19,8 +19,6 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [newUser, setNewUser] = useState("");
-
   const dispatch = useDispatch();
 
   const loadScene = () => {
@@ -41,28 +39,9 @@ const SignIn = () => {
     }
   };
 
-  const userFromStorage = async () => {
-    const user = await AsyncStorage.getItem("userInfo");
-    setNewUser(user);
-    console.log("User", user);
-  };
-
   const handleClickLoadSignUp = () => {
     navigation.navigate("SignUp");
   };
-
-  useEffect(() => {
-    (async () => userFromStorage())();
-    console.log("useEffect");
-    if (newUser) {
-      loadScene();
-      console.log("DONE", newUser);
-    }
-  }, [newUser]);
-
-  useEffect(() => {
-    dispatch(checkAuth());
-  }, []);
 
   return (
     <View style={styles.container}>
