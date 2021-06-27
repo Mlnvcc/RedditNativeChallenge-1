@@ -8,9 +8,10 @@ const deviceStorage = {
       console.log(`AsyncStorage error: ${error}`);
     }
   },
-  getValue: async key => {
+  getItem: async key => {
     try {
-      return await AsyncStorage.getItem(key);
+      const item = await AsyncStorage.getItem(key);
+      return JSON.parse(item);
     } catch (error) {
       console.log(`AsyncStorage error: ${error}`);
     }
@@ -18,6 +19,13 @@ const deviceStorage = {
   removeItem: async key => {
     try {
       return await AsyncStorage.removeItem(key);
+    } catch (error) {
+      console.log(`AsyncStorage error: ${error}`);
+    }
+  },
+  mergeItem: async (key, newValue) => {
+    try {
+      await AsyncStorage.mergeItem(key, JSON.stringify(newValue));
     } catch (error) {
       console.log(`AsyncStorage error: ${error}`);
     }

@@ -7,7 +7,7 @@ const usersRouter = Router();
 usersRouter.get('/', checkAuth, usersController.getAllUsers);
 usersRouter
   .route('/:id')
-  .patch(checkAuth, checkAuth, usersController.editUser)
+  .patch(checkAuth, usersController.editUser)
   .get(checkAuth, usersController.getUser);
 
 module.exports = usersRouter;

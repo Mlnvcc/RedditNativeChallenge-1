@@ -1,12 +1,16 @@
 import {
-  REMOVE_ACCESS_TOKEN,
-  SET_ACCESS_TOKEN,
+  REMOVE_TOKEN,
+  SET_TOKEN,
   SET_USER_INFO,
   REMOVE_USER_INFO,
 } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
-import { signUp as apiSignUp, signIn as apiSignIn } from "../../api/auth";
+import {
+  signUp as apiSignUp,
+  signIn as apiSignIn,
+  signOut as apiSignOut,
+} from "../../api/auth";
 
 export const getUserFromServer = id => async dispatch => {
   dispatch(enableLoader());
@@ -20,13 +24,13 @@ export const getUserFromServer = id => async dispatch => {
   dispatch(disableLoader());
 };
 
-export const setAccessToken = accessToken => ({
-  type: SET_ACCESS_TOKEN,
-  payload: { accessToken },
+export const setToken = (accessToken, refreshToken) => ({
+  type: SET_TOKEN,
+  payload: { accessToken, refreshToken },
 });
 
-export const removeAccessToken = () => ({
-  type: REMOVE_ACCESS_TOKEN,
+export const removeToken = () => ({
+  type: REMOVE_TOKEN,
 });
 
 export const setUserInfo = userInfo => ({
@@ -44,10 +48,10 @@ export const signUp = signUpInfo => async dispatch => {
   try {
     const { data } = await apiSignUp(signUpInfo);
     const {
-      auth: { accessToken },
+      auth: { accessToken, refreshToken },
       userInfo,
     } = data;
-    dispatch(setAccessToken(accessToken));
+    dispatch(setToken(accessToken, refreshToken));
     dispatch(setUserInfo(userInfo));
   } catch (error) {
     console.log(error);
@@ -61,11 +65,27 @@ export const signIn = loginInfo => async dispatch => {
   try {
     const { data } = await apiSignIn(loginInfo);
     const {
-      auth: { accessToken },
+      auth: { accessToken, refreshToken },
       userInfo,
     } = data;
-    dispatch(setAccessToken(accessToken));
+    dispatch(setToken(accessToken, refreshToken));
     dispatch(setUserInfo(userInfo));
+  } catch (error) {
+    console.log(error);
+  }
+
+  dispatch(disableLoader());
+};
+
+export const signOut = () => async (dispatch, getState) => {
+  dispatch(enableLoader());
+  try {
+    const refreshToken = getState().user.jwt.refresh;
+    const response = await apiSignOut(refreshToken);
+    if (response.status === 200) {
+      dispatch(removeToken());
+      dispatch(removeUserInfo());
+    }
   } catch (error) {
     console.log(error);
   }

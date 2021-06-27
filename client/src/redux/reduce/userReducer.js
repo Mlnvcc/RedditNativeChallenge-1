@@ -1,25 +1,29 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
-  REMOVE_ACCESS_TOKEN,
-  SET_ACCESS_TOKEN,
+  REMOVE_TOKEN,
+  SET_TOKEN,
   SET_USER_INFO,
   REMOVE_USER_INFO,
 } from "../types/userTypes";
 
-const initialState = { jwt: { access: null }, userInfo: null };
+const initialState = { jwt: { access: null, refresh: null }, userInfo: null };
 export const userPersistConfig = { key: "user", storage: AsyncStorage };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ACCESS_TOKEN:
+    case SET_TOKEN:
       return {
         ...state,
-        jwt: { ...state.jwt, access: action.payload.accessToken },
+        jwt: {
+          ...state.jwt,
+          access: action.payload.accessToken,
+          refresh: action.payload.refreshToken,
+        },
       };
 
-    case REMOVE_ACCESS_TOKEN:
-      return { ...state, jwt: { ...state.jwt, access: null } };
+    case REMOVE_TOKEN:
+      return { ...state, jwt: { ...state.jwt, access: null, refresh: null } };
 
     case SET_USER_INFO:
       return { ...state, userInfo: action.payload.userInfo };
