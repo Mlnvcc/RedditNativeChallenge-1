@@ -2,15 +2,31 @@ import axios from "axios";
 import deviceStorage from "../asyncStorage";
 import { userPersistConfig } from "../redux/reduce/userReducer";
 import { refreshToken as apiRefreshToken } from "./auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const apiService = axios.create({
   baseURL: "http://localhost:8080",
 });
 
+const parsePersistedState = state =>
+  Object.keys(state).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: JSON.parse(state[key]),
+    }),
+    {}
+  );
+
 apiService.interceptors.request.use(
-  config => {
-    const userState = deviceStorage.getItem("user");
-    const accessToken = userState?.jwt?.access;
+  async config => {
+    const userStateString = await deviceStorage.getItem("persist:user");
+
+    let accessToken = null;
+
+    if (userStateString) {
+      accessToken = parsePersistedState(userStateString)?.jwt?.access;
+      console.log(parsePersistedState(userStateString));
+    }
     if (accessToken) {
       config.headers["authorization"] = `Bearer ${accessToken}`;
     }
@@ -21,10 +37,15 @@ apiService.interceptors.request.use(
 
 apiService.interceptors.response.use(
   response => response,
-  error => {
+  async error => {
     const originalRequest = error.config;
-    const userState = deviceStorage.getItem("user");
-    const refreshToken = userState?.jwt?.refresh;
+
+    const userStateString = await deviceStorage.getItem("persist:user");
+    let refreshToken = null;
+    const userState = parsePersistedState(userStateString);
+    if (userStateString) {
+      refreshToken = userState?.jwt?.refresh;
+    }
 
     if (
       refreshToken &&

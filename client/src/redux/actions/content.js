@@ -1,4 +1,5 @@
 import { GET_CONTENT_START, POST_CREATE } from "../types/content";
+import apiService from "../../api/apiService";
 
 const getContentStart = payload => ({ type: GET_CONTENT_START, payload });
 const getPostCreate = payload => ({ type: POST_CREATE, payload });
@@ -13,6 +14,9 @@ export const getContent = () => async dispatch => {
 };
 
 export const createPost = description => async dispatch => {
+  // apiService
+  //   .post("http://localhost:8080/post/add", description)
+  //   .then(({ data }) => dispatch(getPostCreate(data)));  // НЕ ТРОГАТЬ ЗАХУЯРЮ!!!!!!!!!!!!!!!!!!!!!!
   const response = await fetch(`http://${ip.vlad}:8080/post/add`, {
     method: "POST",
     headers: {
@@ -23,5 +27,6 @@ export const createPost = description => async dispatch => {
   const post = await response.json();
 
   dispatch(getPostCreate(post));
+
   // dispatch(getContentStart(post));
 };

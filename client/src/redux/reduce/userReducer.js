@@ -8,7 +8,10 @@ import {
 } from "../types/userTypes";
 
 const initialState = { jwt: { access: null, refresh: null }, userInfo: null };
-export const userPersistConfig = { key: "user", storage: AsyncStorage };
+export const userPersistConfig = {
+  key: "user",
+  storage: AsyncStorage,
+};
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -13,7 +13,5 @@ import { useRoute } from "@react-navigation/native";
 export default function Post({ route }) {
   const id = route.params.id;
 
-  
-
   return <Text>{id}</Text>;
 }
