@@ -1,8 +1,27 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import SignOut from "../Forms/SignOut/SignOut";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "../../redux/reduce/editProfileReducer";
+import { signOut as signOutAC } from "../../redux/actions/user.ac";
+import EditProfileForm from "../EditProfile/EditProfile";
 
 export default function UserProfileView() {
+  const [showEditForm, setshowEditForm ] = useState({status: false, id: null})
+  const dispatch = useDispatch();
+  const username = useSelector(state => state.user.userInfo.userName);
+  const email = useSelector(state => state.user.userInfo.email);
+
+  // const editProfileFunction = (id, e) => {
+  //   e.preventDefault();
+  //   const dataInput = e.target.inputId.value;
+  //   dispatch(editProfile(id, dataInput));
+  //   setshowEditForm((prev) => !prev);
+  // };
+
+  const signOutFunc = () => {
+    dispatch(signOutAC());
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -14,8 +33,14 @@ export default function UserProfileView() {
             }}
           />
 
-          <Text style={styles.name}>Big Floppa</Text>
-          <Text style={styles.userInfo}>bigfloppa@mail.com</Text>
+          {showEditForm.status ? (
+            <EditProfileForm props={[showEditForm, setshowEditForm]}/>
+          ) : (
+            <>
+              <Text style={styles.name}>{username}</Text>
+              <Text style={styles.userInfo}>{email}</Text>
+            </>
+          )}
         </View>
       </View>
 
@@ -47,8 +72,45 @@ export default function UserProfileView() {
             <Text style={styles.info}>News</Text>
           </View>
         </View>
+
+        <TouchableOpacity
+        onPress={() =>
+          setshowEditForm((prev) => {
+            return { status: !prev.status, id };
+          })
+         }
+          >
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{
+                  uri: "https://img.icons8.com/color/70/000000/administrator-male.png",
+                }}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Edit</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={signOutFunc}>
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{
+                  uri: "https://img.icons8.com/color/70/000000/shutdown.png",
+                }}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Logout</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
-      <SignOut style={styles.logout} />
     </View>
   );
 }
@@ -106,16 +168,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: "#FFFFFF",
-  },
-  logout: {
-    height: 45,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-    width: 300,
-    borderRadius: 30,
-    backgroundColor: "transparent",
-    position: "absolute",
-    bottom: 10,
   },
 });

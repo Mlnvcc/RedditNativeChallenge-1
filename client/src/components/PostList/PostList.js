@@ -8,7 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import Item from "../Item";
+import Item from "../Item/Item";
 import { getContent } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
 
