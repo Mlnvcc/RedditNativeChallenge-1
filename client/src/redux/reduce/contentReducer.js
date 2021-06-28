@@ -3,8 +3,8 @@ import {
   POST_CREATE,
   SET_LIKE_ADD,
   SET_DISLIKE_ADD,
-  CREATE_COMMENT_TO_COMMENT,
   CREATE_COMMENT,
+  CREATE_COMMENT_TO_COMMENT,
 } from "../types/content";
 
 const initialState = [];
