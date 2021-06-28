@@ -80,7 +80,7 @@ const generateRefreshToken = async (req, res) => {
             expiresIn: '24h',
           }
         );
-        console.log(111, { accessToken: newAccessToken });
+        // console.log(111, { accessToken: newAccessToken });
         return res.json({ accessToken: newAccessToken });
       }
     }

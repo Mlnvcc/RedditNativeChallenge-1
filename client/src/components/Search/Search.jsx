@@ -99,7 +99,7 @@ export default function Search({ route }) {
 
       <Button title="Search" onPress={() => serachingFunc()} />
 
-      {posts.length ?
+      {posts.length ? (
         <FlatList
           data={posts}
           renderItem={({ item }) => (
@@ -115,8 +115,9 @@ export default function Search({ route }) {
           )}
           keyExtractor={item => item.id}
         />
-        : <Text>Nothing was found</Text>
-      }
+      ) : (
+        <Text>Nothing was found</Text>
+      )}
     </View>
   );
 }

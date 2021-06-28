@@ -1,3 +1,4 @@
 export const GET_CONTENT_START = "GET_CONTENT_START";
 export const POST_CREATE = "POST_CREATE";
-export const LIKE_ADD = "LIKE_ADD";
+export const SET_LIKE_ADD = "SET_LIKE_ADD";
+export const SET_DISLIKE_ADD = "SET_DISLIKE_ADD";
