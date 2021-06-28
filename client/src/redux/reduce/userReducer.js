@@ -8,6 +8,7 @@ import {
 } from "../types/userTypes";
 
 const initialState = { jwt: { access: null, refresh: null }, userInfo: null };
+
 export const userPersistConfig = {
   key: "user",
   storage: AsyncStorage,
