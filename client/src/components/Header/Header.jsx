@@ -18,9 +18,13 @@ export default function Header() {
     navigation.navigate("Profile");
   };
 
+  const loadSearcjScene = () => {
+    navigation.navigate("Search", { data: formValue });
+  };
+
   const submitForm = () => {
-    // formValue - это то шо нужно отправлять на поиск
     if (formValue.trim()) {
+      loadSearcjScene();
       setFormValue("");
     }
   };

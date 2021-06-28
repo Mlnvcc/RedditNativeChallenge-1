@@ -10,6 +10,7 @@ import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
+import Search from "../components/Search/Search";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,12 @@ const Navigate = () => {
               name="OnePostPage"
               component={OnePostPage}
               options={{ title: "Post" }}
+            />
+
+            <Stack.Screen
+              name="Search"
+              component={Search}
+              options={{ title: "Search" }}
             />
           </>
         ) : (
