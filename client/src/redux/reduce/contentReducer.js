@@ -1,15 +1,11 @@
-<<<<<<< HEAD
 import {
   GET_CONTENT_START,
   POST_CREATE,
   SET_LIKE_ADD,
   SET_DISLIKE_ADD,
+  CREATE_COMMENT,
+  CREATE_COMMENT_TO_COMMENT,
 } from "../types/content";
-import { CREATE_COMMENT } from "../types/comment";
-=======
-import { GET_CONTENT_START, POST_CREATE, LIKE_ADD } from "../types/content";
-import { CREATE_COMMENT, CREATE_COMMENT_TO_COMMENT } from "../types/comment";
->>>>>>> origin/db
 
 const initialState = [];
 

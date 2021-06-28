@@ -13,7 +13,6 @@ export const createComMain = description => async dispatch => {
 };
 
 export const createComToCom = description => async dispatch => {
-  console.log("ya vot suka tut");
   apiService
     .post("http://localhost:8080/comment/addcomtocom", description)
     .then(({ data }) => dispatch(getComToComtCreate({ data, description })));
