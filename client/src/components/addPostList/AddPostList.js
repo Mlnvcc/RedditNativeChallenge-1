@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 
 export default function AddPostList() {
@@ -19,9 +19,10 @@ export default function AddPostList() {
       title: title,
       description: description,
     };
-
     dispatch(createPost(post));
   };
+  const posts = useSelector(state => state.content);
+
   return (
     <>
       <View style={styles.div}>

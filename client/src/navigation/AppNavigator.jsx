@@ -3,11 +3,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+
 import MainPage from "../components/MainPage/MainPage";
 import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
-import Post from "../components/post/post";
+import OnePostPage from "../components/OnePostPage/OnePostPage";
+import CreateNewPost from "../components/CreatePost/CreatePost";
 
 const Stack = createStackNavigator();
 
@@ -29,9 +31,16 @@ const Navigate = () => {
               component={UserProfileView}
               options={{ title: "Your profile" }}
             />
+
             <Stack.Screen
-              name="Post"
-              component={Post}
+              name="CreatePost"
+              component={CreateNewPost}
+              options={{ title: "Add new Post" }}
+            />
+
+            <Stack.Screen
+              name="OnePostPage"
+              component={OnePostPage}
               options={{ title: "Post" }}
             />
           </>

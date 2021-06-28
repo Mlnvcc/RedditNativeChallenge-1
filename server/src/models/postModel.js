@@ -9,20 +9,25 @@ const postSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  likes: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'User',
-  },
+  likes: [
+    {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'User',
+    },
+  ],
+  comments: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'Comment' }],
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
   content: {
     type: String,
-    // required: true,
   },
   date: {
     type: String,
+  },
+  tags: {
+    type: Array,
   },
 });
 

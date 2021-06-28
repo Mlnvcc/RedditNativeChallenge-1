@@ -5,18 +5,40 @@ const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
-  const Posts = await Post.find();
+  const Posts = await Post.find().populate('comments');
 
   res.json({ Posts });
 });
+
 postRouter.post('/add', checkAuth, async (req, res) => {
   const post = await Post.create({
     title: req.body.title,
     description: req.body.description,
     date: moment().subtract(6, 'days').calendar(),
+    tags: req.body.tags,
+    author: req.body.author,
   });
-
   res.json(post);
 });
+
+postRouter.patch('/likes', async (req, res) => {
+  try {
+    const currPost = await Post.findById(req.body.idPost);
+    if (!currPost.likes.includes(req.body.idUser)) {
+      currPost.likes.push(req.body.idUser);
+      currPost.save();
+    } else {
+      currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
+      currPost.save();
+    }
+    res.json({ currPost });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// authRouter.post('/signin', authController.signIn);
+// authRouter.get('/signout', authController.signOut);
+// authRouter.get('/check', checkAuth, authController.checkAuth);
 
 module.exports = postRouter;
