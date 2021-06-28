@@ -27,7 +27,7 @@ const postSchema = mongoose.Schema({
     type: String,
   },
   tags: {
-    type: Array,
+    type: [],
   },
 });
 
