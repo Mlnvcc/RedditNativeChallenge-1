@@ -27,7 +27,10 @@ export default function CreateNewPost() {
 
   const submtForm = () => {
     if (title.trim() && description.trim()) {
-      const allTags = tags.split(",");
+      const allTags = tags.split("#");
+      allTags.forEach((el, index) => {
+        allTags[index] = allTags[index].trim().toLowerCase();
+      });
       const post = {
         author: user.id,
         title: title,
@@ -63,7 +66,7 @@ export default function CreateNewPost() {
         onChangeText={text => setTags(text)}
         value={tags}
         style={styles.input}
-        placeholder="Put some tags separated by ' , '"
+        placeholder="Put some tags separated by ' # '"
       />
 
       <Button onPress={submtForm} style={styles.button} title="Create Post" />
