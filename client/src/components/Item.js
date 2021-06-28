@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
-import { Card, ListItem, Button } from "react-native-elements";
+import { Card, ListItem, Button, Image } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -27,6 +27,18 @@ export default function Item({ el }) {
 
   return (
     <View style={styles.div}>
+      <View style={styles.header_post}>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+          }}
+        />
+        <View style={styles.header_title}>
+          <Text style={styles.userInfo}>Big Floppa</Text>
+        </View>
+        <Icon.Button name="ellipsis-v" backgroundColor="gray"></Icon.Button>
+      </View>
       <Card>
         <Card.Title style={styles.title1}>{el.title}</Card.Title>
         <Card.Divider />
@@ -68,6 +80,11 @@ export default function Item({ el }) {
 }
 
 const styles = StyleSheet.create({
+  edit_button: {
+    width: 30,
+    height: 40,
+    backgroundColor: "gray",
+  },
   div: {
     width: 400,
     flexDirection: "column",
@@ -76,6 +93,16 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
   },
+  header_post: {
+    height: 10,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  header_title: {
+    flex: 1,
+    justifyContent: "center",
+  },
   icons: {
     flex: 1,
     flexDirection: "row",
@@ -83,5 +110,13 @@ const styles = StyleSheet.create({
   },
   title1: {
     fontSize: 20,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
   },
 });
