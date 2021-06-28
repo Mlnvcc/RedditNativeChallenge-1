@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
-import { Card, ListItem, Button, Image } from "react-native-elements";
+import { StyleSheet, View, Text } from "react-native";
+import { Card } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -9,7 +9,8 @@ import { addLike, addDislike, getContent } from "../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.user.id);
+  const user = useSelector(state => state.user);
+  const userId = user.id;
   const navigation = useNavigation();
 
   const like = (userId, postId) => {
@@ -19,63 +20,56 @@ export default function Item({ el }) {
     dispatch(addDislike(userId, postId));
   };
 
-  // const posts = useSelector(state => state.content);
-
   useEffect(() => {
     dispatch(getContent());
   }, [dispatch]);
 
   return (
-    <View style={styles.div}>
+    <Card containerStyle={styles.div}>
       <View style={styles.header_post}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-          }}
-        />
-        <View style={styles.header_title}>
-          <Text style={styles.userInfo}>Big Floppa</Text>
-        </View>
-        <Icon.Button name="ellipsis-v" backgroundColor="gray"></Icon.Button>
+        <Icon.Button name="ellipsis-v" backgroundColor="#94a3b8"></Icon.Button>
+        <Text></Text>
       </View>
-      <Card>
-        <Card.Title style={styles.title1}>{el.title}</Card.Title>
-        <Card.Divider />
 
-        {el.content ? (
-          <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-          </Card.Image>
-        ) : (
-          <View></View>
-        )}
+      <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      <Card.Divider style={styles.hr} />
 
-        <View style={styles.icons}>
-          <Icon.Button
-            name="thumbs-up"
-            backgroundColor="gray"
-            onPress={() => like(userId, el._id)}
-          >
-            {el.likes.length}
-          </Icon.Button>
-          <Icon.Button
-            name="thumbs-down"
-            backgroundColor="gray"
-            onPress={() => dislike(userId, el._id)}
-          >
-            {el.dislikes.length}
-          </Icon.Button>
-          <Icon.Button
-            name="comments"
-            backgroundColor="gray"
-            onPress={() => navigation.navigate("OnePostPage", { el })}
-          >
-            {el.comments.length}
-          </Icon.Button>
-        </View>
-      </Card>
-    </View>
+      {el.content ? (
+        <Card.Image>
+          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
+        </Card.Image>
+      ) : (
+        <View></View>
+      )}
+
+      <View style={styles.icons}>
+        <Icon.Button
+          name="thumbs-up"
+          backgroundColor="#94a3b8"
+          color="#e2e8f0"
+          onPress={() => like(userId, el._id)}
+        >
+          <Text style={styles.text}> {el.likes.length}</Text>
+        </Icon.Button>
+
+        <Icon.Button
+          name="thumbs-down"
+          backgroundColor="#94a3b8"
+          onPress={() => dislike(userId, el._id)}
+        >
+          <Text style={styles.text}>{el.dislikes.length}</Text>
+        </Icon.Button>
+
+        <Icon.Button
+          name="comments"
+          backgroundColor="#94a3b8"
+          onPress={() => navigation.navigate("OnePostPage", { el })}
+        >
+          <Text style={styles.text}>{el.comments.length}</Text>
+        </Icon.Button>
+      </View>
+      <Text style={styles.text}>Created by: </Text>
+    </Card>
   );
 }
 
@@ -85,38 +79,43 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: "gray",
   },
+
+  hr: {
+    backgroundColor: "#e2e8f0",
+    height: 1.3,
+  },
+
   div: {
-    width: 400,
+    width: 300,
     flexDirection: "column",
-    justifyContent: "space-around",
+    borderWidth: 2,
+    borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
+    borderColor: "#e2e8f0",
+    backgroundColor: "#334155",
   },
   header_post: {
-    height: 10,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    alignSelf: "flex-end",
+    height: 20,
+    width: 17,
   },
   header_title: {
     flex: 1,
     justifyContent: "center",
+    alignContent: "center",
   },
   icons: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    paddingHorizontal: 25,
+    marginBottom: 8,
   },
   title1: {
     fontSize: 20,
+    color: "#e2e8f0",
   },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    marginBottom: 10,
+  text: {
+    color: "#e2e8f0",
   },
 });

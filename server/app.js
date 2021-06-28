@@ -26,7 +26,7 @@ app.use('/api/v2/auth', authRouter);
 app.use('/post', postRouter);
 app.use('/comment', commentRouter);
 app.use('/api/v2/users', usersRouter);
-app.use("/search", searchRouter)
+app.use('/search', searchRouter);
 
 app.listen(PORT, () => {
   console.log('Server has been started on port', PORT);

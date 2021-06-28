@@ -11,7 +11,7 @@ export default function LowerMenu() {
   return (
     <View style={styles.footer}>
       <TouchableOpacity onPress={loadScene} style={styles.button}>
-        <Text style={{ fontSize: 40, color: "#fff" }}>+</Text>
+        <Text style={{ fontSize: 40, color: "#e2e8f0" }}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -22,7 +22,11 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#456ba0",
+    backgroundColor: "#334155",
+    borderTopWidth: 2,
+    borderRadius: 3,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
   },
 
   button: {

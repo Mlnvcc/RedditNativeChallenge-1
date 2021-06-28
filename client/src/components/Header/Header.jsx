@@ -6,7 +6,9 @@ import {
   Button,
   Image,
   TouchableOpacity,
+  Text,
 } from "react-native";
+import { Card } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
@@ -50,18 +52,42 @@ export default function Header() {
           placeholder="Write here..."
         ></TextInput>
 
-        <Button onPress={submitForm} title="Search" />
+        <TouchableOpacity onPress={submitForm} style={styles.button}>
+          <Text style={styles.text}>Search</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginHorizontal: 4,
+    backgroundColor: "#1e293b",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  text: {
+    color: "#e2e8f0",
+    margin: 3,
+    fontSize: 15,
+  },
+
   container: {
+    padding: 5,
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    borderWidth: 2,
+    borderRadius: 3,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
   },
 
   form: {
@@ -76,7 +102,9 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 7,
     borderWidth: 2,
-    borderColor: "#3949ab",
+    borderColor: "#e2e8f0",
+    color: "#e2e8f0",
+    backgroundColor: "#1e293b",
   },
 
   image: {
@@ -84,7 +112,11 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 45,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
+    borderWidth: 2,
+    borderColor: "#e2e8f0",
+  },
+  hr: {
+    backgroundColor: "#e2e8f0",
+    height: 1.3,
   },
 });
