@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { Card, ListItem, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { addLike } from "../redux/actions/content";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-
+import { addLike, addDislike, getContent } from "../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -14,8 +13,17 @@ export default function Item({ el }) {
   const navigation = useNavigation();
 
   const like = (userId, postId) => {
-    dispatch(addLike(userId, postId))
- }
+    dispatch(addLike(userId, postId));
+  };
+  const dislike = (userId, postId) => {
+    dispatch(addDislike(userId, postId));
+  };
+
+  // const posts = useSelector(state => state.content);
+
+  useEffect(() => {
+    dispatch(getContent());
+  }, [dispatch]);
 
   return (
     <View style={styles.div}>
@@ -23,12 +31,13 @@ export default function Item({ el }) {
         <Card.Title style={styles.title1}>{el.title}</Card.Title>
         <Card.Divider />
 
-        {el.content ?
+        {el.content ? (
           <Card.Image>
             <Text style={{ marginBottom: 10 }}>{el.content}</Text>
           </Card.Image>
-          : <View></View>
-        }
+        ) : (
+          <View></View>
+        )}
 
         <View style={styles.icons}>
           <Icon.Button
@@ -37,6 +46,13 @@ export default function Item({ el }) {
             onPress={() => like(userId, el._id)}
           >
             {el.likes.length}
+          </Icon.Button>
+          <Icon.Button
+            name="thumbs-down"
+            backgroundColor="gray"
+            onPress={() => dislike(userId, el._id)}
+          >
+            {el.dislikes.length}
           </Icon.Button>
           <Icon.Button
             name="comments"

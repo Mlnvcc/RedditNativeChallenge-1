@@ -14,11 +14,14 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function PostList() {
   const navigation = useNavigation();
+
+  const posts = useSelector(state => state.content);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
-  const posts = useSelector(state => state.content);
+  }, []);
 
   return (
     <>

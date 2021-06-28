@@ -1,4 +1,9 @@
-import { GET_CONTENT_START, POST_CREATE, LIKE_ADD } from "../types/content";
+import {
+  GET_CONTENT_START,
+  POST_CREATE,
+  SET_LIKE_ADD,
+  SET_DISLIKE_ADD,
+} from "../types/content";
 import { CREATE_COMMENT } from "../types/comment";
 
 const initialState = [];
@@ -13,9 +18,14 @@ const contentReducer = (state = initialState, action) => {
     case POST_CREATE: {
       return [...state, payload];
     }
-    case LIKE_ADD: {
+    case SET_LIKE_ADD: {
       return state.map(el => (el._id === payload._id ? payload : el));
     }
+
+    case SET_DISLIKE_ADD: {
+      return state.map(el => (el._id === payload._id ? payload : el));
+    }
+
     case CREATE_COMMENT: {
       const { text, autorId, postId } = payload;
       return state.map(el =>

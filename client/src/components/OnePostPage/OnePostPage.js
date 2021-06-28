@@ -4,55 +4,70 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { createComMain } from "../../redux/actions/comments";
-import { addLike } from "../../redux/actions/content";
+import { addLike, addDislike, getContent } from "../../redux/actions/content";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
-  const el = route.params.el;
-  const mainId = el._id; // НОРМАЛЬНО!!!!
+
+  const mainId = route.params.el._id;
   const [comment, setComment] = useState();
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
+
   const comments = mainPost.comments;
+  const likes = mainPost.likes;
   const userId = useSelector(state => state.user.id);
   const createComment = () => {
     if (comment.trim().length > 5) {
-      const post = { text: comment, autorId: userId, postId: el._id };
+      const post = { text: comment, autorId: userId, postId: mainPost._id };
       dispatch(createComMain(post));
     }
   };
 
   const like = (userId, postId) => {
-    console.log(userId, postId);
     dispatch(addLike(userId, postId));
   };
+  const dislike = (userId, postId) => {
+    dispatch(addDislike(userId, postId));
+  };
+
+  useEffect(() => {
+    dispatch(getContent());
+  }, [dispatch]);
 
   return (
     <>
       <View>
         <Card>
-          <Card.Title>{el.title}</Card.Title>
+          <Card.Title>{mainPost.title}</Card.Title>
           <Card.Divider />
           <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{el.description}</Text>
+            <Text style={{ marginBottom: 10 }}>{mainPost.description}</Text>
           </Card.Image>
           <View style={styles.icons}>
             <Icon.Button
               name="thumbs-up"
+              thumbs-down
               backgroundColor="gray"
-              onPress={() => like(userId, el._id)}
+              onPress={() => like(userId, mainPost._id)}
             >
-              {el.likes.length}
+              {likes.length}
+            </Icon.Button>
+            <Icon.Button
+              name="thumbs-down"
+              backgroundColor="gray"
+              onPress={() => dislike(userId, mainPost._id)}
+            >
+              {mainPost.dislikes.length}
             </Icon.Button>
             <Icon.Button
               name="comments"
               backgroundColor="gray"
               onPress={() => console.log("comment")}
             >
-              {el.likes.length}
+              {mainPost.comments.length}
             </Icon.Button>
           </View>
-
         </Card>
       </View>
       <Text style={{ alignItems: "center", justifyContent: "center" }}></Text>
