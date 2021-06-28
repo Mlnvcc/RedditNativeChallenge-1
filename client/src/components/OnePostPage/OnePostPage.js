@@ -67,6 +67,11 @@ export default function Post({ route }) {
             >
               {mainPost.comments.length}
             </Icon.Button>
+            <Icon.Button
+              name="ellipsis-h"
+              backgroundColor="gray"
+              onPress={() => console.log("comment")}
+            ></Icon.Button>
           </View>
         </Card>
       </View>
