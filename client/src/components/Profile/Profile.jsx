@@ -6,13 +6,18 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut as signOutAC } from "../../redux/actions/user.ac";
 import { editProfile } from "../../redux/actions/editProfile";
+import Item from "../Item/Item";
+import { useNavigation } from "@react-navigation/native";
 
 export default function UserProfileView() {
+  const navigation = useNavigation();
   const [showEditForm, setshowEditForm] = useState({ status: false });
+  const [post, setPost] = useState(false);
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.userInfo.userName);
   const email = useSelector(state => state.user.userInfo.email);
@@ -23,8 +28,10 @@ export default function UserProfileView() {
   const signOutFunc = () => {
     dispatch(signOutAC());
   };
-
-  const editProfileFunction = (id) => {
+  const posts = useSelector(state => state.content);
+  const autorPost = posts.filter(el => el.author == userId);
+  console.log(autorPost);
+  const editProfileFunction = id => {
     if (inputUsername.trim() && inputEmail.trim()) {
       const user = {
         _id: userId,
@@ -83,7 +90,7 @@ export default function UserProfileView() {
               </View>
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.updateButton]}
-                onPress={()=> editProfileFunction(userId)}
+                onPress={() => editProfileFunction(userId)}
               >
                 <Text style={styles.updateText}>Update</Text>
               </TouchableOpacity>
@@ -111,21 +118,46 @@ export default function UserProfileView() {
             <Text style={styles.info}>Subscribes</Text>
           </View>
         </View>
-
-        <View style={styles.item}>
-          <View style={styles.iconContent}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: "https://img.icons8.com/color/70/000000/facebook-like.png",
-              }}
-            />
+        <TouchableOpacity onPress={() => setPost(prev => !prev)}>
+          <View style={styles.item}>
+            <View style={styles.iconContent}>
+              <Image
+                style={styles.icon}
+                source={{
+                  uri: "https://img.icons8.com/color/70/000000/facebook-like.png",
+                }}
+              />
+            </View>
+            <View style={styles.infoContent}>
+              <Text style={styles.info}>Post</Text>
+            </View>
           </View>
-          <View style={styles.infoContent}>
-            <Text style={styles.info}>News</Text>
-          </View>
-        </View>
-
+        </TouchableOpacity>
+        {post ? (
+          autorPost.length == 0 ? (
+            <Text>y vas nety postov</Text>
+          ) : (
+            <View style={styles.modal}>
+              <FlatList
+                data={autorPost}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("OnePostPage", {
+                        el: item,
+                      });
+                    }}
+                  >
+                    <Item el={item} />
+                  </TouchableOpacity>
+                )}
+                keyExtractor={item => item.id}
+              />
+            </View>
+          )
+        ) : (
+          <Text></Text>
+        )}
         <TouchableOpacity
           onPress={() =>
             setshowEditForm(prev => ({
@@ -280,5 +312,12 @@ const styles = StyleSheet.create({
   },
   updateText: {
     color: "white",
+  },
+  modal: {
+    borderStyle: "solid",
+    borderWidth: 3,
+    borderColor: "#3949ab",
+    height: 300,
+    width: 400,
   },
 });

@@ -18,8 +18,6 @@ const setDislike = currPost => ({
   payload: currPost,
 });
 
-const ip = { vlad: "192.168.1.140" };
-
 export const getContent = () => async dispatch => {
   apiService
     .get("/post")

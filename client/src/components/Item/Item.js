@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+
 import { addLike, addDislike, getContent } from "../../redux/actions/content";
 
 export default function Item({ el }) {
@@ -30,7 +37,7 @@ export default function Item({ el }) {
 
   return (
     <Card containerStyle={styles.div}>
-      {userId === el.author ?
+      {userId === el.author ? (
         <View>
           <View>
             <Overlay
@@ -63,21 +70,20 @@ export default function Item({ el }) {
             ></Icon.Button>
           </View>
         </View>
-        : <View></View>
-      }
+      ) : (
+        <View></View>
+      )}
 
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
       <Card.Divider style={styles.hr} />
 
-      {
-        el.content ? (
-          <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-          </Card.Image>
-        ) : (
-          <View></View>
-        )
-      }
+      {el.content ? (
+        <Card.Image>
+          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
+        </Card.Image>
+      ) : (
+        <View></View>
+      )}
 
       <View style={styles.icons}>
         <Icon.Button
