@@ -1,15 +1,20 @@
-import { CREATE_COMMENT } from "../types/comment";
-const ip = { vlad: "192.168.1.140", alina: "195.133.246.50" };
+import { CREATE_COMMENT, CREATE_COMMENT_TO_COMMENT } from "../types/comment";
+import apiService from "../../api/apiService";
+
 const getCommentCreate = payload => ({ type: CREATE_COMMENT, payload });
+const getComToComtCreate = payload => ({
+  type: CREATE_COMMENT_TO_COMMENT,
+  payload,
+});
 export const createComMain = description => async dispatch => {
-  const response = await fetch(`http://localhost:8080/comment/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(description),
+  apiService
+    .post("/comment/add", description)
+    .then(({ data }) => dispatch(getCommentCreate(description)));
+};
+
+export const createComToCom = description => async dispatch => {
+  apiService.post("/comment/addcomtocom", description).then(({ data }) => {
+    console.log("DATA", data);
+    dispatch(getComToComtCreate({ data, description }));
   });
-  const comment = await response.json();
-  console.log(comment);
-  dispatch(getCommentCreate(description));
 };

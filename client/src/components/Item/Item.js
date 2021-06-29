@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
-import { Card, ListItem, Button } from "react-native-elements";
+import { Card, ListItem, Button, Image } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+<<<<<<< HEAD:client/src/components/Item/Item.js
 import { addLike } from "../../redux/actions/content";
+=======
+>>>>>>> 7a60fb2c70f4d9f70877377bab5bc2eeff77b543:client/src/components/Item.js
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-
+import { addLike, addDislike, getContent } from "../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -14,21 +17,43 @@ export default function Item({ el }) {
   const navigation = useNavigation();
 
   const like = (userId, postId) => {
-    dispatch(addLike(userId, postId))
- }
+    dispatch(addLike(userId, postId));
+  };
+  const dislike = (userId, postId) => {
+    dispatch(addDislike(userId, postId));
+  };
+
+  // const posts = useSelector(state => state.content);
+
+  useEffect(() => {
+    dispatch(getContent());
+  }, [dispatch]);
 
   return (
     <View style={styles.div}>
+      <View style={styles.header_post}>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+          }}
+        />
+        <View style={styles.header_title}>
+          <Text style={styles.userInfo}>Big Floppa</Text>
+        </View>
+        <Icon.Button name="ellipsis-v" backgroundColor="gray"></Icon.Button>
+      </View>
       <Card>
         <Card.Title style={styles.title1}>{el.title}</Card.Title>
         <Card.Divider />
 
-        {el.content ?
+        {el.content ? (
           <Card.Image>
             <Text style={{ marginBottom: 10 }}>{el.content}</Text>
           </Card.Image>
-          : <View></View>
-        }
+        ) : (
+          <View></View>
+        )}
 
         <View style={styles.icons}>
           <Icon.Button
@@ -37,6 +62,13 @@ export default function Item({ el }) {
             onPress={() => like(userId, el._id)}
           >
             {el.likes.length}
+          </Icon.Button>
+          <Icon.Button
+            name="thumbs-down"
+            backgroundColor="gray"
+            onPress={() => dislike(userId, el._id)}
+          >
+            {el.dislikes.length}
           </Icon.Button>
           <Icon.Button
             name="comments"
@@ -52,6 +84,11 @@ export default function Item({ el }) {
 }
 
 const styles = StyleSheet.create({
+  edit_button: {
+    width: 30,
+    height: 40,
+    backgroundColor: "gray",
+  },
   div: {
     width: 400,
     flexDirection: "column",
@@ -60,6 +97,16 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
   },
+  header_post: {
+    height: 10,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  header_title: {
+    flex: 1,
+    justifyContent: "center",
+  },
   icons: {
     flex: 1,
     flexDirection: "row",
@@ -67,5 +114,13 @@ const styles = StyleSheet.create({
   },
   title1: {
     fontSize: 20,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
   },
 });
