@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
-import { Card, ListItem, Button, Image } from "react-native-elements";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 <<<<<<< HEAD:client/src/components/Item/Item.js
 import { addLike } from "../../redux/actions/content";
@@ -13,8 +13,14 @@ import { addLike, addDislike, getContent } from "../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.user.id);
+  const user = useSelector(state => state.user);
+  const userId = user.userInfo.id;
   const navigation = useNavigation();
+
+  const [visible, setVisible] = useState(false); // for overlay
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
@@ -23,104 +29,179 @@ export default function Item({ el }) {
     dispatch(addDislike(userId, postId));
   };
 
-  // const posts = useSelector(state => state.content);
-
   useEffect(() => {
     dispatch(getContent());
   }, [dispatch]);
 
   return (
-    <View style={styles.div}>
-      <View style={styles.header_post}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-          }}
-        />
-        <View style={styles.header_title}>
-          <Text style={styles.userInfo}>Big Floppa</Text>
-        </View>
-        <Icon.Button name="ellipsis-v" backgroundColor="gray"></Icon.Button>
-      </View>
-      <Card>
-        <Card.Title style={styles.title1}>{el.title}</Card.Title>
-        <Card.Divider />
+    <Card containerStyle={styles.div}>
+      {userId === el.author ?
+        <View>
+          <View>
+            <Overlay
+              overlayStyle={styles.overlayContainer}
+              isVisible={visible}
+              onBackdropPress={toggleOverlay}
+            >
+              <TouchableOpacity style={styles.overlayOpacity}>
+                <Text style={styles.overlayText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.overlayOpacity}>
+                <Text style={styles.overlayText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cancleOpacity}>
+                <Text
+                  onPress={() => setVisible(prev => !prev)}
+                  style={styles.overlayText}
+                >
+                  Cancle
+                </Text>
+              </TouchableOpacity>
+            </Overlay>
+          </View>
 
-        {el.content ? (
+          <View style={styles.header_post}>
+            <Icon.Button
+              name="ellipsis-v"
+              backgroundColor="#94a3b8"
+              onPress={toggleOverlay}
+            ></Icon.Button>
+          </View>
+        </View>
+        : <View></View>
+      }
+
+      <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      <Card.Divider style={styles.hr} />
+
+      {
+        el.content ? (
           <Card.Image>
             <Text style={{ marginBottom: 10 }}>{el.content}</Text>
           </Card.Image>
         ) : (
           <View></View>
-        )}
+        )
+      }
 
-        <View style={styles.icons}>
-          <Icon.Button
-            name="thumbs-up"
-            backgroundColor="gray"
-            onPress={() => like(userId, el._id)}
-          >
-            {el.likes.length}
-          </Icon.Button>
-          <Icon.Button
-            name="thumbs-down"
-            backgroundColor="gray"
-            onPress={() => dislike(userId, el._id)}
-          >
-            {el.dislikes.length}
-          </Icon.Button>
-          <Icon.Button
-            name="comments"
-            backgroundColor="gray"
-            onPress={() => navigation.navigate("OnePostPage", { el })}
-          >
-            {el.comments.length}
-          </Icon.Button>
-        </View>
-      </Card>
-    </View>
+      <View style={styles.icons}>
+        <Icon.Button
+          name="thumbs-up"
+          backgroundColor="#94a3b8"
+          color="#e2e8f0"
+          onPress={() => like(userId, el._id)}
+        >
+          <Text style={styles.text}> {el.likes.length}</Text>
+        </Icon.Button>
+
+        <Icon.Button
+          name="thumbs-down"
+          backgroundColor="#94a3b8"
+          onPress={() => dislike(userId, el._id)}
+        >
+          <Text style={styles.text}>{el.dislikes.length}</Text>
+        </Icon.Button>
+
+        <Icon.Button
+          name="comments"
+          backgroundColor="#94a3b8"
+          onPress={() => navigation.navigate("OnePostPage", { el })}
+        >
+          <Text style={styles.text}>{el.comments.length}</Text>
+        </Icon.Button>
+      </View>
+      <Text style={styles.text}>Created by: {el.authorUsername}</Text>
+      <Text style={styles.text}>{el.date}</Text>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
+  overlayContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#1e293b",
+    width: 270,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderColor: "#543333",
+  },
+
+  overlayText: {
+    margin: 3,
+    fontSize: 25,
+    color: "#e2e8f0",
+  },
+
+  cancleOpacity: {
+    backgroundColor: "#543333",
+    margin: 1,
+    width: 180,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+  },
+
+  overlayOpacity: {
+    backgroundColor: "#334155",
+    margin: 1,
+    width: 180,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+  },
+
   edit_button: {
     width: 30,
     height: 40,
     backgroundColor: "gray",
   },
+
+  hr: {
+    backgroundColor: "#e2e8f0",
+    height: 1.3,
+  },
+
   div: {
-    width: 400,
+    width: 300,
     flexDirection: "column",
-    justifyContent: "space-around",
+    borderWidth: 2,
+    borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
+    borderColor: "#e2e8f0",
+    backgroundColor: "#334155",
   },
   header_post: {
-    height: 10,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    alignSelf: "flex-end",
+    height: 20,
+    width: 17,
   },
   header_title: {
     flex: 1,
     justifyContent: "center",
+    alignContent: "center",
   },
   icons: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    paddingHorizontal: 25,
+    marginBottom: 8,
   },
   title1: {
     fontSize: 20,
+    color: "#e2e8f0",
   },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    marginBottom: 10,
+  text: {
+    color: "#e2e8f0",
   },
 });

@@ -25,9 +25,10 @@ export default function PostList() {
   return (
     <>
       <View style={styles.container}>
-        <Text>Last posts</Text>
+        <Text style={{ color: "#e2e8f0", fontSize: 17 }}>Last posts:</Text>
 
         <FlatList
+          style={{ height: "80ex" }}
           data={posts}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -50,9 +51,11 @@ export default function PostList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    paddingTop: 20,
     alignItems: "center",
     fontSize: 13,
+    backgroundColor: "#1e293b",
+    height: 200,
   },
   list: {
     paddingHorizontal: 17,
