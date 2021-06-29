@@ -18,12 +18,12 @@ export default function Item({ el }) {
   const dislike = (userId, postId) => {
     dispatch(addDislike(userId, postId));
   };
-
+  console.log(1111, el);
   // const posts = useSelector(state => state.content);
 
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
+  }, []);
 
   return (
     <View style={styles.div}>
@@ -40,16 +40,32 @@ export default function Item({ el }) {
         <Icon.Button name="ellipsis-v" backgroundColor="gray"></Icon.Button>
       </View>
       <Card>
+        {/* <Video
+          source={{ uri: "https://www.youtube.com/watch?v=KVeMsy4qCdg" }} // Can be a URL or a local file.
+          ref={ref => {
+            this.player = ref;
+          }}
+          onBuffer={this.onBuffer}
+          onError={this.videoError}
+          style={styles.backgroundVideo}
+        /> */}
+
         <Card.Title style={styles.title1}>{el.title}</Card.Title>
+        <Image
+          style={styles.content}
+          source={{
+            uri: el.content,
+          }}
+        />
         <Card.Divider />
 
-        {el.content ? (
+        {/* {el.content ? (
           <Card.Image>
             <Text style={{ marginBottom: 10 }}>{el.content}</Text>
           </Card.Image>
         ) : (
           <View></View>
-        )}
+        )} */}
 
         <View style={styles.icons}>
           <Icon.Button
@@ -118,5 +134,20 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
+  },
+  content: {
+    width: 330,
+    height: 250,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
+  },
+  backgroundVideo: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
 });

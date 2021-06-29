@@ -24,6 +24,7 @@ export default function CreateNewPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
+  const [url, setUrl] = useState("");
 
   const submtForm = () => {
     if (title.trim() && description.trim()) {
@@ -33,13 +34,16 @@ export default function CreateNewPost() {
       });
       const post = {
         author: user.id,
-        title: title,
-        description: description,
+        title,
+        description,
+        content: url,
         date: moment().endOf("day").fromNow(),
         tags: allTags,
       };
+      console.log("POST", post);
       setTitle("");
       setDescription("");
+      setUrl("");
       setTags("");
       dispatch(createPost(post));
       loadScene();
@@ -60,6 +64,14 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
+      />
+
+      <TextInput
+        onChangeText={url => setUrl(url)}
+        value={url}
+        style={styles.multilineInput}
+        multiline={true}
+        placeholder="Url"
       />
 
       <TextInput

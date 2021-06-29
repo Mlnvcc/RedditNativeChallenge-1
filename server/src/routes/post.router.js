@@ -14,6 +14,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
   const post = await Post.create({
     title: req.body.title,
     description: req.body.description,
+    content: req.body.content,
     date: moment().subtract(6, 'days').calendar(),
     tags: req.body.tags,
     author: req.body.author,
