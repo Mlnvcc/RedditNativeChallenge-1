@@ -15,6 +15,12 @@ const postSchema = mongoose.Schema({
       ref: 'User',
     },
   ],
+  dislikes: [
+    {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'User',
+    },
+  ],
   comments: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'Comment' }],
   author: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,8 +32,9 @@ const postSchema = mongoose.Schema({
   date: {
     type: String,
   },
+  dateNumber: Number,
   tags: {
-    type: Array,
+    type: [],
   },
 });
 

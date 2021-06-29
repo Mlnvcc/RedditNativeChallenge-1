@@ -5,7 +5,7 @@ const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
-  const Posts = await Post.find().populate('comments');
+  const Posts = await Post.find().populate('comments').sort({ _id: -1 });
 
   res.json({ Posts });
 });
@@ -15,6 +15,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
     tags: req.body.tags,
     author: req.body.author,
   });
@@ -24,21 +25,37 @@ postRouter.post('/add', checkAuth, async (req, res) => {
 postRouter.patch('/likes', async (req, res) => {
   try {
     const currPost = await Post.findById(req.body.idPost);
+    if (currPost.dislikes.includes(req.body.idUser)) {
+      currPost.dislikes.splice(currPost.dislikes.indexOf(req.body.idUser), 1);
+    }
     if (!currPost.likes.includes(req.body.idUser)) {
       currPost.likes.push(req.body.idUser);
-      currPost.save();
     } else {
       currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
-      currPost.save();
     }
+    currPost.save();
     res.json({ currPost });
   } catch (err) {
     console.error(err.message);
   }
 });
 
-// authRouter.post('/signin', authController.signIn);
-// authRouter.get('/signout', authController.signOut);
-// authRouter.get('/check', checkAuth, authController.checkAuth);
+postRouter.patch('/dislikes', async (req, res) => {
+  try {
+    const currPost = await Post.findById(req.body.idPost);
+    if (currPost.likes.includes(req.body.idUser)) {
+      currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
+    }
+    if (!currPost.dislikes.includes(req.body.idUser)) {
+      currPost.dislikes.push(req.body.idUser);
+    } else {
+      currPost.dislikes.splice(currPost.dislikes.indexOf(req.body.idUser), 1);
+    }
+    currPost.save();
+    res.json({ currPost });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
 module.exports = postRouter;

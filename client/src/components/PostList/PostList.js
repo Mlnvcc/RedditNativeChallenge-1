@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Button,
   Text,
   TouchableOpacity,
   FlatList,
@@ -14,11 +13,34 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function PostList() {
   const navigation = useNavigation();
+
+  const posts = useSelector(state => state.content);
+  // posts.sort((a, b) => b.dateNumber - a.dateNumber);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
-  const posts = useSelector(state => state.content);
+  }, []);
+  const status = useSelector(state => state.user.statusSearch);
+
+  if (status.likes) {
+    posts.sort((a, b) => b.likes.length - a.likes.length);
+  }
+  if (status.comments) {
+    posts.sort((a, b) => b.comments.length - a.comments.length);
+  }
+  if (status.old) {
+    console.log("ya tut");
+    posts.sort((a, b) => a.dateNumber - b.dateNumber);
+  }
+  if (
+    status.likes == false &&
+    status.comments == false &&
+    status.old == false
+  ) {
+    posts.sort((a, b) => b.dateNumber - a.dateNumber);
+  }
 
   return (
     <>
