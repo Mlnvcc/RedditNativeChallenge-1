@@ -3,6 +3,9 @@ import {
   SET_TOKEN,
   SET_USER_INFO,
   REMOVE_USER_INFO,
+  CHANGE_STATUS_LIKE,
+  CHANGE_STATUS_COMMENT,
+  CHANGE_STATUS_OLD
 } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
@@ -23,7 +26,18 @@ export const getUserFromServer = id => async dispatch => {
   }
   dispatch(disableLoader());
 };
-
+export const chageStatusLike = payload => ({
+  type: CHANGE_STATUS_LIKE,
+  payload,
+});
+export const chageStatusComment = payload => ({
+  type: CHANGE_STATUS_COMMENT,
+  payload,
+});
+export const chageStatusOld = payload => ({
+  type: CHANGE_STATUS_OLD,
+  payload,
+});
 export const setToken = (accessToken, refreshToken) => ({
   type: SET_TOKEN,
   payload: { accessToken, refreshToken },

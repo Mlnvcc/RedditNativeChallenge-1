@@ -26,30 +26,76 @@ const Navigate = () => {
             <Stack.Screen
               name="MainPage"
               component={MainPage}
-              options={{ title: "Main Page" }}
+              options={{
+                title: "Main Page",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
             <Stack.Screen
               name="Profile"
               component={UserProfileView}
-              options={{ title: "Your profile" }}
+              options={{
+                title: "Your profile",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
 
             <Stack.Screen
               name="CreatePost"
               component={CreateNewPost}
-              options={{ title: "Add new Post" }}
+              options={{
+                title: "Add new Post",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
 
             <Stack.Screen
               name="OnePostPage"
               component={OnePostPage}
-              options={{ title: "Post" }}
+              options={{
+                title: "Post",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                  color: "white",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
 
             <Stack.Screen
               name="Search"
               component={Search}
-              options={{ title: "Search" }}
+              options={{
+                title: "Search",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
           </>
         ) : (
@@ -57,12 +103,30 @@ const Navigate = () => {
             <Stack.Screen
               name="SignIn"
               component={SignIn}
-              options={{ title: "Login Page" }}
+              options={{
+                title: "Login Page",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
             <Stack.Screen
               name="SignUp"
               component={SignUp}
-              options={{ title: "Registration" }}
+              options={{
+                title: "Registration",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
             />
           </>
         )} */}

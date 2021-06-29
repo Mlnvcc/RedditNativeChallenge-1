@@ -18,6 +18,7 @@ export default function LowerMenu() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const loadScene = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("CreatePost");
   };
 
@@ -39,7 +40,9 @@ export default function LowerMenu() {
               <View style={styles.modalButtons}>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => loadScene()}
+                  onPress={() => {
+                    loadScene();
+                  }}
                 >
                   <Icon name="thumbs-up" backgroundColor="gray"></Icon>
                 </Pressable>

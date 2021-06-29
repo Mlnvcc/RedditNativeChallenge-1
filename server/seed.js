@@ -8,31 +8,37 @@ const posts = [
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
   {
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
   {
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
   {
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
   {
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
   {
     title: 'Elbrus',
     description: 'sjbkjsndkcjkjdc kd ck dcknw d',
     date: moment().subtract(6, 'days').calendar(),
+    dateNumber: Date.now(),
   },
 ];
 

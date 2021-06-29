@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-} from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +8,7 @@ import moment from "moment";
 export default function CreateNewPost() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const userId = user.userInfo.id;
 
   const navigation = useNavigation();
 

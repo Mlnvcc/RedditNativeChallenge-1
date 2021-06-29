@@ -7,7 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import Item from "../Item";
+import Item from "../Item/Item";
 import { getContent } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,6 +15,7 @@ export default function PostList() {
   const navigation = useNavigation();
 
   const posts = useSelector(state => state.content);
+  // posts.sort((a, b) => b.dateNumber - a.dateNumber);
 
   console.log("POSTS", posts);
 
@@ -23,13 +24,33 @@ export default function PostList() {
   useEffect(() => {
     dispatch(getContent());
   }, []);
+  const status = useSelector(state => state.user.statusSearch);
+
+  if (status.likes) {
+    posts.sort((a, b) => b.likes.length - a.likes.length);
+  }
+  if (status.comments) {
+    posts.sort((a, b) => b.comments.length - a.comments.length);
+  }
+  if (status.old) {
+    console.log("ya tut");
+    posts.sort((a, b) => a.dateNumber - b.dateNumber);
+  }
+  if (
+    status.likes == false &&
+    status.comments == false &&
+    status.old == false
+  ) {
+    posts.sort((a, b) => b.dateNumber - a.dateNumber);
+  }
 
   return (
     <>
       <View style={styles.container}>
-        <Text>Last posts</Text>
+        <Text style={{ color: "#e2e8f0", fontSize: 17 }}>Last posts:</Text>
 
         <FlatList
+          style={{ height: "80ex" }}
           data={posts}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -52,9 +73,11 @@ export default function PostList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    paddingTop: 20,
     alignItems: "center",
     fontSize: 13,
+    backgroundColor: "#1e293b",
+    height: 200,
   },
   list: {
     paddingHorizontal: 17,
