@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Input } from "react-native-elements";
+import { Card, Button, Input, Image } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +46,7 @@ export default function Post({ route }) {
 
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -54,6 +54,14 @@ export default function Post({ route }) {
         <Card>
           <Card.Title>{mainPost.title}</Card.Title>
           <Card.Divider />
+          <View>
+            <Image
+              style={styles.content}
+              source={{
+                uri: mainPost.content,
+              }}
+            />
+          </View>
           <Card.Image>
             <Text style={{ marginBottom: 10 }}>{mainPost.description}</Text>
           </Card.Image>

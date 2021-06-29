@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +34,7 @@ export default function Item({ el }) {
 
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Card containerStyle={styles.div}>
@@ -69,12 +76,16 @@ export default function Item({ el }) {
       )}
 
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
+
       <Card.Divider style={styles.hr} />
 
       {el.content ? (
-        <Card.Image>
-          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-        </Card.Image>
+        <Image
+          style={styles.content}
+          source={{
+            uri: el.content,
+          }}
+        />
       ) : (
         <View></View>
       )}
@@ -112,6 +123,14 @@ export default function Item({ el }) {
 }
 
 const styles = StyleSheet.create({
+  content: {
+    // width: 270,
+    height: 200,
+    // borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
+  },
   overlayContainer: {
     justifyContent: "center",
     alignItems: "center",

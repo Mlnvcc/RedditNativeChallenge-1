@@ -2,7 +2,6 @@ import axios from "axios";
 import deviceStorage from "../asyncStorage";
 import { userPersistConfig } from "../redux/reduce/userReducer";
 import { refreshToken as apiRefreshToken } from "./auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const apiService = axios.create({
   baseURL: "http://localhost:8080",

@@ -15,11 +15,12 @@ postRouter.get('/', checkAuth, async (req, res) => {
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const post = await Post.create({
       title: req.body.title,
       description: req.body.description,
+      content: req.body.content,
       date: moment().subtract(6, 'days').calendar(),
       dateNumber: Date.now(),
       tags: req.body.tags,
