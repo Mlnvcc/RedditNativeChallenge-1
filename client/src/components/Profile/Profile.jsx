@@ -1,25 +1,39 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../../redux/reduce/editProfileReducer";
 import { signOut as signOutAC } from "../../redux/actions/user.ac";
-import EditProfileForm from "../EditProfile/EditProfile";
+import { editProfile } from "../../redux/actions/editProfile";
 
 export default function UserProfileView() {
-  const [showEditForm, setshowEditForm ] = useState({status: false, id: null})
+  const [showEditForm, setshowEditForm] = useState({ status: false });
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.userInfo.userName);
   const email = useSelector(state => state.user.userInfo.email);
-
-  // const editProfileFunction = (id, e) => {
-  //   e.preventDefault();
-  //   const dataInput = e.target.inputId.value;
-  //   dispatch(editProfile(id, dataInput));
-  //   setshowEditForm((prev) => !prev);
-  // };
+  const userId = useSelector(state => state.user.userInfo.id);
+  const [inputUsername, setInputUsername] = useState(username);
+  const [inputEmail, setInputEmail] = useState(email);
 
   const signOutFunc = () => {
     dispatch(signOutAC());
+  };
+
+  const editProfileFunction = (id) => {
+    if (inputUsername.trim() && inputEmail.trim()) {
+      const user = {
+        _id: userId,
+        userName: inputUsername,
+        email: inputEmail,
+      };
+      dispatch(editProfile(user));
+      setshowEditForm(prev => !prev);
+    }
   };
 
   return (
@@ -34,7 +48,46 @@ export default function UserProfileView() {
           />
 
           {showEditForm.status ? (
-            <EditProfileForm props={[showEditForm, setshowEditForm]}/>
+            <View style={styles.container}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  onChangeText={text => setInputUsername(text)}
+                  style={styles.inputs}
+                  value={inputUsername}
+                  placeholder="New username"
+                  underlineColorAndroid="transparent"
+                />
+                <Image
+                  style={styles.inputIcon}
+                  source={{
+                    uri: "https://img.icons8.com/nolan/40/000000/email.png",
+                  }}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <TextInput
+                  onChangeText={text => setInputEmail(text)}
+                  style={styles.inputs}
+                  value={inputEmail}
+                  placeholder="New email"
+                  keyboardType="email-address"
+                  underlineColorAndroid="transparent"
+                />
+                <Image
+                  style={styles.inputIcon}
+                  source={{
+                    uri: "https://img.icons8.com/nolan/40/000000/key.png",
+                  }}
+                />
+              </View>
+              <TouchableOpacity
+                style={[styles.buttonContainer, styles.updateButton]}
+                onPress={()=> editProfileFunction(userId)}
+              >
+                <Text style={styles.updateText}>Update</Text>
+              </TouchableOpacity>
+            </View>
           ) : (
             <>
               <Text style={styles.name}>{username}</Text>
@@ -74,12 +127,12 @@ export default function UserProfileView() {
         </View>
 
         <TouchableOpacity
-        onPress={() =>
-          setshowEditForm((prev) => {
-            return { status: !prev.status, id };
-          })
-         }
-          >
+          onPress={() =>
+            setshowEditForm(prev => ({
+              status: !prev.status,
+            }))
+          }
+        >
           <View style={styles.item}>
             <View style={styles.iconContent}>
               <Image
@@ -168,5 +221,64 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     color: "#FFFFFF",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DCDCDC",
+  },
+  inputContainer: {
+    borderBottomColor: "#F5FCFF",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    borderBottomWidth: 1,
+    width: 300,
+    height: 45,
+    marginBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+
+    shadowColor: "#808080",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  inputs: {
+    height: 45,
+    marginLeft: 16,
+    borderBottomColor: "#FFFFFF",
+    flex: 1,
+  },
+  buttonContainer: {
+    height: 45,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    width: 300,
+    borderRadius: 30,
+    backgroundColor: "transparent",
+  },
+  updateButton: {
+    backgroundColor: "#00b5ec",
+
+    shadowColor: "#808080",
+    shadowOffset: {
+      width: 0,
+      height: 9,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 12.35,
+
+    elevation: 19,
+  },
+  updateText: {
+    color: "white",
   },
 });

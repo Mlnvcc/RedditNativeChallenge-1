@@ -6,6 +6,7 @@ import {
   SET_USER_INFO,
   REMOVE_USER_INFO,
 } from "../types/userTypes";
+import { PROFILE_EDIT } from "../types/userTypes";
 
 const initialState = { jwt: { access: null, refresh: null }, userInfo: null };
 
@@ -34,6 +35,11 @@ const userReducer = (state = initialState, action) => {
 
     case REMOVE_USER_INFO:
       return { ...state, userInfo: null };
+
+    case PROFILE_EDIT: {
+      const userInfo = action.payload;
+      return { ...state, userInfo };
+    }
 
     default:
       return state;

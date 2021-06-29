@@ -45,8 +45,4 @@ postRouter.patch('/likes', async (req, res) => {
   }
 });
 
-// authRouter.post('/signin', authController.signIn);
-// authRouter.get('/signout', authController.signOut);
-// authRouter.get('/check', checkAuth, authController.checkAuth);
-
 module.exports = postRouter;

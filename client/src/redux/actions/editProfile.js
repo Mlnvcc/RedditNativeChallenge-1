@@ -1,19 +1,10 @@
-import { PROFILE_EDIT } from "../types/editProfile";
+import apiService from "../../api/apiService";
+import { PROFILE_EDIT } from "../types/userTypes";
 
+const editUserProfile = payload => ({type: PROFILE_EDIT, payload})
 
-
-export const editProfile = (id, changes) => async (dispatch) => {
- 
-  const response = await fetch("http://localhost:3001/edit", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id, changes }),
-    })
-   const res = await response.json();
-  return dispatch({
-     type: PROFILE_EDIT,
-     payload: res,
-  });
+export const editProfile = user => async dispatch => {
+    apiService
+    .patch("profile/edit", {user})
+    .then(({data}) => dispatch(editUserProfile(data)))
 };
