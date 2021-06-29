@@ -17,7 +17,7 @@ export default function Post({ route }) {
 
   const comments = mainPost.comments;
   const likes = mainPost.likes;
-
+  console.log(777, comments);
   const userId = useSelector(state => state.user.userInfo.id);
   const createComment = () => {
     if (comment.trim().length > 5) {

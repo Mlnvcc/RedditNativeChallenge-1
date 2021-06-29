@@ -5,20 +5,28 @@ const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
-  const Posts = await Post.find().populate('comments');
-
-  res.json({ Posts });
+  try{
+    const Posts = await Post.find().populate('comments');
+  
+    res.json({ Posts });
+  }catch (err) {
+    console.error(err.message);
+  }
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
-  const post = await Post.create({
-    title: req.body.title,
-    description: req.body.description,
-    date: moment().subtract(6, 'days').calendar(),
-    tags: req.body.tags,
-    author: req.body.author,
-  });
-  res.json(post);
+  try{
+    const post = await Post.create({
+      title: req.body.title,
+      description: req.body.description,
+      date: moment().subtract(6, 'days').calendar(),
+      tags: req.body.tags,
+      author: req.body.author,
+    });
+    res.json(post);
+  }catch (err) {
+    console.error(err.message);
+  }
 });
 
 postRouter.patch('/likes', async (req, res) => {
