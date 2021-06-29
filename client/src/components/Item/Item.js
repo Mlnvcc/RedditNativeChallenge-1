@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-<<<<<<< HEAD:client/src/components/Item/Item.js
-import { addLike } from "../../redux/actions/content";
-=======
->>>>>>> 7a60fb2c70f4d9f70877377bab5bc2eeff77b543:client/src/components/Item.js
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
-import { addLike, addDislike, getContent } from "../redux/actions/content";
+import { addLike, addDislike, getContent } from "../../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
