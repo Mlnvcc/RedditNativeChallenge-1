@@ -24,6 +24,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
       dateNumber: Date.now(),
       tags: req.body.tags,
       author: req.body.author,
+      authorUsername: req.body.authorUsername,
     });
     console.log(post);
     res.json(post);

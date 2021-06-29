@@ -74,13 +74,6 @@ export default function Post({ route }) {
               {mainPost.dislikes.length}
             </Icon.Button>
             <Icon.Button
-              name="comments"
-              backgroundColor="gray"
-              onPress={() => console.log("comment")}
-            >
-              {mainPost.comments.length}
-            </Icon.Button>
-            <Icon.Button
               name="ellipsis-h"
               backgroundColor="gray"
               onPress={() => console.log("comment")}

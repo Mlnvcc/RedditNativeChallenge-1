@@ -83,34 +83,38 @@ export default function Header() {
           </TouchableOpacity>
         </View>
       </View>
-      <Button
-        title="Сортировать поиск"
+
+      <TouchableOpacity
+        style={styles.buttonSort}
         onPress={() => changeSorStatus()}
-      ></Button>
+      >
+        <Text style={styles.textSort}>Sort by:</Text>
+      </TouchableOpacity>
+
       {sort && (
         <View style={styles.modal}>
           <View style={styles.oneType}>
-            <Text>Самые популярные</Text>
+            <Text style={styles.text}>Population: </Text>
             <Switch
               value={status.likes}
-              color="blue"
+              color="#1e293b"
               onValueChange={() => changeSwitchSorStatusLikesUp()}
             />
           </View>
           <View style={styles.oneType}>
-            <Text>Самые обсуждаемые</Text>
+            <Text style={styles.text}>Comments: </Text>
             <Switch
               value={status.comments}
-              color="blue"
+              color="#1e293b"
               onValueChange={() => changeCommentSetSortSwitch()}
             />
           </View>
 
           <View style={styles.oneType}>
-            <Text>Самые старые</Text>
+            <Text style={styles.text}>Oldest :</Text>
             <Switch
               value={status.old}
-              color="blue"
+              color="#1e293b"
               onValueChange={() => changeoldStatus()}
             />
           </View>
@@ -121,6 +125,23 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
+  buttonSort: {
+    marginHorizontal: 4,
+    backgroundColor: "#94a3b8",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  textSort: {
+    color: "#e2e8f0",
+    margin: 3,
+    fontSize: 20,
+  },
+
   button: {
     marginHorizontal: 4,
     backgroundColor: "#1e293b",
@@ -181,10 +202,11 @@ const styles = StyleSheet.create({
     height: 1.3,
   },
   modal: {
+    borderWidth: 2,
+    borderRadius: 3,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
-    height: 300,
+    borderColor: "#e2e8f0",
+    height: 180,
   },
   oneType: {
     height: 10,

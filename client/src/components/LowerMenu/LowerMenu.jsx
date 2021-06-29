@@ -19,7 +19,6 @@ export default function LowerMenu() {
 
 const styles = StyleSheet.create({
   footer: {
-    height: "7%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#334155",

@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
-import moment from "moment";
 
 export default function CreateNewPost() {
   const dispatch = useDispatch();
@@ -64,7 +69,9 @@ export default function CreateNewPost() {
         placeholder="Put some tags separated by ' # '"
       />
 
-      <Button onPress={submtForm} style={styles.button} title="Create Post" />
+      <TouchableOpacity style={styles.button} onPress={submtForm}>
+        <Text style={styles.text}>Create Post</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -72,28 +79,52 @@ export default function CreateNewPost() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 13,
+    backgroundColor: "#1e293b",
   },
 
   input: {
-    height: 40,
-    margin: 15,
+    fontSize: 15,
+    paddingBottom: 7,
+    width: 240,
+    height: 50,
     borderStyle: "solid",
-    borderColor: "#3949ab",
+    borderRadius: 7,
     borderWidth: 2,
-    borderRadius: 5,
+    borderColor: "#e2e8f0",
+    color: "#e2e8f0",
+    backgroundColor: "#334155",
   },
 
   multilineInput: {
+    fontSize: 15,
     height: 100,
+    width: 240,
     margin: 15,
+    color: "#e2e8f0",
     borderStyle: "solid",
-    borderColor: "#3949ab",
+    borderColor: "#e2e8f0",
     borderWidth: 2,
     borderRadius: 5,
+    backgroundColor: "#334155",
   },
 
   button: {
     margin: 15,
+    marginHorizontal: 4,
+    backgroundColor: "#475569",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    color: "#e2e8f0",
+    margin: 3,
+    fontSize: 20,
   },
 });
