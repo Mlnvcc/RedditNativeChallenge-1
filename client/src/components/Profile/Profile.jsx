@@ -29,7 +29,7 @@ export default function UserProfileView() {
     dispatch(signOutAC());
   };
   const posts = useSelector(state => state.content);
-  const autorPost = posts.filter(el => el.author == userId);
+  const autorPost = posts.filter(el => el.author._id == userId);
   console.log(autorPost);
   const editProfileFunction = id => {
     if (inputUsername.trim() && inputEmail.trim()) {

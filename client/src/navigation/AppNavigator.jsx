@@ -9,6 +9,7 @@ import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
+import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 import Search from "../components/Search/Search";
 
@@ -81,6 +82,7 @@ const Navigate = () => {
                 headerTintColor: "#e2e8f0",
               }}
             />
+            <Stack.Screen name="DetailPage" component={oneAutorPage} />
 
             <Stack.Screen
               name="Search"

@@ -5,7 +5,8 @@ import {
   REMOVE_USER_INFO,
   CHANGE_STATUS_LIKE,
   CHANGE_STATUS_COMMENT,
-  CHANGE_STATUS_OLD
+  CHANGE_STATUS_OLD,
+  GET_SUBSCRIBE_START,
 } from "../types/userTypes";
 import * as endPoints from "../../config/endPoints";
 import { disableLoader, enableLoader } from "./loader.ac";
@@ -14,7 +15,17 @@ import {
   signIn as apiSignIn,
   signOut as apiSignOut,
 } from "../../api/auth";
+import apiService from "../../api/apiService";
+const getSubscribeStart = payload => ({ type: GET_SUBSCRIBE_START, payload });
+export const goToSubscribe = description => async dispatch => {
+  apiService.post("/api/v2/users/subscribe", description);
+  // .then(({ data }) => dispatch(getSubscribeStart(description)));
+};
 
+export const goToDisSubscribe = description => async dispatch => {
+  apiService.post("/api/v2/users/subdisscribe", description);
+  // .then(({ data }) => dispatch(getSubscribeStart(description)));
+};
 export const getUserFromServer = id => async dispatch => {
   dispatch(enableLoader());
   const response = await fetch(endPoints.getUser(id), {
