@@ -9,6 +9,7 @@ import {
   CHANGE_STATUS_COMMENT,
   CHANGE_STATUS_OLD,
 } from "../types/userTypes";
+import { PROFILE_EDIT } from "../types/userTypes";
 
 const initialState = {
   jwt: { access: null, refresh: null },
@@ -72,6 +73,10 @@ const userReducer = (state = initialState, action) => {
           old: !state.statusSearch.old,
         },
       };
+    case PROFILE_EDIT: {
+      const userInfo = action.payload;
+      return { ...state, userInfo };
+    }
 
     default:
       return state;

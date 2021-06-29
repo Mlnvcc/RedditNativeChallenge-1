@@ -13,7 +13,7 @@ import moment from "moment";
 
 export default function CreateNewPost() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user.userInfo);
 
   const navigation = useNavigation();
 
