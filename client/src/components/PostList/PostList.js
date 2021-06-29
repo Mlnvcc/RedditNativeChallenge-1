@@ -28,6 +28,7 @@ export default function PostList() {
         <Text style={{ color: "#e2e8f0", fontSize: 17 }}>Last posts:</Text>
 
         <FlatList
+          style={{ height: "80ex" }}
           data={posts}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 13,
     backgroundColor: "#1e293b",
+    height: 200,
   },
   list: {
     paddingHorizontal: 17,

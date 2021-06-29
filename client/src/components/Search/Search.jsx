@@ -30,13 +30,14 @@ export default function Search({ route }) {
   }, []);
 
   const serachingFunc = () => {
-    console.log(formData, searchTag);
     dispatch(searchInit(formData, searchTag));
   };
 
   const list = [
     {
       title: "Title",
+      containerStyle: { backgroundColor: "#334155" },
+      titleStyle: { color: "#e2e8f0" },
       onPress: () => {
         setSearchTag(list[0].title);
         setIsVisible(false);
@@ -44,6 +45,8 @@ export default function Search({ route }) {
     },
     {
       title: "Tags",
+      containerStyle: { backgroundColor: "#334155" },
+      titleStyle: { color: "#e2e8f0" },
       onPress: () => {
         setSearchTag(list[1].title);
         setIsVisible(false);
@@ -51,6 +54,8 @@ export default function Search({ route }) {
     },
     {
       title: "Users",
+      containerStyle: { backgroundColor: "#334155" },
+      titleStyle: { color: "#e2e8f0" },
       onPress: () => {
         setSearchTag(list[2].title);
         setIsVisible(false);
@@ -58,18 +63,15 @@ export default function Search({ route }) {
     },
     {
       title: "Cancel",
-      containerStyle: { backgroundColor: "#f9acac" },
-      titleStyle: { color: "white" },
+      containerStyle: { backgroundColor: "#543333" },
+      titleStyle: { color: "#e2e8f0" },
       onPress: () => setIsVisible(false),
     },
   ];
 
   return (
     <View style={styles.container}>
-      <BottomSheet
-        isVisible={isVisible}
-        containerStyle={{ backgroundColor: "rgba(0.5, 0.25, 0, 0.2)" }}
-      >
+      <BottomSheet isVisible={isVisible}>
         {list.map((l, i) => (
           <ListItem
             key={i}
@@ -83,10 +85,12 @@ export default function Search({ route }) {
         ))}
       </BottomSheet>
 
-      <Button
-        title="Search by:"
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => setIsVisible(prev => !prev)}
-      ></Button>
+      >
+        <Text style={styles.text}>Search by:</Text>
+      </TouchableOpacity>
 
       <TextInput
         onChangeText={text => setFormData(text)}
@@ -118,13 +122,17 @@ export default function Search({ route }) {
           keyExtractor={item => item.id}
         />
       ) : (
-        <Text>Nothing was found</Text>
+        <Text style={styles.text}>Nothing was found :(</Text>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    padding: 5,
+  },
+
   button: {
     marginHorizontal: 4,
     backgroundColor: "#1e293b",
@@ -161,6 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1e293b",
   },
   container: {
+    padding: 8,
     backgroundColor: "#334155",
     alignItems: "center",
     flex: 1,

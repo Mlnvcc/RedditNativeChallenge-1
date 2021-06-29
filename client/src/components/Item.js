@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Card } from "react-native-elements";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -10,8 +10,13 @@ import { addLike, addDislike, getContent } from "../redux/actions/content";
 export default function Item({ el }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const userId = user.id;
+  const userId = user.userInfo.id;
   const navigation = useNavigation();
+
+  const [visible, setVisible] = useState(false); // for overlay
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
@@ -26,21 +31,54 @@ export default function Item({ el }) {
 
   return (
     <Card containerStyle={styles.div}>
-      <View style={styles.header_post}>
-        <Icon.Button name="ellipsis-v" backgroundColor="#94a3b8"></Icon.Button>
-        <Text></Text>
-      </View>
+      {userId === el.author ?
+        <View>
+          <View>
+            <Overlay
+              overlayStyle={styles.overlayContainer}
+              isVisible={visible}
+              onBackdropPress={toggleOverlay}
+            >
+              <TouchableOpacity style={styles.overlayOpacity}>
+                <Text style={styles.overlayText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.overlayOpacity}>
+                <Text style={styles.overlayText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cancleOpacity}>
+                <Text
+                  onPress={() => setVisible(prev => !prev)}
+                  style={styles.overlayText}
+                >
+                  Cancle
+                </Text>
+              </TouchableOpacity>
+            </Overlay>
+          </View>
+
+          <View style={styles.header_post}>
+            <Icon.Button
+              name="ellipsis-v"
+              backgroundColor="#94a3b8"
+              onPress={toggleOverlay}
+            ></Icon.Button>
+          </View>
+        </View>
+        : <View></View>
+      }
 
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
       <Card.Divider style={styles.hr} />
 
-      {el.content ? (
-        <Card.Image>
-          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-        </Card.Image>
-      ) : (
-        <View></View>
-      )}
+      {
+        el.content ? (
+          <Card.Image>
+            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
+          </Card.Image>
+        ) : (
+          <View></View>
+        )
+      }
 
       <View style={styles.icons}>
         <Icon.Button
@@ -68,12 +106,56 @@ export default function Item({ el }) {
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>
       </View>
-      <Text style={styles.text}>Created by: </Text>
+      <Text style={styles.text}>Created by: {el.authorUsername}</Text>
+      <Text style={styles.text}>{el.date}</Text>
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
+  overlayContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#1e293b",
+    width: 270,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderColor: "#543333",
+  },
+
+  overlayText: {
+    margin: 3,
+    fontSize: 25,
+    color: "#e2e8f0",
+  },
+
+  cancleOpacity: {
+    backgroundColor: "#543333",
+    margin: 1,
+    width: 180,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+  },
+
+  overlayOpacity: {
+    backgroundColor: "#334155",
+    margin: 1,
+    width: 180,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+  },
+
   edit_button: {
     width: 30,
     height: 40,

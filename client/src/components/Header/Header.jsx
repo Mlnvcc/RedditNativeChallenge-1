@@ -3,12 +3,10 @@ import {
   StyleSheet,
   View,
   TextInput,
-  Button,
   Image,
   TouchableOpacity,
   Text,
 } from "react-native";
-import { Card } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
@@ -79,6 +77,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    height: "10ex",
     padding: 5,
     flex: 1,
     flexDirection: "row",

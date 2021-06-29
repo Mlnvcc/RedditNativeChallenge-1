@@ -14,9 +14,10 @@ postRouter.post('/add', checkAuth, async (req, res) => {
   const post = await Post.create({
     title: req.body.title,
     description: req.body.description,
-    date: moment().subtract(6, 'days').calendar(),
+    date:  moment().subtract(6, 'days').calendar(),
     tags: req.body.tags,
     author: req.body.author,
+    authorUsername: req.body.authorUsername,
   });
   res.json(post);
 });
