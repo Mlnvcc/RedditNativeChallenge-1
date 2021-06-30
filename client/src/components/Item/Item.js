@@ -117,7 +117,15 @@ export default function Item({ el }) {
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>
       </View>
-      <Text style={styles.text}>Created by: {el.authorUsername}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("DetailPage", {
+            el: el.author,
+          });
+        }}
+      >
+        <Text style={styles.text}>Created by: {el.author.userName}</Text>
+      </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>
     </Card>
   );

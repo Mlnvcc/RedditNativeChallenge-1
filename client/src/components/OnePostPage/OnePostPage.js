@@ -21,6 +21,7 @@ export default function Post({ route }) {
 
   const [commentToComment, setCommentToComment] = useState();
   const createCommentToComment = commentId => {
+    console.log("commentId", commentId);
     if (commentToComment.trim().length > 5) {
       const comment = {
         text: commentToComment,
