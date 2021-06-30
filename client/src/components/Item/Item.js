@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,10 +24,11 @@ export default function Item({ el }) {
   const dislike = (userId, postId) => {
     dispatch(addDislike(userId, postId));
   };
+  const showComments = () => {};
 
   useEffect(() => {
     dispatch(getContent());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Card containerStyle={styles.div}>
@@ -67,18 +68,18 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
-
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
       <Card.Divider style={styles.hr} />
-
       {el.content ? (
-        <Card.Image>
-          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-        </Card.Image>
+        <Image
+          style={styles.content}
+          source={{
+            uri: el.content,
+          }}
+        />
       ) : (
         <View></View>
       )}
-
       <View style={styles.icons}>
         <Icon.Button
           name="thumbs-up"
@@ -104,13 +105,30 @@ export default function Item({ el }) {
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>
       </View>
-      <Text style={styles.text}>Created by: {el.authorUsername}</Text>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("DetailPage", {
+            el: el.author,
+          });
+        }}
+      >
+        {/* <Text style={styles.text}>Created by: {el.author.userName}</Text> */}
+      </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
+  content: {
+    // width: 270,
+    height: 200,
+    // borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom: 10,
+  },
   overlayContainer: {
     justifyContent: "center",
     alignItems: "center",

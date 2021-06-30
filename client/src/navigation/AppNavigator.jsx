@@ -9,7 +9,9 @@ import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
+import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
+
 import Search from "../components/Search/Search";
 
 const Stack = createStackNavigator();
@@ -81,6 +83,7 @@ const Navigate = () => {
                 headerTintColor: "#61dafb",
               }}
             />
+            <Stack.Screen name="DetailPage" component={oneAutorPage} />
 
             <Stack.Screen
               name="Search"
@@ -129,6 +132,34 @@ const Navigate = () => {
             />
           </>
         )}
+        {/* <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{ title: "Main Page" }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={UserProfileView}
+          options={{ title: "Your profile" }}
+        />
+
+        <Stack.Screen
+          name="CreatePost"
+          component={CreateNewPost}
+          options={{ title: "Add new Post" }}
+        />
+
+        <Stack.Screen
+          name="OnePostPage"
+          component={OnePostPage}
+          options={{ title: "Post" }}
+        />
+
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{ title: "Search" }}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -2,7 +2,6 @@ import axios from "axios";
 import deviceStorage from "../asyncStorage";
 import { userPersistConfig } from "../redux/reduce/userReducer";
 import { refreshToken as apiRefreshToken } from "./auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const apiService = axios.create({
   baseURL: "http://localhost:8080",
@@ -25,7 +24,7 @@ apiService.interceptors.request.use(
 
     if (userStateString) {
       accessToken = parsePersistedState(userStateString)?.jwt?.access;
-      console.log(parsePersistedState(userStateString));
+      // console.log(parsePersistedState(userStateString));
     }
     if (accessToken) {
       config.headers["authorization"] = `Bearer ${accessToken}`;

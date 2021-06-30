@@ -30,7 +30,7 @@ export default function UserProfileView() {
     dispatch(signOutAC());
   };
   const posts = useSelector(state => state.content);
-  const autorPost = posts.filter(el => el.author == userId);
+  const autorPost = posts.filter(el => el.author._id == userId);
   console.log(autorPost);
   const editProfileFunction = id => {
     if (inputUsername.trim() && inputEmail.trim()) {
@@ -118,7 +118,7 @@ export default function UserProfileView() {
         </TouchableOpacity>
         {post ? (
           autorPost.length == 0 ? (
-            <Text>You dont have any posts</Text>
+            <Text style={styles.userInfo}>You dont have any posts</Text>
           ) : (
             <View style={styles.modal}>
               <FlatList

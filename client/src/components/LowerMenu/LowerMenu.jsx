@@ -1,10 +1,17 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+// import styles from "./style";
+
 export default function LowerMenu() {
   const navigation = useNavigation();
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const loadScene = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("CreatePost");
   };
 

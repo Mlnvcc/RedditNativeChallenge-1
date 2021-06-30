@@ -9,6 +9,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
+import Multer from "../Multer/Multer";
+import moment from "moment";
 
 export default function CreateNewPost() {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ export default function CreateNewPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
+  const [url, setUrl] = useState("");
 
   const submtForm = () => {
     if (title.trim() && description.trim()) {
@@ -33,13 +36,16 @@ export default function CreateNewPost() {
       });
       const post = {
         author: userId,
-        authorUsername: user.userInfo.userName,
-        title: title,
-        description: description,
+        title,
+        description,
+        content: url,
+        date: moment().endOf("day").fromNow(),
         tags: allTags,
       };
+      console.log("POST", post);
       setTitle("");
       setDescription("");
+      setUrl("");
       setTags("");
       dispatch(createPost(post));
       loadScene();
@@ -65,6 +71,15 @@ export default function CreateNewPost() {
       />
 
       <TextInput
+        onChangeText={url => setUrl(url)}
+        value={url}
+        style={styles.multilineInput}
+        multiline={true}
+        placeholder="Url"
+        placeholderTextColor="#cff1f9"
+      />
+
+      <TextInput
         onChangeText={text => setTags(text)}
         value={tags}
         style={styles.input}
@@ -75,6 +90,7 @@ export default function CreateNewPost() {
       <TouchableOpacity style={styles.button} onPress={submtForm}>
         <Text style={styles.text}>Create Post</Text>
       </TouchableOpacity>
+      <Multer />
     </SafeAreaView>
   );
 }
