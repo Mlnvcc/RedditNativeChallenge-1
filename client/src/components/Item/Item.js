@@ -75,11 +75,8 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
-
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
-
       <Card.Divider style={styles.hr} />
-
       {el.content ? (
         <Image
           style={styles.content}
@@ -90,7 +87,6 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
-
       <View style={styles.icons}>
         <Icon.Button
           name="thumbs-up"
@@ -117,6 +113,7 @@ export default function Item({ el }) {
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>
       </View>
+
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("DetailPage", {

@@ -6,7 +6,7 @@ const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    const posts = await Post.find().populate('comments');
+    const posts = await Post.find().populate('comments').populate('author');
     // console.log('GET posts', posts);
     res.json({ posts });
   } catch (err) {
