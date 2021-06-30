@@ -7,9 +7,10 @@ const getComToComtCreate = payload => ({
   payload,
 });
 export const createComMain = description => async dispatch => {
-  apiService
-    .post("/comment/add", description)
-    .then(({ data }) => dispatch(getCommentCreate(description)));
+  apiService.post("/comment/add", description).then(({ data }) => {
+    console.log(data);
+    dispatch(getCommentCreate({ data, description }));
+  });
 };
 
 export const createComToCom = description => async dispatch => {

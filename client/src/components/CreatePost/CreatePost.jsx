@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
+import Multer from "../Multer/Multer";
 import moment from "moment";
 
 export default function CreateNewPost() {
@@ -28,7 +29,7 @@ export default function CreateNewPost() {
         allTags[index] = allTags[index].trim().toLowerCase();
       });
       const post = {
-        author: user.id,
+        author: userId,
         title,
         description,
         content: url,
@@ -77,6 +78,7 @@ export default function CreateNewPost() {
       />
 
       <Button onPress={submtForm} style={styles.button} title="Create Post" />
+      <Multer />
     </SafeAreaView>
   );
 }

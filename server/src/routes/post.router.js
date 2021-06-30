@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Post = require('../models/postModel');
+const Comment = require('../models/commentModel');
 const moment = require('moment');
 const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
@@ -7,8 +8,17 @@ const postRouter = Router();
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
     const posts = await Post.find().populate('comments').populate('author');
+    // .populate({
+    //   path : 'userId',
+    //   populate : {
+    //     path : 'reviewId'
+    //   }
+    // })
     // console.log('GET posts', posts);
-    res.json({ posts });
+    // const comments = await Comment.find()
+    //   .populate('comments')
+    //   .populate('author');
+    res.json({ posts, comments });
   } catch (err) {
     console.error(err.message);
   }

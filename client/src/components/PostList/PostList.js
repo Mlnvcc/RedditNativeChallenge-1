@@ -17,7 +17,7 @@ export default function PostList() {
   const posts = useSelector(state => state.content);
   // posts.sort((a, b) => b.dateNumber - a.dateNumber);
 
-  console.log("POSTS", posts);
+  // console.log("POSTS", posts);
 
   const dispatch = useDispatch();
 

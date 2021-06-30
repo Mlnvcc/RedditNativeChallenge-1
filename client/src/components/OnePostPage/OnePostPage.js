@@ -14,20 +14,22 @@ export default function Post({ route }) {
 
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
-
+  // console.log("mainPost", mainPost);
   const comments = mainPost.comments;
+  console.log("COMMENTI", comments);
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
 
   const [commentToComment, setCommentToComment] = useState();
   const createCommentToComment = commentId => {
-    console.log("commentId", commentId);
+    // console.log("commentId", commentId);
     if (commentToComment.trim().length > 5) {
       const comment = {
         text: commentToComment,
         autorId: userId,
         commentId,
         mainId: mainId,
+        postId: mainPost._id,
       };
       console.log("COMMENT FRONT", comment);
       dispatch(createComToCom(comment));
@@ -86,16 +88,20 @@ export default function Post({ route }) {
         </Card>
       </View>
 
-      <Text style={{ alignItems: "center", justifyContent: "center" }}></Text>
-      {comments.length && (
+      {/* <Text style={{ alignItems: "center", justifyContent: "center" }}>
+        tuta
+      </Text> */}
+      {comments.length ? (
         <>
           <FlatList
             data={comments}
             renderItem={({ item }) => (
               <Card style={{ height: 30 }}>
+                {console.log(item)}
                 <Card.Image /*source={"ASd"}*/>
                   <Text style={{ marginBottom: 10 }}>{item.text}</Text>
                 </Card.Image>
+
                 <View style={styles.icons}>
                   <Icon.Button
                     name="thumbs-up"
@@ -126,11 +132,11 @@ export default function Post({ route }) {
                   ></Icon.Button>
                 </View>
                 <Text style={{ marginBottom: 1 }}>{item.date}</Text>
-
                 <FlatList
                   data={item.comments}
                   renderItem={({ item }) => (
                     <>
+                      {console.log(item)}
                       <View
                         style={{
                           flex: 1,
@@ -141,6 +147,7 @@ export default function Post({ route }) {
                         <View>
                           <Text>{item.text}</Text>
                         </View>
+
                         <View>
                           <Text>{item.creatorLogin}</Text>
                           <Text>{item.date}</Text>
@@ -152,13 +159,13 @@ export default function Post({ route }) {
                 <Input
                   value={commentToComment}
                   onChangeText={text => setCommentToComment(text)}
-                  placeholder="Текст комментария"
+                  placeholder="Comment"
                 />
                 <Button
                   onPress={() => {
                     createCommentToComment(item._id);
                   }}
-                  title="Ответить на комментарий"
+                  title="Sub"
                 />
               </Card>
             )}
@@ -177,6 +184,8 @@ export default function Post({ route }) {
             title="Отправить комментарий"
           /> */}
         </>
+      ) : (
+        <></>
       )}
       <AddCommentMenu userId={userId} postId={mainPost._id} />
     </>
