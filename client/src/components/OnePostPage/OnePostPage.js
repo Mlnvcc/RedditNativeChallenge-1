@@ -103,6 +103,7 @@ export default function Post({ route }) {
               data={item.comments}
               renderItem={({ item }) => (
                 <>
+                  {console.log("item", item)}
                   <View
                     style={{
                       flex: 1,
@@ -111,6 +112,12 @@ export default function Post({ route }) {
                     }}
                   >
                     <View>
+                      {/* <Icon
+                        name="thumbs-up"
+                        thumbs-down
+                        backgroundColor="gray"
+                        onPress={() => like(userId, mainPost._id)}
+                      ></Icon> */}
                       <Text>{item.text}</Text>
                     </View>
                     <View>

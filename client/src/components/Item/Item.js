@@ -5,6 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -75,12 +76,16 @@ export default function Item({ el }) {
       )}
 
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      <Image source={{ uri: el.uri }} style={{ width: 200, height: 200 }} />
+      <Text>privet</Text>
       <Card.Divider style={styles.hr} />
 
       {el.content ? (
-        <Card.Image>
-          <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-        </Card.Image>
+        <>
+          <Card.Image>
+            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
+          </Card.Image>
+        </>
       ) : (
         <View></View>
       )}

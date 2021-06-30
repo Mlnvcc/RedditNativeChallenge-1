@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Button,
+  Image,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
 import Multer from "../Multer/Multer";
 export default function CreateNewPost() {
+  const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const userId = user.userInfo.id;
@@ -31,6 +38,7 @@ export default function CreateNewPost() {
         title: title,
         description: description,
         tags: allTags,
+        uri: image.toString(),
       };
       setTitle("");
       setDescription("");
@@ -55,6 +63,9 @@ export default function CreateNewPost() {
         multiline={true}
         placeholder="Description"
       />
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
 
       <TextInput
         onChangeText={text => setTags(text)}
@@ -64,7 +75,7 @@ export default function CreateNewPost() {
       />
 
       <Button onPress={submtForm} style={styles.button} title="Create Post" />
-      <Multer />
+      <Multer setImage={setImage} />
     </SafeAreaView>
   );
 }
