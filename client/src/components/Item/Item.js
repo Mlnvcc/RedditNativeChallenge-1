@@ -118,6 +118,7 @@ export default function Item({ el }) {
           });
         }}
       >
+        {console.log(el)}
         <Text style={styles.text}>Created by: {el.author.userName}</Text>
       </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>

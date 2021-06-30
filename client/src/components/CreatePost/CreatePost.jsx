@@ -3,8 +3,7 @@ import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
-import moment from "moment";
-
+import Multer from "../Multer/Multer";
 export default function CreateNewPost() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -65,6 +64,7 @@ export default function CreateNewPost() {
       />
 
       <Button onPress={submtForm} style={styles.button} title="Create Post" />
+      <Multer />
     </SafeAreaView>
   );
 }
