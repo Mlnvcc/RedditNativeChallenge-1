@@ -11,6 +11,7 @@ import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
 import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
+import AuthorList from "../components/AuthorList/AuthorList";
 
 import Search from "../components/Search/Search";
 import EditPost from "../components/EditPostForm/EditPostForm";
@@ -119,7 +120,22 @@ const Navigate = () => {
               name="EditPost"
               component={EditPost}
               options={{
-                title: "Edit Post",
+                title: "",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
+            />
+
+            <Stack.Screen
+              name="AuthorList"
+              component={AuthorList}
+              options={{
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },

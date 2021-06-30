@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 import Item from "../Item/Item";
+import AuthorList from "../AuthorList/AuthorList";
 import { BottomSheet, ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,8 @@ import { searchInit } from "../../redux/actions/search";
 
 export default function Search({ route }) {
   const { data } = route.params;
-  const posts = useSelector(state => state.search);
+  let posts = useSelector(state => state.search);
+  console.log(posts);
 
   const [isVisible, setIsVisible] = useState(false);
   const [searchTag, setSearchTag] = useState("Title");
@@ -31,6 +33,11 @@ export default function Search({ route }) {
   const serachingFunc = () => {
     dispatch(searchInit(formData, searchTag));
   };
+
+  useEffect(() => {
+    posts = [];
+    console.log(123123);
+  }, [searchTag]);
 
   const list = [
     {
@@ -108,30 +115,45 @@ export default function Search({ route }) {
         <Text style={styles.text}>Search</Text>
       </TouchableOpacity>
 
-      {searchTag !== "Users" ?
-        {
-          posts.length ? (
-            <FlatList
-              data={posts}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("OnePostPage", {
-                      el: item,
-                    });
-                  }}
-                >
-                  <Item el={item} />
-                </TouchableOpacity>
-              )}
-              keyExtractor={item => item.id}
-            />
-          ) : (
-            <Text style={styles.text}>Nothing was found :(</Text>
-          )
-        }
-        : <Text></Text>
-      }
+      {posts.length && searchTag !== "Users" ? (
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("OnePostPage", {
+                  el: item,
+                });
+              }}
+            >
+              <Item el={item} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <Text style={styles.text}>Nothing was found :(</Text>
+      )}
+
+      {posts.length && searchTag === "Users" ? (
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("DetailPage", {
+                  el: item,
+                });
+              }}
+            >
+              <AuthorList el={item} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <Text></Text>
+      )}
     </View>
   );
 }

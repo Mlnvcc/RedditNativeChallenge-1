@@ -33,6 +33,11 @@ searchRouter.post('/', async (req, res) => {
     }
 
     case "Users": {
+      if (sesrchText.trim()) {
+        const regex = new RegExp(sesrchText.trim(), 'i');
+        const curUsers = await User.find({ userName: { $regex: regex } });
+        res.json(curUsers);
+      }
       break;
     }
 

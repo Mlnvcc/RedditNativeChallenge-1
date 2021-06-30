@@ -38,6 +38,8 @@ export default function Item({ el }) {
     dispatch(deletePost(id));
   };
 
+  if (el.userName) return <></>;
+
   return (
     <Card containerStyle={styles.div}>
       {userId === el.author._id ? (
