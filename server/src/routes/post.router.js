@@ -6,8 +6,8 @@ const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
+    console.log("here!@!@!@!@@");
     const Posts = await Post.find().populate('comments');
-
     res.json({ Posts });
   } catch (err) {
     console.error(err.message);
@@ -15,7 +15,6 @@ postRouter.get('/', checkAuth, async (req, res) => {
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
-  console.log(req.body)
   try {
     const post = await Post.create({
       title: req.body.title,
@@ -25,7 +24,6 @@ postRouter.post('/add', checkAuth, async (req, res) => {
       tags: req.body.tags,
       author: req.body.author,
     });
-    console.log(post);
     res.json(post);
   } catch (err) {
     console.error(err.message);
@@ -67,5 +65,32 @@ postRouter.patch('/dislikes', async (req, res) => {
     console.error(err.message);
   }
 });
+
+postRouter.patch('/edit', async(req,res) => {
+  try{
+   const {_id, title, description} = req.body.post
+   let updatedPost = await Post.findByIdAndUpdate(
+    _id,
+    {
+      title,
+      description,
+    },
+    { new: true }
+   )
+   res.json(updatedPost);
+  }catch (err) {
+    console.error(err.message);
+  }
+})
+
+postRouter.delete('/delete', async(req,res) => {
+  try{
+    const { id } = req.body;
+    await Post.findByIdAndDelete({id});
+    res.json(id)
+  }catch(err){
+    console.error(err.message)
+  }
+})
 
 module.exports = postRouter;

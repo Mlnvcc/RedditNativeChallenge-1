@@ -26,39 +26,47 @@ commentRouter.post('/add', async (req, res) => {
 });
 
 commentRouter.post('/addComToCom', async (req, res) => {
-  const creatorLogin = await User.findById({ _id: req.body.autorId });
-
-  const comment = await Comment.create({
-    text: req.body.text,
-    date: moment().subtract(6, 'days').calendar(),
-    creator: req.body.autorId,
-    creatorLogin: creatorLogin.userName,
-    fathercomment: req.body.commentId,
-  });
-  const MainComment = await Comment.findById({ _id: req.body.commentId });
-  const PostMain = await Post.findById({ _id: req.body.postId });
-  PostMain.comments.push(comment);
-  PostMain.save();
-
-  MainComment.comments.push(comment);
-  MainComment.save();
-  res.json(comment);
+  try{
+    const creatorLogin = await User.findById({ _id: req.body.autorId });
+  
+    const comment = await Comment.create({
+      text: req.body.text,
+      date: moment().subtract(6, 'days').calendar(),
+      creator: req.body.autorId,
+      creatorLogin: creatorLogin.userName,
+      fathercomment: req.body.commentId,
+    });
+    const MainComment = await Comment.findById({ _id: req.body.commentId });
+    const PostMain = await Post.findById({ _id: req.body.postId });
+    PostMain.comments.push(comment);
+    PostMain.save();
+  
+    MainComment.comments.push(comment);
+    MainComment.save();
+    res.json(comment);
+  }catch (err) {
+    console.error(err.message);
+  }
 });
 
 commentRouter.post('/addComToCom', async (req, res) => {
-  const creatorLogin = await User.findById({ _id: req.body.autorId });
-
-  const comment = await Comment.create({
-    text: req.body.text,
-    date: moment().subtract(6, 'days').calendar(),
-    creator: req.body.autorId,
-    creatorLogin: creatorLogin.userName,
-    fathercomment: req.body.commentId,
-  });
-  const MainComment = await Comment.findById({ _id: req.body.commentId });
-
-  MainComment.comments.push(comment);
-  MainComment.save();
-  res.json(comment);
+  try{
+    const creatorLogin = await User.findById({ _id: req.body.autorId });
+  
+    const comment = await Comment.create({
+      text: req.body.text,
+      date: moment().subtract(6, 'days').calendar(),
+      creator: req.body.autorId,
+      creatorLogin: creatorLogin.userName,
+      fathercomment: req.body.commentId,
+    });
+    const MainComment = await Comment.findById({ _id: req.body.commentId });
+  
+    MainComment.comments.push(comment);
+    MainComment.save();
+    res.json(comment);
+  }catch (err) {
+    console.error(err.message);
+  }
 });
 module.exports = commentRouter;

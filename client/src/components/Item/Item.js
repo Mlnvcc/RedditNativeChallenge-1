@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import { addLike, addDislike, getContent } from "../../redux/actions/content";
+import { addLike, addDislike, getContent, deletePost } from "../../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -35,6 +29,10 @@ export default function Item({ el }) {
     dispatch(getContent());
   }, [dispatch]);
 
+  const deletePostFunction = id => {
+    dispatch(deletePost(id))
+  }  
+
   return (
     <Card containerStyle={styles.div}>
       {userId === el.author ? (
@@ -45,10 +43,16 @@ export default function Item({ el }) {
               isVisible={visible}
               onBackdropPress={toggleOverlay}
             >
-              <TouchableOpacity style={styles.overlayOpacity}>
+              <TouchableOpacity style={styles.overlayOpacity} onPress={()=> deletePostFunction(el._id)}>
                 <Text style={styles.overlayText}>Delete</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.overlayOpacity}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("EditPost", { data: el });
+                  setVisible(prev => !prev);
+                }}
+                style={styles.overlayOpacity}
+              >
                 <Text style={styles.overlayText}>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.cancleOpacity}>
@@ -56,7 +60,7 @@ export default function Item({ el }) {
                   onPress={() => setVisible(prev => !prev)}
                   style={styles.overlayText}
                 >
-                  Cancle
+                  Cancel
                 </Text>
               </TouchableOpacity>
             </Overlay>

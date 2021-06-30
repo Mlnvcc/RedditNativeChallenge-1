@@ -4,7 +4,8 @@ import {
   POST_CREATE,
   SET_LIKE_ADD,
   SET_DISLIKE_ADD,
-  AUTHOR_GET,
+  EDIT_POST,
+  DELETE_POST,
 } from "../types/content";
 
 const getContentStart = payload => ({ type: GET_CONTENT_START, payload });
@@ -17,6 +18,8 @@ const setDislike = currPost => ({
   type: SET_DISLIKE_ADD,
   payload: currPost,
 });
+const getPostEdit = payload => ({type: EDIT_POST, payload})
+const getPostDelete = payload => ({type: DELETE_POST, payload})
 
 export const getContent = () => async dispatch => {
   apiService
@@ -34,20 +37,6 @@ export const addLike = (idUser, idPost) => async dispatch => {
   apiService
     .patch("/post/likes", { idUser, idPost })
     .then(({ data }) => dispatch(setLike(data.currPost)));
-
-  // const response = await fetch("http://localhost:8080/post/likes", {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ idUser, idPost }),
-  // });
-  // const res = await response.json();
-  // const { currPost } = res;
-  // return dispatch({
-  //   type: LIKE_ADD,
-  //   payload: currPost,
-  // });
 };
 
 export const addDislike = (idUser, idPost) => async dispatch => {
@@ -55,3 +44,15 @@ export const addDislike = (idUser, idPost) => async dispatch => {
     .patch("/post/dislikes", { idUser, idPost })
     .then(({ data }) => dispatch(setDislike(data.currPost)));
 };
+
+export const editPost = post => async dispatch => {
+  apiService
+  .patch('/post/edit', {post})
+  .then(({data}) => dispatch(getPostEdit(data)))
+}
+
+export const deletePost = id => async dispatch => {
+  apiService
+  .delete('/post/delete', {id})
+  .then(({data}) => dispatch(getPostDelete(data)))
+}

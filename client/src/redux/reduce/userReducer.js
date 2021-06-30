@@ -8,8 +8,8 @@ import {
   CHANGE_STATUS_LIKE,
   CHANGE_STATUS_COMMENT,
   CHANGE_STATUS_OLD,
+  PROFILE_EDIT
 } from "../types/userTypes";
-import { PROFILE_EDIT } from "../types/userTypes";
 
 const initialState = {
   jwt: { access: null, refresh: null },

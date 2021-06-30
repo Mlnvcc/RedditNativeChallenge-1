@@ -5,6 +5,8 @@ import {
   SET_DISLIKE_ADD,
   CREATE_COMMENT,
   CREATE_COMMENT_TO_COMMENT,
+  EDIT_POST,
+  DELETE_POST,
 } from "../types/content";
 
 const initialState = [];
@@ -36,13 +38,8 @@ const contentReducer = (state = initialState, action) => {
       );
     }
     case CREATE_COMMENT_TO_COMMENT: {
-      console.log("ya tut");
-      console.log(payload);
       const comment = payload.data;
-      console.log("comment", comment);
       const mainId = payload.description.mainId;
-      console.log("mainId", mainId);
-
       return state.map(el =>
         el._id == mainId
           ? {
@@ -61,6 +58,19 @@ const contentReducer = (state = initialState, action) => {
           : el
       );
     }
+
+    case EDIT_POST: {
+      const newState = state.map(el=> el._id === payload._id ? payload : el)
+      return newState;
+    }
+
+    case DELETE_POST: {
+      const {id} = payload
+      console.log('=========', payload);
+      const newPostState = state.filter(el => el.id !== id)
+      return newPostState
+    }
+
     default:
       return state;
   }

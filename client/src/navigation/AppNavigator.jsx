@@ -11,6 +11,7 @@ import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 import Search from "../components/Search/Search";
+import EditPost from "../components/EditPostForm/EditPostForm";
 
 const Stack = createStackNavigator();
 
@@ -87,6 +88,21 @@ const Navigate = () => {
               component={Search}
               options={{
                 title: "Search",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
+            />
+
+            <Stack.Screen
+              name="EditPost"
+              component={EditPost}
+              options={{
+                title: "Edit Post",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },

@@ -4,3 +4,5 @@ export const SET_LIKE_ADD = "SET_LIKE_ADD";
 export const SET_DISLIKE_ADD = "SET_DISLIKE_ADD";
 export const CREATE_COMMENT_TO_COMMENT = "CREATE_COMMENT_TO_COMMENT";
 export const CREATE_COMMENT = "CREATE_COMMENT";
+export const EDIT_POST = "EDIT_POST";
+export const DELETE_POST = "DELETE_POST";

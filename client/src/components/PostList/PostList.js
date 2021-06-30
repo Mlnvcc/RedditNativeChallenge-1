@@ -15,7 +15,6 @@ export default function PostList() {
   const navigation = useNavigation();
 
   const posts = useSelector(state => state.content);
-  // posts.sort((a, b) => b.dateNumber - a.dateNumber);
 
   const dispatch = useDispatch();
 
@@ -34,13 +33,13 @@ export default function PostList() {
     console.log("ya tut");
     posts.sort((a, b) => a.dateNumber - b.dateNumber);
   }
-  if (
-    status.likes == false &&
-    status.comments == false &&
-    status.old == false
-  ) {
-    posts.sort((a, b) => b.dateNumber - a.dateNumber);
-  }
+  // if (
+  //   status.likes == false &&
+  //   status.comments == false &&
+  //   status.old == false
+  // ) {
+  //   posts.sort((a, b) => b.dateNumber - a.dateNumber);
+  // }
 
   return (
     <>
