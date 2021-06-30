@@ -28,7 +28,7 @@ const Navigate = () => {
               name="MainPage"
               component={MainPage}
               options={{
-                title: "Main Page",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -42,7 +42,7 @@ const Navigate = () => {
               name="Profile"
               component={UserProfileView}
               options={{
-                title: "Your profile",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -57,7 +57,7 @@ const Navigate = () => {
               name="CreatePost"
               component={CreateNewPost}
               options={{
-                title: "Add new Post",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -72,7 +72,7 @@ const Navigate = () => {
               name="OnePostPage"
               component={OnePostPage}
               options={{
-                title: "Post",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                   color: "white",
@@ -83,13 +83,27 @@ const Navigate = () => {
                 headerTintColor: "#61dafb",
               }}
             />
-            <Stack.Screen name="DetailPage" component={oneAutorPage} />
+            <Stack.Screen
+              name="DetailPage"
+              component={oneAutorPage}
+              options={{
+                title: "",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                  color: "white",
+                },
+                headerTitleStyle: {
+                  color: "#61dafb",
+                },
+                headerTintColor: "#61dafb",
+              }}
+            />
 
             <Stack.Screen
               name="Search"
               component={Search}
               options={{
-                title: "Search",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -106,7 +120,7 @@ const Navigate = () => {
               name="SignIn"
               component={SignIn}
               options={{
-                title: "Login Page",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -120,7 +134,7 @@ const Navigate = () => {
               name="SignUp"
               component={SignUp}
               options={{
-                title: "Registration",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },

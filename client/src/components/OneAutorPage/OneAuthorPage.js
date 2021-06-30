@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Image,
   TouchableOpacity,
   FlatList,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut as signOutAC } from "../../redux/actions/user.ac";
-import { editProfile } from "../../redux/actions/editProfile";
+import Icon from "react-native-vector-icons/FontAwesome";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
 import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
@@ -44,96 +42,52 @@ export default function oneAutorPage({ route }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-            }}
-          />
-          <Text style={styles.info}> {author.userName}</Text>
-        </View>
+      <View style={styles.headerContent}>
+        <Image
+          style={styles.avatar}
+          source={{
+            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+          }}
+        />
+        <Text style={styles.name}> {author.userName}</Text>
       </View>
 
       <View style={styles.body}>
         <View style={styles.item}>
-          <View style={styles.iconContent}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-              }}
-            />
-          </View>
+          <Icon size={30} name="heart" color="#61dafb"></Icon>
           <View style={styles.infoContent}>
-            <Text style={styles.info}>
-              Likes:
-              {likes}
-            </Text>
+            <Text style={styles.info}> Likes: {likes}</Text>
           </View>
         </View>
+
         <View style={styles.item}>
-          <View style={styles.iconContent}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-              }}
-            />
-          </View>
-          <View style={styles.infoContent}>
-            <Text style={styles.info}>Subscribers:{subscribes}</Text>
-          </View>
+          <Icon size={30} name="users" color="#61dafb"></Icon>
+          <Text style={styles.info}> Subscribers: {subscribes}</Text>
         </View>
+
         <TouchableOpacity onPress={() => subscribe()}>
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Подсписаться на {author.userName}</Text>
-            </View>
+            <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>
+            <Text style={styles.info}> Subscribe on {author.userName}</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => disSubscribe()}>
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Отписаться от {author.userName}</Text>
-            </View>
+            <Icon size={30} name="times-circle-o" color="#61dafb"></Icon>
+            <Text style={styles.info}> Unsubscribe {author.userName}</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/facebook-like.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Post</Text>
-            </View>
+            <Icon size={30} name="align-center" color="#61dafb"></Icon>
+            <Text style={styles.info}> Posts</Text>
           </View>
         </TouchableOpacity>
         {post ? (
           autorPost.length == 0 ? (
-            <Text>y avtora net postov</Text>
+            <Text>{author.userName} Dont have any posts</Text>
           ) : (
             <View style={styles.modal}>
               <FlatList
@@ -174,12 +128,12 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#61dafb",
     marginBottom: 10,
   },
   name: {
-    fontSize: 22,
-    color: "#000000",
+    fontSize: 24,
+    color: "#f9fafb",
     fontWeight: "600",
   },
   userInfo: {
@@ -188,13 +142,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   body: {
-    backgroundColor: "#778899",
     height: 500,
-    alignItems: "center",
-    width: 400,
+    flexDirection: "column",
   },
   item: {
+    padding: 20,
     flexDirection: "row",
+    alignItems: "center",
   },
   infoContent: {
     flex: 1,
@@ -220,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#111827",
   },
   inputContainer: {
     borderBottomColor: "#F5FCFF",
