@@ -37,8 +37,6 @@ export default function oneAutorPage({ route }) {
   const posts = useSelector(state => state.content);
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);
-  console.log(likes);
-  console.log(autorPost);
 
   return (
     <View style={styles.container}>

@@ -31,7 +31,6 @@ export default function UserProfileView() {
   };
   const posts = useSelector(state => state.content);
   const autorPost = posts.filter(el => el.author._id == userId);
-  console.log(autorPost);
   const editProfileFunction = id => {
     if (inputUsername.trim() && inputEmail.trim()) {
       const user = {

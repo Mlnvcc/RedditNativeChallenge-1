@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Card, Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {
@@ -9,14 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { addLike, addDislike, getContent } from "../../redux/actions/content";
+import { addLike, addDislike, getContent, editPost, } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
-import { useNavigation } from "@react-navigation/native";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
   const mainId = route.params.el._id;

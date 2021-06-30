@@ -5,14 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  Button,
   Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
 import Multer from "../Multer/Multer";
-import moment from "moment";
 
 export default function CreateNewPost() {
   const [image, setImage] = useState(null);
@@ -45,7 +43,6 @@ export default function CreateNewPost() {
         tags: allTags,
         uri: image.toString(),
       };
-      console.log("POST", post);
       setTitle("");
       setDescription("");
       setUrl("");

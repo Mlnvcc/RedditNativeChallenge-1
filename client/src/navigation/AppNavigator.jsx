@@ -13,6 +13,7 @@ import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 
 import Search from "../components/Search/Search";
+import EditPost from "../components/EditPostForm/EditPostForm";
 
 const Stack = createStackNavigator();
 
@@ -111,6 +112,21 @@ const Navigate = () => {
                   color: "#61dafb",
                 },
                 headerTintColor: "#61dafb",
+              }}
+            />
+
+            <Stack.Screen
+              name="EditPost"
+              component={EditPost}
+              options={{
+                title: "Edit Post",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
               }}
             />
           </>

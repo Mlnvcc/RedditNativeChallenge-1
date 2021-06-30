@@ -80,4 +80,31 @@ postRouter.patch('/dislikes', async (req, res) => {
   }
 });
 
+postRouter.patch('/edit', async (req, res) => {
+  try {
+    const { _id, title, description } = req.body.post;
+    let updatedPost = await Post.findByIdAndUpdate(
+      _id,
+      {
+        title,
+        description,
+      },
+      { new: true }
+    );
+    res.json(updatedPost);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+postRouter.delete('/delete', async (req, res) => {
+  try {
+    const { id } = req.body;
+    await Post.findByIdAndDelete(id);
+    res.json({ id });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 module.exports = postRouter;

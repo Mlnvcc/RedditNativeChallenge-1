@@ -26,7 +26,6 @@ commentRouter.post('/add', async (req, res) => {
 });
 
 commentRouter.post('/addComToCom', async (req, res) => {
-  console.log(req.body);
   const creatorLogin = await User.findById({ _id: req.body.autorId });
 
   let comment = await Comment.create({
@@ -36,9 +35,7 @@ commentRouter.post('/addComToCom', async (req, res) => {
     creatorLogin: creatorLogin.userName,
     fathercomment: req.body.commentId,
   });
-  console.log('comment in db', comment);
   const MainComment = await Comment.findById({ _id: req.body.commentId });
-  console.log(MainComment);
 
   MainComment.comments.push(comment._id);
   MainComment.save();
