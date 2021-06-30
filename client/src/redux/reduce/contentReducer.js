@@ -36,12 +36,9 @@ const contentReducer = (state = initialState, action) => {
       );
     }
     case CREATE_COMMENT_TO_COMMENT: {
-      console.log("ya tut");
-      console.log(payload);
       const comment = payload.data;
-      console.log("comment", comment);
+
       const mainId = payload.description.mainId;
-      console.log("mainId", mainId);
 
       return state.map(el =>
         el._id == mainId

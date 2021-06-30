@@ -31,6 +31,7 @@ export default function Item({ el }) {
   const dislike = (userId, postId) => {
     dispatch(addDislike(userId, postId));
   };
+  const showComments = () => {};
 
   useEffect(() => {
     dispatch(getContent());

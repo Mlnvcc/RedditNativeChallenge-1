@@ -21,7 +21,7 @@ const Navigate = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* {isUserAuthenticated ? (
+        {isUserAuthenticated ? (
           <>
             <Stack.Screen
               name="MainPage"
@@ -129,8 +129,8 @@ const Navigate = () => {
               }}
             />
           </>
-        )} */}
-        <Stack.Screen
+        )}
+        {/* <Stack.Screen
           name="MainPage"
           component={MainPage}
           options={{ title: "Main Page" }}
@@ -157,7 +157,7 @@ const Navigate = () => {
           name="Search"
           component={Search}
           options={{ title: "Search" }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

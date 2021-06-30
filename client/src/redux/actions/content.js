@@ -21,7 +21,7 @@ const setDislike = currPost => ({
 export const getContent = () => async dispatch => {
   apiService
     .get("/post")
-    .then(({ data }) => dispatch(getContentStart(data.Posts)));
+    .then(({ data }) => dispatch(getContentStart(data.posts)));
 };
 
 export const createPost = description => async dispatch => {
