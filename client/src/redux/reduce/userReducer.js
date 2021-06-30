@@ -8,6 +8,7 @@ import {
   CHANGE_STATUS_LIKE,
   CHANGE_STATUS_COMMENT,
   CHANGE_STATUS_OLD,
+  GET_SUBSCRIBE_START,
 } from "../types/userTypes";
 import { PROFILE_EDIT } from "../types/userTypes";
 
@@ -23,6 +24,7 @@ export const userPersistConfig = {
 };
 
 const userReducer = (state = initialState, action) => {
+  const { payload } = action;
   switch (action.type) {
     case SET_TOKEN:
       return {
@@ -76,6 +78,10 @@ const userReducer = (state = initialState, action) => {
     case PROFILE_EDIT: {
       const userInfo = action.payload;
       return { ...state, userInfo };
+    }
+
+    case GET_SUBSCRIBE_START: {
+      return { ...state };
     }
 
     default:

@@ -9,6 +9,7 @@ import SignIn from "../components/Forms/SignIn/SignIn";
 import SignUp from "../components/Forms/SignUp/SignUp";
 import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
+import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 
 import Search from "../components/Search/Search";
@@ -27,28 +28,28 @@ const Navigate = () => {
               name="MainPage"
               component={MainPage}
               options={{
-                title: "Main Page",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
             <Stack.Screen
               name="Profile"
               component={UserProfileView}
               options={{
-                title: "Your profile",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -56,14 +57,14 @@ const Navigate = () => {
               name="CreatePost"
               component={CreateNewPost}
               options={{
-                title: "Add new Post",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -71,15 +72,30 @@ const Navigate = () => {
               name="OnePostPage"
               component={OnePostPage}
               options={{
-                title: "Post",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                   color: "white",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
+              }}
+            />
+            <Stack.Screen
+              name="DetailPage"
+              component={oneAutorPage}
+              options={{
+                title: "",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                  color: "white",
+                },
+                headerTitleStyle: {
+                  color: "#61dafb",
+                },
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -87,14 +103,14 @@ const Navigate = () => {
               name="Search"
               component={Search}
               options={{
-                title: "Search",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
           </>
@@ -104,28 +120,28 @@ const Navigate = () => {
               name="SignIn"
               component={SignIn}
               options={{
-                title: "Login Page",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#f9fafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#f9fafb",
               }}
             />
             <Stack.Screen
               name="SignUp"
               component={SignUp}
               options={{
-                title: "Registration",
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#f9fafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#f9fafb",
               }}
             />
           </>

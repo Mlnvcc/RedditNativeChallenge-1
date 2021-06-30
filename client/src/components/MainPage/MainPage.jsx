@@ -4,17 +4,14 @@ import Header from "../Header/Header";
 import LowerMenu from "../LowerMenu/LowerMenu";
 import PostList from "../PostList/PostList";
 
-export default function MainPage() {
+const MainPage = () => {
   return (
-    <View style={{ backgroundColor: "#334155" }}>
+    <View style={{ backgroundColor: "#1f2937" }}>
       <Header />
       <PostList />
       <LowerMenu />
     </View>
   );
-}
-// const styles = StyleSheet.create({
-//   container: {
+};
 
-//   }
-// });
+export default MainPage;

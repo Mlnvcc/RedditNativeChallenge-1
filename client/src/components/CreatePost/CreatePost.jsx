@@ -5,12 +5,17 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Button,
+  Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
+import Multer from "../Multer/Multer";
+import moment from "moment";
 
 export default function CreateNewPost() {
+  const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const userId = user.userInfo.id;
@@ -33,11 +38,12 @@ export default function CreateNewPost() {
         allTags[index] = allTags[index].trim().toLowerCase();
       });
       const post = {
-        author: user.id,
+        author: userId,
         title,
         description,
         content: url,
         tags: allTags,
+        uri: image.toString(),
       };
       console.log("POST", post);
       setTitle("");
@@ -56,6 +62,7 @@ export default function CreateNewPost() {
         value={title}
         style={styles.input}
         placeholder="Title"
+        placeholderTextColor="#cff1f9"
       />
       <TextInput
         onChangeText={text => setDescription(text)}
@@ -63,6 +70,7 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
+        placeholderTextColor="#cff1f9"
       />
 
       <TextInput
@@ -71,18 +79,24 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Url"
+        placeholderTextColor="#cff1f9"
       />
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
 
       <TextInput
         onChangeText={text => setTags(text)}
         value={tags}
         style={styles.input}
         placeholder="Put some tags separated by ' # '"
+        placeholderTextColor="#cff1f9"
       />
 
       <TouchableOpacity style={styles.button} onPress={submtForm}>
         <Text style={styles.text}>Create Post</Text>
       </TouchableOpacity>
+      <Multer setImage={setImage} />
     </SafeAreaView>
   );
 }
@@ -93,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     fontSize: 13,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#111827",
   },
 
   input: {
@@ -104,9 +118,9 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 7,
     borderWidth: 2,
-    borderColor: "#e2e8f0",
-    color: "#e2e8f0",
-    backgroundColor: "#334155",
+    borderColor: "#f9fafb",
+    color: "#f9fafb",
+    backgroundColor: "#1f2937",
   },
 
   multilineInput: {
@@ -114,12 +128,12 @@ const styles = StyleSheet.create({
     height: 100,
     width: 240,
     margin: 15,
-    color: "#e2e8f0",
+    color: "#f9fafb",
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#f9fafb",
     borderWidth: 2,
     borderRadius: 5,
-    backgroundColor: "#334155",
+    backgroundColor: "#1f2937",
   },
 
   button: {
@@ -129,12 +143,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
-    color: "#e2e8f0",
+    color: "#f9fafb",
     margin: 3,
     fontSize: 20,
   },

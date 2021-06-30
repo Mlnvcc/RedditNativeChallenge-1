@@ -7,10 +7,11 @@ const commentSchema = new Schema({
     type: String,
   },
   creatorLogin: String,
-  comments: [{ type: mongoose.Schema.Types.ObjectId,ref:"Comment" }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
-  likes: [],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 
   fathercomment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },
   fatherpost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },

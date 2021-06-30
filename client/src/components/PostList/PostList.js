@@ -17,7 +17,7 @@ export default function PostList() {
   const posts = useSelector(state => state.content);
   // posts.sort((a, b) => b.dateNumber - a.dateNumber);
 
-  console.log("POSTS", posts);
+  // console.log("POSTS", posts);
 
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ export default function PostList() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={{ color: "#e2e8f0", fontSize: 17 }}>Last posts:</Text>
+        <Text style={{ color: "#f9fafb", fontSize: 17 }}>Last posts:</Text>
 
         <FlatList
           style={{ height: "80ex" }}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     fontSize: 13,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#111827",
     height: 200,
   },
   list: {

@@ -35,8 +35,8 @@ export default function Search({ route }) {
   const list = [
     {
       title: "Title",
-      containerStyle: { backgroundColor: "#334155" },
-      titleStyle: { color: "#e2e8f0" },
+      containerStyle: { backgroundColor: "#1f2937" },
+      titleStyle: { color: "#f9fafb" },
       onPress: () => {
         setSearchTag(list[0].title);
         setIsVisible(false);
@@ -44,8 +44,8 @@ export default function Search({ route }) {
     },
     {
       title: "Tags",
-      containerStyle: { backgroundColor: "#334155" },
-      titleStyle: { color: "#e2e8f0" },
+      containerStyle: { backgroundColor: "#1f2937" },
+      titleStyle: { color: "#f9fafb" },
       onPress: () => {
         setSearchTag(list[1].title);
         setIsVisible(false);
@@ -53,8 +53,8 @@ export default function Search({ route }) {
     },
     {
       title: "Users",
-      containerStyle: { backgroundColor: "#334155" },
-      titleStyle: { color: "#e2e8f0" },
+      containerStyle: { backgroundColor: "#1f2937" },
+      titleStyle: { color: "#f9fafb" },
       onPress: () => {
         setSearchTag(list[2].title);
         setIsVisible(false);
@@ -63,7 +63,7 @@ export default function Search({ route }) {
     {
       title: "Cancel",
       containerStyle: { backgroundColor: "#543333" },
-      titleStyle: { color: "#e2e8f0" },
+      titleStyle: { color: "#f9fafb" },
       onPress: () => setIsVisible(false),
     },
   ];
@@ -98,6 +98,7 @@ export default function Search({ route }) {
         autoCorrect={false}
         autoCapitalize="none"
         placeholder={searchTag}
+        placeholderTextColor="#cff1f9"
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => serachingFunc()}>
@@ -134,17 +135,17 @@ const styles = StyleSheet.create({
 
   button: {
     marginHorizontal: 4,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#111827",
     borderWidth: 2,
     borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
   },
 
   text: {
-    color: "#e2e8f0",
+    color: "#f9fafb",
     margin: 8,
     fontSize: 15,
   },
@@ -163,13 +164,13 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 7,
     borderWidth: 2,
-    borderColor: "#e2e8f0",
-    color: "#e2e8f0",
-    backgroundColor: "#1e293b",
+    borderColor: "#f9fafb",
+    color: "#f9fafb",
+    backgroundColor: "#111827",
   },
   container: {
     padding: 8,
-    backgroundColor: "#334155",
+    backgroundColor: "#1f2937",
     alignItems: "center",
     flex: 1,
     fontSize: 13,
