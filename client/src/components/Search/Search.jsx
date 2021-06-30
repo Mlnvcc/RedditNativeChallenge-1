@@ -64,7 +64,10 @@ export default function Search({ route }) {
       title: "Cancel",
       containerStyle: { backgroundColor: "#543333" },
       titleStyle: { color: "#f9fafb" },
-      onPress: () => setIsVisible(false),
+      onPress: () => {
+        setSearchTag(list[3].title);
+        setIsVisible(false);
+      },
     },
   ];
 
@@ -105,25 +108,30 @@ export default function Search({ route }) {
         <Text style={styles.text}>Search</Text>
       </TouchableOpacity>
 
-      {posts.length ? (
-        <FlatList
-          data={posts}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("OnePostPage", {
-                  el: item,
-                });
-              }}
-            >
-              <Item el={item} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-        />
-      ) : (
-        <Text style={styles.text}>Nothing was found :(</Text>
-      )}
+      {searchTag !== "Users" ?
+        {
+          posts.length ? (
+            <FlatList
+              data={posts}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("OnePostPage", {
+                      el: item,
+                    });
+                  }}
+                >
+                  <Item el={item} />
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <Text style={styles.text}>Nothing was found :(</Text>
+          )
+        }
+        : <Text></Text>
+      }
     </View>
   );
 }
