@@ -16,7 +16,7 @@ export const createComMain = description => async dispatch => {
 export const createComToCom = description => async dispatch => {
   console.log(description);
   apiService.post("/comment/addcomtocom", description).then(({ data }) => {
-    console.log("DATA", data);
+    // console.log("DATA", data);
     dispatch(getComToComtCreate({ data, description }));
   });
 };

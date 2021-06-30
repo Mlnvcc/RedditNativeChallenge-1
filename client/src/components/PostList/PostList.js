@@ -15,15 +15,13 @@ export default function PostList() {
   const navigation = useNavigation();
 
   const posts = useSelector(state => state.content);
+  console.log(919191, posts);
   // posts.sort((a, b) => b.dateNumber - a.dateNumber);
 
   // console.log("POSTS", posts);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getContent());
-  }, []);
   const status = useSelector(state => state.user.statusSearch);
 
   if (status.likes) {
@@ -43,7 +41,9 @@ export default function PostList() {
   ) {
     posts.sort((a, b) => b.dateNumber - a.dateNumber);
   }
-
+  useEffect(() => {
+    dispatch(getContent());
+  }, []);
   return (
     <>
       <View style={styles.container}>

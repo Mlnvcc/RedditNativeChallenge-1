@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
 
-const commentSchema = new Schema({
+const replySchema = new Schema({
   text: String,
   date: {
     type: String,
@@ -16,8 +16,8 @@ const commentSchema = new Schema({
   fatherpost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
 });
 
-const Comment = model('Comment', commentSchema);
+const Reply = model('Reply', replySchema);
 
-module.exports = Comment;
+module.exports = Reply;
 
 // fathercomment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },

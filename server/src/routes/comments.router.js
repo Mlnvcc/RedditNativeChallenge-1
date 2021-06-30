@@ -28,7 +28,7 @@ commentRouter.post('/add', async (req, res) => {
 commentRouter.post('/addComToCom', async (req, res) => {
   const creatorLogin = await User.findById({ _id: req.body.autorId });
   console.log('Body', req.body);
-  const comment = await Comment.create({
+  const comment = await Reply.create({
     text: req.body.text,
     date: moment().subtract(6, 'days').calendar(),
     creator: req.body.autorId,
@@ -37,9 +37,9 @@ commentRouter.post('/addComToCom', async (req, res) => {
   });
   console.log('comment in db', comment);
   const MainComment = await Comment.findById({ _id: req.body.commentId });
-  const PostMain = await Post.findById({ _id: req.body.postId });
-  PostMain.comments.push(comment);
-  PostMain.save();
+  // const PostMain = await Post.findById({ _id: req.body.postId });
+  // PostMain.comments.push(comment);
+  // PostMain.save();
 
   MainComment.comments.push(comment);
   MainComment.save();

@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLike, addDislike, getContent } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
+import AddReplyMenu from "../AddReplyMenu/AddReplyMenu";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
+
+  const [inputState, SetInputState] = useState(true);
 
   const mainId = route.params.el._id;
 
@@ -16,25 +19,9 @@ export default function Post({ route }) {
   const mainPost = posts.filter(post => post._id == mainId)[0];
   // console.log("mainPost", mainPost);
   const comments = mainPost.comments;
-  console.log("COMMENTI", comments);
+  // console.log("COMMENTI", comments);
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
-
-  const [commentToComment, setCommentToComment] = useState();
-  const createCommentToComment = commentId => {
-    // console.log("commentId", commentId);
-    if (commentToComment.trim().length > 5) {
-      const comment = {
-        text: commentToComment,
-        autorId: userId,
-        commentId,
-        mainId: mainId,
-        postId: mainPost._id,
-      };
-      console.log("COMMENT FRONT", comment);
-      dispatch(createComToCom(comment));
-    }
-  };
 
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
@@ -43,9 +30,9 @@ export default function Post({ route }) {
     dispatch(addDislike(userId, postId));
   };
 
-  useEffect(() => {
-    dispatch(getContent());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getContent());
+  // }, []);
 
   return (
     <>
@@ -121,7 +108,7 @@ export default function Post({ route }) {
                   <Icon.Button
                     name="comments"
                     backgroundColor="gray"
-                    onPress={() => console.log("comment")}
+                    onPress={() => SetInputState(!inputState)}
                   >
                     {item.comments.length}
                   </Icon.Button>
@@ -136,7 +123,7 @@ export default function Post({ route }) {
                   data={item.comments}
                   renderItem={({ item }) => (
                     <>
-                      {console.log(item)}
+                      {console.log("ITEM INSIDE ITEM", item)}
                       <View
                         style={{
                           flex: 1,
@@ -156,7 +143,7 @@ export default function Post({ route }) {
                     </>
                   )}
                 />
-                <Input
+                {/* <Input
                   value={commentToComment}
                   onChangeText={text => setCommentToComment(text)}
                   placeholder="Comment"
@@ -166,7 +153,7 @@ export default function Post({ route }) {
                     createCommentToComment(item._id);
                   }}
                   title="Sub"
-                />
+                /> */}
               </Card>
             )}
             keyExtractor={item => item.id}
@@ -187,7 +174,11 @@ export default function Post({ route }) {
       ) : (
         <></>
       )}
-      <AddCommentMenu userId={userId} postId={mainPost._id} />
+      {inputState ? (
+        <AddCommentMenu userId={userId} postId={mainPost._id} />
+      ) : (
+        <AddReplyMenu userId={userId} postId={mainPost._id} />
+      )}
     </>
   );
 }
