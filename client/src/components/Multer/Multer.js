@@ -24,11 +24,7 @@ export default function Multer({ setImage }) {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
-      console.log(typeof result.uri);
-      console.log(result);
       setImage(result.uri);
     }
   };

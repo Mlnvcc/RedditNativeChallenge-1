@@ -15,7 +15,6 @@ import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
 
 export default function oneAutorPage({ route }) {
   const author = route.params.el;
-  console.log("author", author);
   const userId = useSelector(state => state.user.userInfo.id);
   const navigation = useNavigation();
 
