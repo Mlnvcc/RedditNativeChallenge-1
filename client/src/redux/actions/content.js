@@ -4,7 +4,6 @@ import {
   POST_CREATE,
   SET_LIKE_ADD,
   SET_DISLIKE_ADD,
-  AUTHOR_GET,
 } from "../types/content";
 
 const getContentStart = payload => ({ type: GET_CONTENT_START, payload });
@@ -19,9 +18,7 @@ const setDislike = currPost => ({
 });
 
 export const getContent = () => async dispatch => {
-  apiService
-    .get("/post")
-    .then(({ data }) => dispatch(getContentStart(data.posts)));
+  apiService.get("/post").then(({ data }) => dispatch(getContentStart(data)));
 };
 
 export const createPost = description => async dispatch => {

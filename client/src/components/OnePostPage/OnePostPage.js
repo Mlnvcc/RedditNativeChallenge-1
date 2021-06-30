@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { StyleSheet, View, Text, FlatList, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addLike, addDislike, getContent } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
-import Item from "../Item/Item";
+import { useNavigation } from "@react-navigation/native";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
 
   const mainId = route.params.el._id;
 
@@ -76,7 +84,18 @@ export default function Post({ route }) {
             {mainPost.dislikes.length}
           </Icon.Button>
         </View>
-        <Text style={styles.text}>Created by: {mainPost.authorUsername}</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("DetailPage", {
+              el: mainPost.author,
+            });
+          }}
+        >
+          <Text style={styles.text}>
+            Created by: {mainPost.author.userName}
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.text}>{mainPost.date}</Text>
       </Card>
 

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +31,7 @@ export default function Item({ el }) {
   const dislike = (userId, postId) => {
     dispatch(addDislike(userId, postId));
   };
-  const showComments = () => {};
+  const showComments = () => { };
 
   useEffect(() => {
     dispatch(getContent());
@@ -69,14 +76,14 @@ export default function Item({ el }) {
         <View></View>
       )}
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      <Image source={{ uri: el.uri }} style={{ width: 200, height: 200 }} />
       <Card.Divider style={styles.hr} />
       {el.content ? (
-        <Image
-          style={styles.content}
-          source={{
-            uri: el.content,
-          }}
-        />
+        <>
+          <Card.Image>
+            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
+          </Card.Image>
+        </>
       ) : (
         <View></View>
       )}
@@ -113,7 +120,7 @@ export default function Item({ el }) {
           });
         }}
       >
-        {/* <Text style={styles.text}>Created by: {el.author.userName}</Text> */}
+        <Text style={styles.text}>Created by: {el.author.userName}</Text>
       </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>
     </Card>

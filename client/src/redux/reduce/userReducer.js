@@ -81,8 +81,6 @@ const userReducer = (state = initialState, action) => {
     }
 
     case GET_SUBSCRIBE_START: {
-      const { autorId } = payload;
-      const { userId } = payload;
       return { ...state };
     }
 

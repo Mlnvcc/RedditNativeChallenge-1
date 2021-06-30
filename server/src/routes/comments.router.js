@@ -8,7 +8,7 @@ const commentRouter = Router();
 
 commentRouter.post('/add', async (req, res) => {
   try {
-    const comment = await Comment.create({
+    let comment = await Comment.create({
       text: req.body.text,
       date: moment().subtract(6, 'days').calendar(),
       creator: req.body.autorId,
@@ -16,7 +16,7 @@ commentRouter.post('/add', async (req, res) => {
     });
     const PostMain = await Post.findById({ _id: req.body.postId });
 
-    PostMain.comments.push(comment);
+    PostMain.comments.push(comment._id);
     PostMain.save();
 
     res.json(comment);
@@ -26,9 +26,10 @@ commentRouter.post('/add', async (req, res) => {
 });
 
 commentRouter.post('/addComToCom', async (req, res) => {
+  console.log(req.body);
   const creatorLogin = await User.findById({ _id: req.body.autorId });
-  console.log('Body', req.body);
-  const comment = await Comment.create({
+
+  let comment = await Comment.create({
     text: req.body.text,
     date: moment().subtract(6, 'days').calendar(),
     creator: req.body.autorId,
@@ -37,11 +38,9 @@ commentRouter.post('/addComToCom', async (req, res) => {
   });
   console.log('comment in db', comment);
   const MainComment = await Comment.findById({ _id: req.body.commentId });
-  const PostMain = await Post.findById({ _id: req.body.postId });
-  PostMain.comments.push(comment);
-  PostMain.save();
+  console.log(MainComment);
 
-  MainComment.comments.push(comment);
+  MainComment.comments.push(comment._id);
   MainComment.save();
   res.json(comment);
 });

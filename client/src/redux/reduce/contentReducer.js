@@ -14,6 +14,7 @@ const contentReducer = (state = initialState, action) => {
   console.log("REDUCER PAYLOAD", payload);
   switch (type) {
     case GET_CONTENT_START: {
+      console.log(payload);
       return payload;
     }
     case POST_CREATE: {
@@ -46,18 +47,18 @@ const contentReducer = (state = initialState, action) => {
       return state.map(el =>
         el._id == mainId
           ? {
-              ...el,
-              comments: [
-                ...el.comments.map(el =>
-                  el._id == payload.description.commentId
-                    ? {
-                        ...el,
-                        comments: [...el.comments, comment],
-                      }
-                    : el
-                ),
-              ],
-            }
+            ...el,
+            comments: [
+              ...el.comments.map(el =>
+                el._id == payload.description.commentId
+                  ? {
+                    ...el,
+                    comments: [...el.comments, comment],
+                  }
+                  : el
+              ),
+            ],
+          }
           : el
       );
     }

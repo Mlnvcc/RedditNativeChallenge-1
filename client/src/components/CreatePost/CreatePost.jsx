@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Button,
+  Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "../../redux/actions/content";
@@ -13,6 +15,7 @@ import Multer from "../Multer/Multer";
 import moment from "moment";
 
 export default function CreateNewPost() {
+  const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const userId = user.userInfo.id;
@@ -41,6 +44,7 @@ export default function CreateNewPost() {
         content: url,
         date: moment().endOf("day").fromNow(),
         tags: allTags,
+        uri: image.toString(),
       };
       console.log("POST", post);
       setTitle("");
@@ -78,6 +82,9 @@ export default function CreateNewPost() {
         placeholder="Url"
         placeholderTextColor="#cff1f9"
       />
+      {image && (
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
 
       <TextInput
         onChangeText={text => setTags(text)}
@@ -90,7 +97,7 @@ export default function CreateNewPost() {
       <TouchableOpacity style={styles.button} onPress={submtForm}>
         <Text style={styles.text}>Create Post</Text>
       </TouchableOpacity>
-      <Multer />
+      <Multer setImage={setImage} />
     </SafeAreaView>
   );
 }

@@ -13,7 +13,7 @@ import { signOut as signOutAC } from "../../redux/actions/user.ac";
 import { editProfile } from "../../redux/actions/editProfile";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
-import { goToSubscribe ,goToDisSubscribe} from "../../redux/actions/user.ac";
+import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
 
 export default function oneAutorPage({ route }) {
   const author = route.params.el;
