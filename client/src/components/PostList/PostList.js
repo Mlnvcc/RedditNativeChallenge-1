@@ -45,7 +45,7 @@ export default function PostList() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={{ color: "#e2e8f0", fontSize: 17 }}>Last posts:</Text>
+        <Text style={{ color: "#f9fafb", fontSize: 17 }}>Last posts:</Text>
 
         <FlatList
           style={{ height: "80ex" }}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     fontSize: 13,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#111827",
     height: 200,
   },
   list: {

@@ -59,7 +59,7 @@ export default function Item({ el }) {
           <View style={styles.header_post}>
             <Icon.Button
               name="ellipsis-v"
-              backgroundColor="#94a3b8"
+              backgroundColor="#9ca3af"
               onPress={toggleOverlay}
             ></Icon.Button>
           </View>
@@ -82,8 +82,7 @@ export default function Item({ el }) {
       <View style={styles.icons}>
         <Icon.Button
           name="thumbs-up"
-          backgroundColor="#94a3b8"
-          color="#e2e8f0"
+          backgroundColor="#9ca3af"
           onPress={() => like(userId, el._id)}
         >
           <Text style={styles.text}> {el.likes.length}</Text>
@@ -91,7 +90,7 @@ export default function Item({ el }) {
 
         <Icon.Button
           name="thumbs-down"
-          backgroundColor="#94a3b8"
+          backgroundColor="#9ca3af"
           onPress={() => dislike(userId, el._id)}
         >
           <Text style={styles.text}>{el.dislikes.length}</Text>
@@ -99,7 +98,7 @@ export default function Item({ el }) {
 
         <Icon.Button
           name="comments"
-          backgroundColor="#94a3b8"
+          backgroundColor="#9ca3af"
           onPress={() => navigation.navigate("OnePostPage", { el })}
         >
           <Text style={styles.text}>{el.comments.length}</Text>
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
   overlayContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#1e293b",
+    backgroundColor: "#111827",
     width: 270,
     borderRadius: 8,
     borderWidth: 2,
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
   overlayText: {
     margin: 3,
     fontSize: 25,
-    color: "#e2e8f0",
+    color: "#f9fafb",
   },
 
   cancleOpacity: {
@@ -139,11 +138,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#f9fafb",
   },
 
   overlayOpacity: {
-    backgroundColor: "#334155",
+    backgroundColor: "#1f2937",
     margin: 1,
     width: 180,
     flexDirection: "column",
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#f9fafb",
   },
 
   edit_button: {
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
   },
 
   hr: {
-    backgroundColor: "#e2e8f0",
+    backgroundColor: "#61dafb",
     height: 1.3,
   },
 
@@ -172,31 +171,36 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
-    backgroundColor: "#334155",
+    borderColor: "#f9fafb",
+    backgroundColor: "#1f2937",
   },
+
   header_post: {
     flexDirection: "column",
     alignSelf: "flex-end",
     height: 20,
     width: 17,
   },
+
   header_title: {
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
   },
+
   icons: {
     flexDirection: "row",
     justifyContent: "space-around",
     paddingHorizontal: 25,
     marginBottom: 8,
   },
+
   title1: {
     fontSize: 20,
-    color: "#e2e8f0",
+    color: "#f9fafb",
   },
+
   text: {
-    color: "#e2e8f0",
+    color: "#f9fafb",
   },
 });

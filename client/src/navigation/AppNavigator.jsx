@@ -31,9 +31,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
             <Stack.Screen
@@ -45,9 +45,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -60,9 +60,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -76,9 +76,9 @@ const Navigate = () => {
                   color: "white",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
 
@@ -91,9 +91,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#61dafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#61dafb",
               }}
             />
           </>
@@ -108,9 +108,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#f9fafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#f9fafb",
               }}
             />
             <Stack.Screen
@@ -122,9 +122,9 @@ const Navigate = () => {
                   backgroundColor: "#0f172a",
                 },
                 headerTitleStyle: {
-                  color: "#e2e8f0",
+                  color: "#f9fafb",
                 },
-                headerTintColor: "#e2e8f0",
+                headerTintColor: "#f9fafb",
               }}
             />
           </>

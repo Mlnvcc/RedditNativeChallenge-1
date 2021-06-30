@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { addLike, addDislike, getContent } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
+import Item from "../Item/Item";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
@@ -49,38 +50,38 @@ export default function Post({ route }) {
   }, [dispatch]);
 
   return (
-    <>
-      <View>
-        <Card>
-          <Card.Title>{mainPost.title}</Card.Title>
-          <Card.Divider />
+    <View style={styles.container}>
+      <Card containerStyle={styles.div}>
+        <Card.Title style={styles.title}>{mainPost.title}</Card.Title>
+        <Card.Divider style={styles.hr} />
+        <Card.Title style={styles.description}>{mainPost.description}</Card.Title>
+
+        {mainPost.content ?
           <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{mainPost.description}</Text>
+            <Text>{mainPost.content}</Text>
           </Card.Image>
-          <View style={styles.icons}>
-            <Icon.Button
-              name="thumbs-up"
-              thumbs-down
-              backgroundColor="gray"
-              onPress={() => like(userId, mainPost._id)}
-            >
-              {likes.length}
-            </Icon.Button>
-            <Icon.Button
-              name="thumbs-down"
-              backgroundColor="gray"
-              onPress={() => dislike(userId, mainPost._id)}
-            >
-              {mainPost.dislikes.length}
-            </Icon.Button>
-            <Icon.Button
-              name="ellipsis-h"
-              backgroundColor="gray"
-              onPress={() => console.log("comment")}
-            ></Icon.Button>
-          </View>
-        </Card>
-      </View>
+          : <></>
+        }
+
+        <View style={styles.icons}>
+          <Icon.Button
+            name="thumbs-up"
+            backgroundColor="#9ca3af"
+            onPress={() => like(userId, mainPost._id)}
+          >
+            {likes.length}
+          </Icon.Button>
+          <Icon.Button
+            name="thumbs-down"
+            backgroundColor="#9ca3af"
+            onPress={() => dislike(userId, mainPost._id)}
+          >
+            {mainPost.dislikes.length}
+          </Icon.Button>
+        </View>
+        <Text style={styles.text}>Created by: {mainPost.authorUsername}</Text>
+        <Text style={styles.text}>{mainPost.date}</Text>
+      </Card>
 
       <Text style={{ alignItems: "center", justifyContent: "center" }}></Text>
       <FlatList
@@ -140,11 +141,50 @@ export default function Post({ route }) {
         }}
         title="Отправить комментарий"
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  //post container
+  div: {
+    width: 400,
+    flexDirection: "column",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#f9fafb",
+    backgroundColor: "#1f2937",
+  },
+  // all data
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    alignItems: "center",
+    fontSize: 13,
+    backgroundColor: "#111827",
+    height: 200,
+  },
+
+  hr: {
+    backgroundColor: "#61dafb",
+    height: 1.3,
+  },
+
+  title: {
+    fontSize: 25,
+    color: "#f9fafb",
+  },
+
+  description: {
+    color: "#f9fafb",
+    fontSize: 20,
+  },
+
+  text: {
+    color: "#f9fafb",
+  },
+
   icons: {
     flex: 1,
     flexDirection: "row",

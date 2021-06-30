@@ -1,1 +1,34 @@
-{"ast":null,"code":"var _jsxFileName = \"/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/components/MainPage/MainPage.jsx\";\nimport React from \"react\";\nimport View from \"react-native-web/dist/exports/View\";\nimport ScrollView from \"react-native-web/dist/exports/ScrollView\";\nimport FlatList from \"react-native-web/dist/exports/FlatList\";\nimport Header from \"../Header/Header\";\nimport LowerMenu from \"../LowerMenu/LowerMenu\";\nimport PostList from \"../PostList/PostList\";\nexport default function MainPage() {\n  var navigation = useNavigation();\n  var posts = useSelector(function (state) {\n    return state.content;\n  });\n  var dispatch = useDispatch();\n  useEffect(function () {\n    dispatch(getContent());\n  }, []);\n  return React.createElement(View, {\n    style: {\n      backgroundColor: \"#334155\"\n    },\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 18,\n      columnNumber: 5\n    }\n  }, React.createElement(Header, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 19,\n      columnNumber: 7\n    }\n  }), React.createElement(PostList, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 20,\n      columnNumber: 7\n    }\n  }), React.createElement(LowerMenu, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 21,\n      columnNumber: 7\n    }\n  }));\n}","map":{"version":3,"sources":["/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/components/MainPage/MainPage.jsx"],"names":["React","Header","LowerMenu","PostList","MainPage","navigation","useNavigation","posts","useSelector","state","content","dispatch","useDispatch","useEffect","getContent","backgroundColor"],"mappings":";AAAA,OAAOA,KAAP,MAAkB,OAAlB;;;;AAEA,OAAOC,MAAP;AACA,OAAOC,SAAP;AACA,OAAOC,QAAP;AAEA,eAAe,SAASC,QAAT,GAAoB;AACjC,MAAMC,UAAU,GAAGC,aAAa,EAAhC;AAEA,MAAMC,KAAK,GAAGC,WAAW,CAAC,UAAAC,KAAK;AAAA,WAAIA,KAAK,CAACC,OAAV;AAAA,GAAN,CAAzB;AAEA,MAAMC,QAAQ,GAAGC,WAAW,EAA5B;AAEAC,EAAAA,SAAS,CAAC,YAAM;AACdF,IAAAA,QAAQ,CAACG,UAAU,EAAX,CAAR;AACD,GAFQ,EAEN,EAFM,CAAT;AAGA,SACE,oBAAC,IAAD;AAAM,IAAA,KAAK,EAAE;AAAEC,MAAAA,eAAe,EAAE;AAAnB,KAAb;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,KACE,oBAAC,MAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IADF,EAEE,oBAAC,QAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IAFF,EAGE,oBAAC,SAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IAHF,CADF;AAOD","sourcesContent":["import React from \"react\";\nimport { View, ScrollView, FlatList } from \"react-native\";\nimport Header from \"../Header/Header\";\nimport LowerMenu from \"../LowerMenu/LowerMenu\";\nimport PostList from \"../PostList/PostList\";\n\nexport default function MainPage() {\n  const navigation = useNavigation();\n\n  const posts = useSelector(state => state.content);\n\n  const dispatch = useDispatch();\n\n  useEffect(() => {\n    dispatch(getContent());\n  }, []);\n  return (\n    <View style={{ backgroundColor: \"#334155\" }}>\n      <Header />\n      <PostList />\n      <LowerMenu />\n    </View>\n  );\n}\n"]},"metadata":{},"sourceType":"module"}
+{
+  "ast": null,
+  "code": "var _jsxFileName = \"/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/components/MainPage/MainPage.jsx\";\nimport React from \"react\";\nimport View from \"react-native-web/dist/exports/View\";\nimport ScrollView from \"react-native-web/dist/exports/ScrollView\";\nimport FlatList from \"react-native-web/dist/exports/FlatList\";\nimport Header from \"../Header/Header\";\nimport LowerMenu from \"../LowerMenu/LowerMenu\";\nimport PostList from \"../PostList/PostList\";\nexport default function MainPage() {\n  var navigation = useNavigation();\n  var posts = useSelector(function (state) {\n    return state.content;\n  });\n  var dispatch = useDispatch();\n  useEffect(function () {\n    dispatch(getContent());\n  }, []);\n  return React.createElement(View, {\n    style: {\n      backgroundColor: \"#1f2937\"\n    },\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 18,\n      columnNumber: 5\n    }\n  }, React.createElement(Header, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 19,\n      columnNumber: 7\n    }\n  }), React.createElement(PostList, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 20,\n      columnNumber: 7\n    }\n  }), React.createElement(LowerMenu, {\n    __self: this,\n    __source: {\n      fileName: _jsxFileName,\n      lineNumber: 21,\n      columnNumber: 7\n    }\n  }));\n}",
+  "map": {
+    "version": 3,
+    "sources": [
+      "/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/components/MainPage/MainPage.jsx"
+    ],
+    "names": [
+      "React",
+      "Header",
+      "LowerMenu",
+      "PostList",
+      "MainPage",
+      "navigation",
+      "useNavigation",
+      "posts",
+      "useSelector",
+      "state",
+      "content",
+      "dispatch",
+      "useDispatch",
+      "useEffect",
+      "getContent",
+      "backgroundColor"
+    ],
+    "mappings": ";AAAA,OAAOA,KAAP,MAAkB,OAAlB;;;;AAEA,OAAOC,MAAP;AACA,OAAOC,SAAP;AACA,OAAOC,QAAP;AAEA,eAAe,SAASC,QAAT,GAAoB;AACjC,MAAMC,UAAU,GAAGC,aAAa,EAAhC;AAEA,MAAMC,KAAK,GAAGC,WAAW,CAAC,UAAAC,KAAK;AAAA,WAAIA,KAAK,CAACC,OAAV;AAAA,GAAN,CAAzB;AAEA,MAAMC,QAAQ,GAAGC,WAAW,EAA5B;AAEAC,EAAAA,SAAS,CAAC,YAAM;AACdF,IAAAA,QAAQ,CAACG,UAAU,EAAX,CAAR;AACD,GAFQ,EAEN,EAFM,CAAT;AAGA,SACE,oBAAC,IAAD;AAAM,IAAA,KAAK,EAAE;AAAEC,MAAAA,eAAe,EAAE;AAAnB,KAAb;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,KACE,oBAAC,MAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IADF,EAEE,oBAAC,QAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IAFF,EAGE,oBAAC,SAAD;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IAHF,CADF;AAOD",
+    "sourcesContent": [
+      "import React from \"react\";\nimport { View, ScrollView, FlatList } from \"react-native\";\nimport Header from \"../Header/Header\";\nimport LowerMenu from \"../LowerMenu/LowerMenu\";\nimport PostList from \"../PostList/PostList\";\n\nexport default function MainPage() {\n  const navigation = useNavigation();\n\n  const posts = useSelector(state => state.content);\n\n  const dispatch = useDispatch();\n\n  useEffect(() => {\n    dispatch(getContent());\n  }, []);\n  return (\n    <View style={{ backgroundColor: \"#1f2937\" }}>\n      <Header />\n      <PostList />\n      <LowerMenu />\n    </View>\n  );\n}\n"
+    ]
+  },
+  "metadata": {},
+  "sourceType": "module"
+}

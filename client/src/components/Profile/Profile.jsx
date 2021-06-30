@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut as signOutAC } from "../../redux/actions/user.ac";
 import { editProfile } from "../../redux/actions/editProfile";
@@ -45,7 +46,7 @@ export default function UserProfileView() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View>
         <View style={styles.headerContent}>
           <Image
             style={styles.avatar}
@@ -106,36 +107,18 @@ export default function UserProfileView() {
 
       <View style={styles.body}>
         <View style={styles.item}>
-          <View style={styles.iconContent}>
-            <Image
-              style={styles.icon}
-              source={{
-                uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-              }}
-            />
-          </View>
-          <View style={styles.infoContent}>
-            <Text style={styles.info}>Subscribes</Text>
-          </View>
+          <Icon size={30} name="rocket" color="#61dafb"></Icon>
+          <Text style={styles.info}>  Subscribes</Text>
         </View>
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/facebook-like.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Post</Text>
-            </View>
+            <Icon size={30} name="inbox" color="#61dafb"></Icon>
+            <Text style={styles.info}>  Posts</Text>
           </View>
         </TouchableOpacity>
         {post ? (
           autorPost.length == 0 ? (
-            <Text>y vas nety postov</Text>
+            <Text>You dont have any posts</Text>
           ) : (
             <View style={styles.modal}>
               <FlatList
@@ -166,33 +149,15 @@ export default function UserProfileView() {
           }
         >
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/administrator-male.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Edit</Text>
-            </View>
+            <Icon size={30} name="edit" color="#61dafb"></Icon>
+            <Text style={styles.info}>  Edit profile</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={signOutFunc}>
           <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/shutdown.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Logout</Text>
-            </View>
+            <Icon size={30} name="close" color="#61dafb"></Icon>
+            <Text style={styles.info}>  Logout</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -201,9 +166,6 @@ export default function UserProfileView() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#DCDCDC",
-  },
   headerContent: {
     padding: 30,
     alignItems: "center",
@@ -213,26 +175,27 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#61dafb",
     marginBottom: 10,
   },
   name: {
-    fontSize: 22,
-    color: "#000000",
+    fontSize: 24,
+    color: "#f9fafb",
     fontWeight: "600",
   },
   userInfo: {
-    fontSize: 16,
-    color: "#778899",
+    fontSize: 18,
+    color: "#f9fafb",
     fontWeight: "600",
   },
   body: {
-    backgroundColor: "#778899",
     height: 500,
-    alignItems: "center",
+    flexDirection: "column",
   },
   item: {
+    padding: 20,
     flexDirection: "row",
+    alignItems: "center",
   },
   infoContent: {
     flex: 1,
@@ -258,7 +221,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#111827",
   },
   inputContainer: {
     borderBottomColor: "#F5FCFF",
