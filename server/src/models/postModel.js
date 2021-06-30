@@ -21,10 +21,8 @@ const postSchema = mongoose.Schema({
       ref: 'User',
     },
   ],
-  comments: [{ type: [mongoose.Schema.Types.ObjectId], ref: 'Comment' }],
-  author: {
-    type: String,
-  },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   authorUsername: {
     type: String,
   },
@@ -34,6 +32,7 @@ const postSchema = mongoose.Schema({
   date: {
     type: String,
   },
+  uri: String,
   dateNumber: Number,
   tags: {
     type: [],

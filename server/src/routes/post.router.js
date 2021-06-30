@@ -6,7 +6,7 @@ const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    const Posts = await Post.find().populate('comments');
+    const Posts = await Post.find().populate('comments').populate('author');
 
     res.json({ Posts });
   } catch (err) {
@@ -15,7 +15,7 @@ postRouter.get('/', checkAuth, async (req, res) => {
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const post = await Post.create({
       title: req.body.title,
@@ -24,6 +24,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
       dateNumber: Date.now(),
       tags: req.body.tags,
       author: req.body.author,
+      uri: req.body.uri
     });
     console.log(post);
     res.json(post);

@@ -9,7 +9,7 @@ const userSchema = new Schema({
   userName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  subscribe: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  subscribers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 userSchema.methods = {
