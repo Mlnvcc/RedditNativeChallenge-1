@@ -23,6 +23,7 @@ export default function PostList() {
   useEffect(() => {
     dispatch(getContent());
   }, []);
+
   const status = useSelector(state => state.user.statusSearch);
 
   if (status.likes) {
