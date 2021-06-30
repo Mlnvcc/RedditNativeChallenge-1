@@ -60,15 +60,14 @@ const contentReducer = (state = initialState, action) => {
     }
 
     case EDIT_POST: {
-      const newState = state.map(el=> el._id === payload._id ? payload : el)
+      const newState = state.map(el => (el._id === payload._id ? payload : el));
       return newState;
     }
 
     case DELETE_POST: {
-      const {id} = payload
-      console.log('=========', payload);
-      const newPostState = state.filter(el => el.id !== id)
-      return newPostState
+      const { id } = payload;
+      const newPostState = state.filter(el => el._id !== id);
+      return newPostState;
     }
 
     default:

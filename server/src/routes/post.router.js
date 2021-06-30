@@ -6,7 +6,6 @@ const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    console.log("here!@!@!@!@@");
     const Posts = await Post.find().populate('comments');
     res.json({ Posts });
   } catch (err) {
@@ -66,31 +65,31 @@ postRouter.patch('/dislikes', async (req, res) => {
   }
 });
 
-postRouter.patch('/edit', async(req,res) => {
-  try{
-   const {_id, title, description} = req.body.post
-   let updatedPost = await Post.findByIdAndUpdate(
-    _id,
-    {
-      title,
-      description,
-    },
-    { new: true }
-   )
-   res.json(updatedPost);
-  }catch (err) {
+postRouter.patch('/edit', async (req, res) => {
+  try {
+    const { _id, title, description } = req.body.post;
+    let updatedPost = await Post.findByIdAndUpdate(
+      _id,
+      {
+        title,
+        description,
+      },
+      { new: true }
+    );
+    res.json(updatedPost);
+  } catch (err) {
     console.error(err.message);
   }
-})
+});
 
-postRouter.delete('/delete', async(req,res) => {
-  try{
+postRouter.delete('/delete', async (req, res) => {
+  try {
     const { id } = req.body;
-    await Post.findByIdAndDelete({id});
-    res.json(id)
-  }catch(err){
-    console.error(err.message)
+    await Post.findByIdAndDelete(id);
+    res.json({ id });
+  } catch (err) {
+    console.error(err.message);
   }
-})
+});
 
 module.exports = postRouter;

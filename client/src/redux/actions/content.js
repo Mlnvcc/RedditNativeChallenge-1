@@ -53,6 +53,6 @@ export const editPost = post => async dispatch => {
 
 export const deletePost = id => async dispatch => {
   apiService
-  .delete('/post/delete', {id})
+  .delete('/post/delete', {data: {id}})
   .then(({data}) => dispatch(getPostDelete(data)))
 }
