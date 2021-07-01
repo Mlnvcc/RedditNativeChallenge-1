@@ -9,8 +9,9 @@ const options = {
   poolSize: 10,
   bufferMaxEntries: 0,
 };
-console.log('HOST', DB_HOST);
-const dbConnectionURL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+// console.log('HOST', DB_HOST);
+// const dbConnectionURL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+const dbConnectionURL = process.env.dbConnectionURL
 
 module.exports = {
   dbConnectionURL,

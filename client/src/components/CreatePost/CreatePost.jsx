@@ -41,7 +41,7 @@ export default function CreateNewPost() {
         description,
         content: url,
         tags: allTags,
-        // uri: image.toString(),
+        uri: image?.toString(),
       };
       setTitle("");
       setDescription("");
