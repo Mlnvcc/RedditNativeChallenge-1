@@ -19,6 +19,7 @@ export default function oneAutorPage({ route }) {
   const [status, setStatus] = useState(
     posts[0].author.subscribers.includes(userId)
   );
+
   const author = route.params.el;
   const userId = useSelector(state => state.user.userInfo.id);
   const navigation = useNavigation();
@@ -39,7 +40,7 @@ export default function oneAutorPage({ route }) {
     setSubscribes(prev => prev + 1);
     setStatus(prev => !prev);
   };
-  
+
   // const arrayWithSubscribers = posts.filter();
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);
@@ -47,10 +48,7 @@ export default function oneAutorPage({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContent}>
-        <Image
-          source={{ uri: author.uri }}
-          style={{ width: 200, height: 200 }}
-        />
+        <Image source={{ uri: author.uri }} style={styles.avatar} />
         <Text style={styles.name}> {author.userName}</Text>
       </View>
 
@@ -124,13 +122,6 @@ export default function oneAutorPage({ route }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#DCDCDC",
-  },
-  headerContent: {
-    padding: 30,
-    alignItems: "center",
-  },
   avatar: {
     width: 130,
     height: 130,
@@ -138,6 +129,13 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "#61dafb",
     marginBottom: 10,
+  },
+  header: {
+    backgroundColor: "#DCDCDC",
+  },
+  headerContent: {
+    padding: 30,
+    alignItems: "center",
   },
   name: {
     fontSize: 24,

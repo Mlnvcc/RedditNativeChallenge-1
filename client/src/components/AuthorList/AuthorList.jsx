@@ -19,7 +19,7 @@ export default function AuthorList({ el }) {
         <Image
           style={styles.image}
           source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+            uri: el.uri,
           }}
         />
         <Card.Title style={styles.title1}>{curUser.userName}</Card.Title>
@@ -29,6 +29,15 @@ export default function AuthorList({ el }) {
   );
 }
 const styles = StyleSheet.create({
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "#61dafb",
+    marginBottom: 10,
+  },
+
   div: {
     width: 300,
     flexDirection: "column",
