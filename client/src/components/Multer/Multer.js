@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useDispatch } from "react-redux";
 
 export default function Multer({ setImage }) {
   useEffect(() => {
