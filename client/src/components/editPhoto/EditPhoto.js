@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Image, View, Platform } from "react-native";
+import { Text, Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch } from "react-redux";
+import styles from "../AddCommentMenu/style";
 
 export default function EditPhoto({ updatePhoto, setUpdatePhoto }) {
   useEffect(() => {
@@ -30,8 +31,8 @@ export default function EditPhoto({ updatePhoto, setUpdatePhoto }) {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center"}}>
+      <Text style={{color:"white"}} onPress={pickImage}>Pick an image from camera roll</Text>
     </View>
   );
 }

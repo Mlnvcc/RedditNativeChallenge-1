@@ -111,8 +111,10 @@ export default function UserProfileView() {
                 style={[styles.buttonContainer, styles.updateButton]}
                 onPress={() => setAvatarStatus(prev => !prev)}
               >
-                {" "}
-                <Text style={styles.updateText}>Изменить аватарку</Text>
+                <EditPhoto
+                  setUpdatePhoto={setUpdatePhoto}
+                  updatePhoto={updatePhoto}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.updateButton]}

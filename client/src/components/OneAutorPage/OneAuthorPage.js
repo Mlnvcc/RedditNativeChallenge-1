@@ -19,7 +19,6 @@ export default function oneAutorPage({ route }) {
   const [status, setStatus] = useState(
     posts[0].author.subscribers.includes(userId)
   );
-  console.log("status", status);
   const author = route.params.el;
   const userId = useSelector(state => state.user.userInfo.id);
   const navigation = useNavigation();
