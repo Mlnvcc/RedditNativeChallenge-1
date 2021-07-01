@@ -19,7 +19,7 @@ export default function AuthorList({ el }) {
         <Image
           style={styles.image}
           source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+            uri: el.uri,
           }}
         />
         <Card.Title style={styles.title1}>{curUser.userName}</Card.Title>
