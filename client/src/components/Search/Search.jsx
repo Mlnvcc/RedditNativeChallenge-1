@@ -16,8 +16,8 @@ import { searchInit } from "../../redux/actions/search";
 
 export default function Search({ route }) {
   const { data } = route.params;
+  console.log("<><><", data);
   let posts = useSelector(state => state.search);
-  console.log(posts);
 
   const [isVisible, setIsVisible] = useState(false);
   const [searchTag, setSearchTag] = useState("Title");
@@ -36,7 +36,6 @@ export default function Search({ route }) {
 
   useEffect(() => {
     posts = [];
-    console.log(123123);
   }, [searchTag]);
 
   const list = [

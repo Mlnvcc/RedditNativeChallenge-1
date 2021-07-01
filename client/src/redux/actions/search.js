@@ -6,6 +6,6 @@ const host = "http://localhost:8080"; //main
 
 export const searchInit = (sesrchText, searchTag) => async dispatch => {
   apiService
-    .post(`host/search`, { sesrchText, searchTag })
+    .post(`/search`, { sesrchText, searchTag })
     .then(res => dispatch({ type: SEARCH_INIT, payload: res.data }));
 };
