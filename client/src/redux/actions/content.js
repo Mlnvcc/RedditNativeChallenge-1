@@ -34,20 +34,6 @@ export const addLike = (idUser, idPost) => async dispatch => {
   apiService
     .patch("/post/likes", { idUser, idPost })
     .then(({ data }) => dispatch(setLike(data.currPost)));
-
-  // const response = await fetch("http://localhost:8080/post/likes", {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ idUser, idPost }),
-  // });
-  // const res = await response.json();
-  // const { currPost } = res;
-  // return dispatch({
-  //   type: LIKE_ADD,
-  //   payload: currPost,
-  // });
 };
 
 export const addDislike = (idUser, idPost) => async dispatch => {

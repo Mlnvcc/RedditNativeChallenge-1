@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Image,
   TouchableOpacity,
   FlatList,
@@ -13,9 +12,15 @@ import { signOut as signOutAC } from "../../redux/actions/user.ac";
 import { editProfile } from "../../redux/actions/editProfile";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
-import { goToSubscribe ,goToDisSubscribe} from "../../redux/actions/user.ac";
+import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
+import { getContent } from "../../redux/actions/content";
 
 export default function oneAutorPage({ route }) {
+  const posts = useSelector(state => state.content);
+  const [status, setStatus] = useState(
+    posts[0].author.subscribers.includes(userId)
+  );
+  console.log("status", status);
   const author = route.params.el;
   console.log("author", author);
   const userId = useSelector(state => state.user.userInfo.id);
@@ -29,14 +34,17 @@ export default function oneAutorPage({ route }) {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToDisSubscribe(data));
     setSubscribes(prev => prev - 1);
+    setStatus(prev => !prev);
   };
   const subscribe = () => {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToSubscribe(data));
     setSubscribes(prev => prev + 1);
+    setStatus(prev => !prev);
   };
 
-  const posts = useSelector(state => state.content);
+  console.log(11111111, posts[0].author.subscribers.includes(userId));
+  // const arrayWithSubscribers = posts.filter();
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);
   console.log(likes);
@@ -86,36 +94,42 @@ export default function oneAutorPage({ route }) {
             <Text style={styles.info}>Subscribers:{subscribes}</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => subscribe()}>
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-                }}
-              />
+        {status ? (
+          <TouchableOpacity onPress={() => subscribe()}>
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image
+                  style={styles.icon}
+                  source={{
+                    uri: "https://img.icons8.com/color/70/000000/filled-like.png",
+                  }}
+                />
+              </View>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>
+                  Подсписаться на {author.userName}
+                </Text>
+              </View>
             </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Подсписаться на {author.userName}</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => disSubscribe()}>
+            <View style={styles.item}>
+              <View style={styles.iconContent}>
+                <Image
+                  style={styles.icon}
+                  source={{
+                    uri: "https://img.icons8.com/color/70/000000/filled-like.png",
+                  }}
+                />
+              </View>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Отписаться от {author.userName}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => disSubscribe()}>
-          <View style={styles.item}>
-            <View style={styles.iconContent}>
-              <Image
-                style={styles.icon}
-                source={{
-                  uri: "https://img.icons8.com/color/70/000000/filled-like.png",
-                }}
-              />
-            </View>
-            <View style={styles.infoContent}>
-              <Text style={styles.info}>Отписаться от {author.userName}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
             <View style={styles.iconContent}>
