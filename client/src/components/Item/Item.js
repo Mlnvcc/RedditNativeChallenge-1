@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -11,6 +11,7 @@ import {
   getContent,
   deletePost,
 } from "../../redux/actions/content";
+import { LikesContext } from "../../context/context"; 
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -18,9 +19,7 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
-  const [colorLike, setColorLike] = useState(false);
-  const [colorDislike, setColorDislike] = useState(false);
-  console.log(colorLike, colorDislike);
+  const {colorLike, setColorLike, colorDislike, setColorDislike} = useContext(LikesContext)
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
