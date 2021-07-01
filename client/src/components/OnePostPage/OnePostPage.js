@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -13,10 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addLike, addDislike, getContent, editPost, } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
+import { LikesContext } from "../../context/context";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const {colorLike, setColorLike, colorDislike, setColorDislike} = useContext(LikesContext)
 
   const mainId = route.params.el._id;
 
@@ -69,18 +72,36 @@ export default function Post({ route }) {
 
         <View style={styles.icons}>
           <Icon.Button
+            color={colorLike ? "#61dafb" : "#f9fafb"}
             name="thumbs-up"
-            backgroundColor="#9ca3af"
-            onPress={() => like(userId, mainPost._id)}
+            backgroundColor="#1f2937"
+            onPress={() => {
+              like(userId, mainPost._id)
+              setColorLike(prev => {
+                if (colorDislike) {
+                  setColorDislike(prevD => !prevD);
+                }
+                return !prev;
+              });
+            }}
           >
-            {likes.length}
+            <Text style={styles.text}>{likes.length}</Text>
           </Icon.Button>
           <Icon.Button
+            color={colorDislike ? "#61dafb" : "#f9fafb"}
             name="thumbs-down"
-            backgroundColor="#9ca3af"
-            onPress={() => dislike(userId, mainPost._id)}
+            backgroundColor="#1f2937"
+            onPress={() => {
+              dislike(userId, mainPost._id)
+              setColorDislike(prev => {
+                if (colorLike) {
+                  setColorLike(prevL => !prevL)
+                }
+                return !prev
+              });
+            }}
           >
-            {mainPost.dislikes.length}
+           <Text style={styles.text}>{mainPost.dislikes.length}</Text>
           </Icon.Button>
         </View>
 
@@ -131,14 +152,12 @@ export default function Post({ route }) {
                   <Icon.Button
                     name="comments"
                     backgroundColor="gray"
-                    onPress={() => console.log("comment")}
                   >
                     {item.comments.length}
                   </Icon.Button>
                   <Icon.Button
                     name="ellipsis-h"
                     backgroundColor="gray"
-                    onPress={() => console.log("comment")}
                   ></Icon.Button>
                 </View>
                 <Text style={{ marginBottom: 1 }}>{item.date}</Text>
@@ -146,7 +165,6 @@ export default function Post({ route }) {
                   data={item.comments}
                   renderItem={({ item }) => (
                     <>
-                      {console.log(item)}
                       <View
                         style={{
                           flex: 1,
@@ -254,5 +272,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
+  },
+  text: {
+    color: "#f9fafb",
   },
 });
