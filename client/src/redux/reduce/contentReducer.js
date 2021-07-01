@@ -42,18 +42,18 @@ const contentReducer = (state = initialState, action) => {
       return state.map(el =>
         el._id == mainId
           ? {
-            ...el,
-            comments: [
-              ...el.comments.map(el =>
-                el._id == payload.description.commentId
-                  ? {
-                    ...el,
-                    comments: [...el.comments, comment],
-                  }
-                  : el
-              ),
-            ],
-          }
+              ...el,
+              comments: [
+                ...el.comments.map(el =>
+                  el._id == payload.description.commentId
+                    ? {
+                        ...el,
+                        comments: [...el.comments, comment],
+                      }
+                    : el
+                ),
+              ],
+            }
           : el
       );
     }

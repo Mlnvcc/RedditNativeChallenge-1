@@ -10,6 +10,7 @@ profileRouter.patch('/edit', async (req, res) => {
       {
         userName,
         email,
+        uri: req.body.user.uri,
       },
       { new: true }
     );

@@ -50,10 +50,8 @@ export default function oneAutorPage({ route }) {
     <View style={styles.container}>
       <View style={styles.headerContent}>
         <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-          }}
+          source={{ uri: author.uri }}
+          style={{ width: 200, height: 200 }}
         />
         <Text style={styles.name}> {author.userName}</Text>
       </View>

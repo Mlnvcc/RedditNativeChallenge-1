@@ -10,7 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { addLike, addDislike, getContent, editPost, } from "../../redux/actions/content";
+import {
+  addLike,
+  addDislike,
+  getContent,
+  editPost,
+} from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
 import { LikesContext } from "../../context/context";
@@ -63,12 +68,13 @@ export default function Post({ route }) {
           {mainPost.description}
         </Card.Title>
 
-        {mainPost.content ?
+        {mainPost.content ? (
           <Card.Image>
             <Text>{mainPost.content}</Text>
           </Card.Image>
-          : <></>
-        }
+        ) : (
+          <></>
+        )}
 
         <View style={styles.icons}>
           <Icon.Button
@@ -138,14 +144,14 @@ export default function Post({ route }) {
                     name="thumbs-up"
                     thumbs-down
                     backgroundColor="gray"
-                  // onPress={() => likeComment(userId, item._id)}
+                    // onPress={() => likeComment(userId, item._id)}
                   >
                     {item.likes.length}
                   </Icon.Button>
                   <Icon.Button
                     name="thumbs-down"
                     backgroundColor="gray"
-                  // onPress={() => dislikeComment(userId, item._id)}
+                    // onPress={() => dislikeComment(userId, item._id)}
                   >
                     {item.dislikes.length}
                   </Icon.Button>

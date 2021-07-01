@@ -22,7 +22,7 @@ export default function Header() {
   const [formValue, setFormValue] = useState("");
 
   const [sort, setSort] = useState(false);
-
+  const uri = useSelector(state => state.user.userInfo.uri);
   const changeSorStatus = () => {
     setSort(prev => !prev);
   };
@@ -60,7 +60,7 @@ export default function Header() {
           <Image
             style={styles.image}
             source={{
-              uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+              uri: uri,
             }}
           />
         </TouchableOpacity>
