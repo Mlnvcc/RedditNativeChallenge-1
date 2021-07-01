@@ -31,7 +31,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       content: req.body.content,
-      date: moment().subtract(6, 'days').calendar(),
+      date: moment().startOf('day').fromNow(), //НЕ МЕНЯТЬ ЭТУ ДАТУ!!!!!
       dateNumber: Date.now(),
       tags: req.body.tags,
       author: req.body.author,

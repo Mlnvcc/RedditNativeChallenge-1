@@ -18,6 +18,9 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
+  const [colorLike, setColorLike] = useState(false);
+  const [colorDislike, setColorDislike] = useState(false);
+  console.log(colorLike, colorDislike);
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -79,7 +82,7 @@ export default function Item({ el }) {
               name="ellipsis-v"
               backgroundColor="#9ca3af"
               onPress={toggleOverlay}
-            ></Icon.Button>
+            />
           </View>
         </View>
       ) : (
@@ -99,24 +102,42 @@ export default function Item({ el }) {
       )}
       <View style={styles.icons}>
         <Icon.Button
+          color={colorLike ? "#61dafb" : "#f9fafb"}
           name="thumbs-up"
-          backgroundColor="#9ca3af"
-          onPress={() => like(userId, el._id)}
+          backgroundColor="#1f2937"
+          onPress={() => {
+            like(userId, el._id);
+            setColorLike(prev => {
+              if (colorDislike) {
+                setColorDislike(prevD => !prevD);
+              }
+              return !prev;
+            });
+          }}
         >
           <Text style={styles.text}> {el.likes.length}</Text>
         </Icon.Button>
 
         <Icon.Button
+          color={colorDislike ? "#61dafb" : "#f9fafb"}
           name="thumbs-down"
-          backgroundColor="#9ca3af"
-          onPress={() => dislike(userId, el._id)}
+          backgroundColor="#1f2937"
+          onPress={() => {
+            dislike(userId, el._id);
+            setColorDislike(prev => {
+              if (colorLike) {
+                setColorLike(prevL => !prevL)
+              }
+              return !prev
+            });
+          }}
         >
           <Text style={styles.text}>{el.dislikes.length}</Text>
         </Icon.Button>
 
         <Icon.Button
           name="comments"
-          backgroundColor="#9ca3af"
+          backgroundColor="#1f2937"
           onPress={() => navigation.navigate("OnePostPage", { el })}
         >
           <Text style={styles.text}>{el.comments.length}</Text>
