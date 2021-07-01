@@ -11,7 +11,6 @@ import {
   getContent,
   deletePost,
 } from "../../redux/actions/content";
-import { LikesContext } from "../../context/context";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -19,10 +18,8 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
-  const { colorLike, setColorLike, colorDislike, setColorDislike } =
-    useContext(LikesContext);
-  // const [colorLike, setColorLike] = useState(false);
-  // const [colorDislike, setColorDislike] = useState(false);
+  const [colorLike, setColorLike] = useState(false);
+  const [colorDislike, setColorDislike] = useState(false);
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);

@@ -40,8 +40,7 @@ export default function oneAutorPage({ route }) {
     setSubscribes(prev => prev + 1);
     setStatus(prev => !prev);
   };
-
-  console.log(11111111, posts[0].author.subscribers.includes(userId));
+  
   // const arrayWithSubscribers = posts.filter();
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);

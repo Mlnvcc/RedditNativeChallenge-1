@@ -18,14 +18,11 @@ import {
 } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
-import { LikesContext } from "../../context/context";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { colorLike, setColorLike, colorDislike, setColorDislike } =
-    useContext(LikesContext);
 
   const mainId = route.params.el._id;
 
@@ -84,12 +81,6 @@ export default function Post({ route }) {
             backgroundColor="#1f2937"
             onPress={() => {
               like(userId, mainPost._id)
-              setColorLike(prev => {
-                if (colorDislike) {
-                  setColorDislike(prevD => !prevD);
-                }
-                return !prev;
-              });
             }}
           >
             <Text style={styles.text}>{likes.length}</Text>
@@ -100,12 +91,6 @@ export default function Post({ route }) {
             backgroundColor="#1f2937"
             onPress={() => {
               dislike(userId, mainPost._id)
-              setColorDislike(prev => {
-                if (colorLike) {
-                  setColorLike(prevL => !prevL)
-                }
-                return !prev
-              });
             }}
           >
             <Text style={styles.text}>{mainPost.dislikes.length}</Text>
