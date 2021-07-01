@@ -70,7 +70,9 @@ const SignUp = () => {
     <View style={styles.container}>
       <Image
         style={styles.bgImage}
-        source={{ uri: "https://lorempixel.com/900/1400/nightlife/2/" }}
+        source={{
+          uri: "https://i.imgur.com/QQzsrBH.gif",
+        }}
       />
       <View style={styles.inputContainer}>
         <TextInput

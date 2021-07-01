@@ -11,7 +11,7 @@ import {
   getContent,
   deletePost,
 } from "../../redux/actions/content";
-import { LikesContext } from "../../context/context"; 
+import { LikesContext } from "../../context/context";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -19,7 +19,8 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
-  const {colorLike, setColorLike, colorDislike, setColorDislike} = useContext(LikesContext)
+  const { colorLike, setColorLike, colorDislike, setColorDislike } =
+    useContext(LikesContext);
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -89,11 +90,20 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
-      <View style={styles.imageTitle}>
-        <Card.Title style={styles.title1}>{el.title}</Card.Title>
-        <Image source={{ uri: el.uri }} style={{ width: 200, height: 200 }} />
-      </View>
-      <Card.Divider style={styles.hr} />
+      <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      {el.uri ?
+        <View>
+          <View style={styles.imageTitle}>
+            <Image
+              source={{ uri: el.uri }}
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+          <Card.Divider style={styles.hr} />
+        </View>
+        : <Text></Text>
+      }
+
       {el.content ? (
         <>
           <Card.Image>
@@ -103,6 +113,7 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
+
       <View style={styles.icons}>
         <Icon.Button
           color={colorLike ? "#61dafb" : "#f9fafb"}
@@ -111,9 +122,7 @@ export default function Item({ el }) {
           onPress={() => {
             like(userId, el._id);
             setColorLike(prev => {
-              if (colorDislike) {
-                setColorDislike(prevD => !prevD);
-              }
+              if (colorDislike) setColorDislike(prevD => !prevD);
               return !prev;
             });
           }}
@@ -128,10 +137,8 @@ export default function Item({ el }) {
           onPress={() => {
             dislike(userId, el._id);
             setColorDislike(prev => {
-              if (colorLike) {
-                setColorLike(prevL => !prevL)
-              }
-              return !prev
+              if (colorLike) setColorLike(prevL => !prevL);
+              return !prev;
             });
           }}
         >
@@ -176,7 +183,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     borderStyle: "solid",
-    borderColor: "#543333",
+    borderColor: "#61dafb",
   },
 
   overlayText: {

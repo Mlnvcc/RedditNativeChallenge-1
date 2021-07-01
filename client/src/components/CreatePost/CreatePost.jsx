@@ -41,7 +41,7 @@ export default function CreateNewPost() {
         description,
         content: url,
         tags: allTags,
-        // uri: image.toString(),
+        uri: image?.toString(),
       };
       setTitle("");
       setDescription("");
@@ -90,10 +90,11 @@ export default function CreateNewPost() {
         placeholderTextColor="#cff1f9"
       />
 
+      <Multer setImage={setImage} />
+
       <TouchableOpacity style={styles.button} onPress={submtForm}>
         <Text style={styles.text}>Create Post</Text>
       </TouchableOpacity>
-      <Multer setImage={setImage} />
     </SafeAreaView>
   );
 }
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    margin: 15,
+    margin: 5,
     marginHorizontal: 4,
     backgroundColor: "#475569",
     borderWidth: 2,
