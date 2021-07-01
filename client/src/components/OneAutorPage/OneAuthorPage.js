@@ -12,8 +12,14 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
 import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
+import { getContent } from "../../redux/actions/content";
 
 export default function oneAutorPage({ route }) {
+  const posts = useSelector(state => state.content);
+  const [status, setStatus] = useState(
+    posts[0].author.subscribers.includes(userId)
+  );
+  console.log("status", status);
   const author = route.params.el;
   const userId = useSelector(state => state.user.userInfo.id);
   const navigation = useNavigation();
@@ -26,14 +32,17 @@ export default function oneAutorPage({ route }) {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToDisSubscribe(data));
     setSubscribes(prev => prev - 1);
+    setStatus(prev => !prev);
   };
   const subscribe = () => {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToSubscribe(data));
     setSubscribes(prev => prev + 1);
+    setStatus(prev => !prev);
   };
 
-  const posts = useSelector(state => state.content);
+  console.log(11111111, posts[0].author.subscribers.includes(userId));
+  // const arrayWithSubscribers = posts.filter();
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);
 
@@ -61,20 +70,25 @@ export default function oneAutorPage({ route }) {
           <Icon size={30} name="users" color="#61dafb"></Icon>
           <Text style={styles.info}> Subscribers: {subscribes}</Text>
         </View>
-
-        <TouchableOpacity onPress={() => subscribe()}>
-          <View style={styles.item}>
-            <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>
-            <Text style={styles.info}> Subscribe on {author.userName}</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => disSubscribe()}>
-          <View style={styles.item}>
-            <Icon size={30} name="times-circle-o" color="#61dafb"></Icon>
-            <Text style={styles.info}> Unsubscribe {author.userName}</Text>
-          </View>
-        </TouchableOpacity>
+        {status ? (
+          <TouchableOpacity onPress={() => subscribe()}>
+            <View style={styles.item}>
+              <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Subscribe on {author.userName}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => disSubscribe()}>
+            <View style={styles.item}>
+              <Icon size={30} name="times-circle-o" color="#61dafb"></Icon>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Unsubscribe {author.userName}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
@@ -109,7 +123,7 @@ export default function oneAutorPage({ route }) {
           <Text></Text>
         )}
       </View>
-    </View>
+    </View >
   );
 }
 
