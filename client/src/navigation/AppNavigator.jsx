@@ -178,34 +178,6 @@ const Navigate = () => {
             />
           </>
         )}
-        {/* <Stack.Screen
-          name="MainPage"
-          component={MainPage}
-          options={{ title: "Main Page" }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={UserProfileView}
-          options={{ title: "Your profile" }}
-        />
-
-        <Stack.Screen
-          name="CreatePost"
-          component={CreateNewPost}
-          options={{ title: "Add new Post" }}
-        />
-
-        <Stack.Screen
-          name="OnePostPage"
-          component={OnePostPage}
-          options={{ title: "Post" }}
-        />
-
-        <Stack.Screen
-          name="Search"
-          component={Search}
-          options={{ title: "Search" }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

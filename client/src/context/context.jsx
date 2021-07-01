@@ -7,7 +7,9 @@ export const LikesStateProvider = props => {
   const [colorDislike, setColorDislike] = useState(false);
 
   return (
-    <LikesContext.Provider value={{ colorLike, setColorLike, colorDislike, setColorDislike }}>
+    <LikesContext.Provider
+      value={{ colorLike, setColorLike, colorDislike, setColorDislike }}
+    >
       {props.children}
     </LikesContext.Provider>
   );

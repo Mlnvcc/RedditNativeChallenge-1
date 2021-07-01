@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   loginButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "#61dafb",
 
     shadowColor: "#808080",
     shadowOffset: {
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "white",
+    fontWeight: "bold",
   },
   bgImage: {
     flex: 1,

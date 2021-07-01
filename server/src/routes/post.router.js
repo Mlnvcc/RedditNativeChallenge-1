@@ -14,7 +14,6 @@ postRouter.get('/', checkAuth, async (req, res) => {
     //     path : 'reviewId'
     //   }
     // })
-    // console.log('GET posts', posts);
     // const comments = await Comment.find()
     //   .populate('comments')
     //   .populate('author');
@@ -31,7 +30,7 @@ postRouter.post('/add', checkAuth, async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       content: req.body.content,
-      date: moment().startOf('day').fromNow(), //НЕ МЕНЯТЬ ЭТУ ДАТУ!!!!!
+      date: moment().startOf('day').fromNow(),
       dateNumber: Date.now(),
       tags: req.body.tags,
       author: req.body.author,
