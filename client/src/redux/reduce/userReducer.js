@@ -9,8 +9,8 @@ import {
   CHANGE_STATUS_COMMENT,
   CHANGE_STATUS_OLD,
   GET_SUBSCRIBE_START,
+  PROFILE_EDIT,
 } from "../types/userTypes";
-import { PROFILE_EDIT } from "../types/userTypes";
 
 const initialState = {
   jwt: { access: null, refresh: null },
@@ -81,8 +81,6 @@ const userReducer = (state = initialState, action) => {
     }
 
     case GET_SUBSCRIBE_START: {
-      const { autorId } = payload;
-      const { userId } = payload;
       return { ...state };
     }
 

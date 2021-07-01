@@ -5,8 +5,14 @@ import { Card, Button, Input } from "react-native-elements";
 import Header from "../Header/Header";
 import LowerMenu from "../LowerMenu/LowerMenu";
 import PostList from "../PostList/PostList";
-import { addLike, addDislike, getContent } from "../../redux/actions/content";
-import { createComMain, createComToCom } from "../../redux/actions/comments";
+import {
+  addLike,
+  addDislike,
+  getContent,
+  createComMain,
+  createComToCom,
+} from "../../redux/actions/content";
+
 import styles from "./style";
 
 const AddCommentMenu = ({ userId, postId }) => {

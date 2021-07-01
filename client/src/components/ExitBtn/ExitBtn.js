@@ -8,9 +8,7 @@ const ExitBtn = ({ stateUser }) => {
   const setNewUser = stateUser.setNewUser;
   const handleClickLogOut = () => {
     dispatch(signOut());
-    console.log(stateUser.newUser);
     setNewUser("");
-    // console.log(1234124);
   };
 
   return (

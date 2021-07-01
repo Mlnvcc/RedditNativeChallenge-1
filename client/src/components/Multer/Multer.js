@@ -1,67 +1,37 @@
-import React from "react";
-import { View, Image, Button, Platform } from "react-native";
-import ImagePicker from "react-native-image-picker";
+import React, { useState, useEffect } from "react";
+import { Button, Image, View, Platform } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { useDispatch } from "react-redux";
 
-import launchImageLibrary from "react-native-image-picker";
-
-const SERVER_URL = "http://localhost:3000";
-
-const createFormData = (photo, body = {}) => {
-  const data = new FormData();
-
-  data.append("photo", {
-    name: photo.fileName,
-    type: photo.type,
-    uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
-  });
-
-  Object.keys(body).forEach(key => {
-    data.append(key, body[key]);
-  });
-
-  return data;
-};
-
-const Multer = () => {
-  const [photo, setPhoto] = React.useState(null);
-
-  const handleChoosePhoto = () => {
-    ImagePicker.launchImageLibrary({ noData: true }, response => {
-      // console.log(response);
-      if (response) {
-        setPhoto(response);
+export default function Multer({ setImage }) {
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
       }
-    });
-  };
+    })();
+  }, []);
 
-  const handleUploadPhoto = () => {
-    fetch(`${SERVER_URL}/api/upload`, {
-      method: "POST",
-      body: createFormData(photo, { userId: "123" }),
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log("response", response);
-      })
-      .catch(error => {
-        console.log("error", error);
-      });
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {photo && (
-        <>
-          {/* <Image
-            source={{ uri: photo.uri }}
-            style={{ width: 300, height: 300 }}
-          /> */}
-        </>
-      )}
-      <Button title="Choose Photo" onPress={handleChoosePhoto} />
-      <Button title="Upload Photo" onPress={handleUploadPhoto} />
+      <Button title="Pick an image from camera roll" onPress={pickImage} />
     </View>
   );
-};
-
-export default Multer;
+}

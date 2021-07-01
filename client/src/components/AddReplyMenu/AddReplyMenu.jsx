@@ -5,20 +5,30 @@ import { Card, Button, Input } from "react-native-elements";
 import Header from "../Header/Header";
 import LowerMenu from "../LowerMenu/LowerMenu";
 import PostList from "../PostList/PostList";
-import { addLike, addDislike, getContent } from "../../redux/actions/content";
-import { createComMain, createComToCom } from "../../redux/actions/comments";
+import {
+  addLike,
+  addDislike,
+  getContent,
+  createComMain,
+  createComToCom,
+} from "../../redux/actions/content";
+
 import styles from "./style";
 
-const AddReplyMenu = ({ userId, postId }) => {
+const AddReplyMenu = ({ userId, postId, fathercomment }) => {
   const dispatch = useDispatch();
-
-  // const [commentToComment, setCommentToComment] = useState();
+  console.log("BATYANAFRoNTE", fathercomment);
   const [commentToComment, setCommentToComment] = useState();
 
   const createCommentToComment = () => {
     if (commentToComment.trim().length > 5) {
-      const comment = { text: comment, autorId: userId, postId };
-      console.log("COMMENT FRONT", comment);
+      const comment = {
+        text: commentToComment,
+        autorId: userId,
+        postId,
+        fathercomment,
+      };
+      console.log("COMMENT FRONT", commentToComment);
       dispatch(createComToCom(comment));
     }
   };
@@ -29,7 +39,7 @@ const AddReplyMenu = ({ userId, postId }) => {
         <Input
           value={commentToComment}
           onChangeText={text => setCommentToComment(text)}
-          placeholder="Comment"
+          placeholder="Retry"
         />
         <Button
           onPress={() => {

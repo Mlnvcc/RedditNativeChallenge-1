@@ -21,7 +21,6 @@ const editUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   const { id } = req.params;
-  console.log(req.params);
   const currentUser = await userModel.findById(id, { password: 0 });
   setTimeout(() => {
     res.json(currentUser);

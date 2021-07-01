@@ -6,10 +6,8 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { Switch } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,7 +18,6 @@ import {
 
 export default function Header() {
   const dispath = useDispatch();
-  const posts = useSelector(state => state.content);
   const status = useSelector(state => state.user.statusSearch);
   const [formValue, setFormValue] = useState("");
 
@@ -83,34 +80,38 @@ export default function Header() {
           </TouchableOpacity>
         </View>
       </View>
-      <Button
-        title="Сортировать поиск"
+
+      <TouchableOpacity
+        style={styles.buttonSort}
         onPress={() => changeSorStatus()}
-      ></Button>
+      >
+        <Text style={styles.textSort}>Sort by:</Text>
+      </TouchableOpacity>
+
       {sort && (
         <View style={styles.modal}>
           <View style={styles.oneType}>
-            <Text>Самые популярные</Text>
+            <Text style={styles.text}>Population: </Text>
             <Switch
               value={status.likes}
-              color="blue"
+              color="#61dafb"
               onValueChange={() => changeSwitchSorStatusLikesUp()}
             />
           </View>
           <View style={styles.oneType}>
-            <Text>Самые обсуждаемые</Text>
+            <Text style={styles.text}>Comments: </Text>
             <Switch
               value={status.comments}
-              color="blue"
+              color="#61dafb"
               onValueChange={() => changeCommentSetSortSwitch()}
             />
           </View>
 
           <View style={styles.oneType}>
-            <Text>Самые старые</Text>
+            <Text style={styles.text}>Oldest :</Text>
             <Switch
               value={status.old}
-              color="blue"
+              color="#61dafb"
               onValueChange={() => changeoldStatus()}
             />
           </View>
@@ -121,19 +122,36 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  buttonSort: {
     marginHorizontal: 4,
-    backgroundColor: "#1e293b",
+    backgroundColor: "#61dafb",
     borderWidth: 2,
     borderRadius: 5,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#374151",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  textSort: {
+    color: "#374151",
+    margin: 3,
+    fontSize: 20,
+  },
+
+  button: {
+    marginHorizontal: 4,
+    backgroundColor: "#111827",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#61dafb",
     alignItems: "center",
     justifyContent: "center",
   },
 
   text: {
-    color: "#e2e8f0",
+    color: "#f9fafb",
     margin: 3,
     fontSize: 15,
   },
@@ -148,7 +166,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 3,
     borderStyle: "solid",
-    borderColor: "#e2e8f0",
+    borderColor: "#f9fafb",
   },
 
   form: {
@@ -163,9 +181,10 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 7,
     borderWidth: 2,
-    borderColor: "#e2e8f0",
-    color: "#e2e8f0",
-    backgroundColor: "#1e293b",
+    borderColor: "#f9fafb",
+    color: "#f9fafb",
+    backgroundColor: "#111827",
+    placeholderTextColor: "#cff1f9",
   },
 
   image: {
@@ -174,17 +193,18 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     borderStyle: "solid",
     borderWidth: 2,
-    borderColor: "#e2e8f0",
+    borderColor: "#f9fafb",
   },
   hr: {
-    backgroundColor: "#e2e8f0",
+    backgroundColor: "#f9fafb",
     height: 1.3,
   },
   modal: {
+    borderWidth: 2,
+    borderRadius: 3,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
-    height: 300,
+    borderColor: "#f9fafb",
+    height: 180,
   },
   oneType: {
     height: 10,

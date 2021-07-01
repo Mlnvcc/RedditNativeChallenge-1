@@ -1,27 +1,54 @@
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Card, Button, Input } from "react-native-elements";
+
 import Icon from "react-native-vector-icons/FontAwesome";
-import { StyleSheet, View, Text, FlatList, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { addLike, addDislike, getContent } from "../../redux/actions/content";
+import {
+  addLike,
+  addDislike,
+  getContent,
+  editPost,
+  addLikeComment,
+  addDislikeComment,
+} from "../../redux/actions/content";
+
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
 import AddReplyMenu from "../AddReplyMenu/AddReplyMenu";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const [inputState, SetInputState] = useState(true);
+  const [inputState, SetInputState] = useState({
+    status: true,
+    commentId: null,
+  });
 
   const mainId = route.params.el._id;
 
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
-  // console.log("mainPost", mainPost);
   const comments = mainPost.comments;
   // console.log("COMMENTI", comments);
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
+
+  const likeComment = (userId, commentId) => {
+    dispatch(addLikeComment(userId, commentId));
+  };
+  const dislikeComment = (userId, commentId) => {
+    dispatch(addDislikeComment(userId, commentId));
+  };
 
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
@@ -35,45 +62,48 @@ export default function Post({ route }) {
   // }, []);
 
   return (
-    <>
-      <View>
-        <Card>
-          <Card.Title>{mainPost.title}</Card.Title>
-          <Card.Divider />
-          <Image
-            style={styles.content}
-            source={{
-              uri: mainPost.content,
-            }}
-          />
-          <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{mainPost.description}</Text>
-          </Card.Image>
-          <View style={styles.icons}>
-            <Icon.Button
-              name="thumbs-up"
-              thumbs-down
-              backgroundColor="gray"
-              onPress={() => like(userId, mainPost._id)}
-            >
-              {likes.length}
-            </Icon.Button>
-            <Icon.Button
-              name="thumbs-down"
-              backgroundColor="gray"
-              onPress={() => dislike(userId, mainPost._id)}
-            >
-              {mainPost.dislikes.length}
-            </Icon.Button>
-
-            <Icon.Button
-              name="ellipsis-h"
-              backgroundColor="gray"
-              onPress={() => console.log("comment")}
-            ></Icon.Button>
-          </View>
-        </Card>
-      </View>
+    <View style={styles.container}>
+      <Card containerStyle={styles.div}>
+        <Card.Title style={styles.title}>{mainPost.title}</Card.Title>
+        <Card.Divider style={styles.hr} />
+        <Card.Title style={styles.description}>
+          {mainPost.description}
+        </Card.Title>
+        {mainPost.content ? (
+          <Image source={{ uri: mainPost.content }} style={{ height: 200 }} />
+        ) : (
+          <></>
+        )}
+        в
+        <View style={styles.icons}>
+          <Icon.Button
+            name="thumbs-up"
+            backgroundColor="#9ca3af"
+            onPress={() => like(userId, mainPost._id)}
+          >
+            {likes.length}
+          </Icon.Button>
+          <Icon.Button
+            name="thumbs-down"
+            backgroundColor="#9ca3af"
+            onPress={() => dislike(userId, mainPost._id)}
+          >
+            {mainPost.dislikes.length}
+          </Icon.Button>
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("DetailPage", {
+              el: mainPost.author,
+            });
+          }}
+        >
+          <Text style={styles.text}>
+            Created by: {mainPost.author.userName}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>{mainPost.date}</Text>
+      </Card>
 
       {/* <Text style={{ alignItems: "center", justifyContent: "center" }}>
         tuta
@@ -84,31 +114,34 @@ export default function Post({ route }) {
             data={comments}
             renderItem={({ item }) => (
               <Card style={{ height: 30 }}>
-                {console.log(item)}
                 <Card.Image /*source={"ASd"}*/>
                   <Text style={{ marginBottom: 10 }}>{item.text}</Text>
                 </Card.Image>
-
                 <View style={styles.icons}>
                   <Icon.Button
                     name="thumbs-up"
                     thumbs-down
                     backgroundColor="gray"
-                    // onPress={() => likeComment(userId, item._id)}
+                    onPress={() => likeComment(userId, item._id)}
                   >
                     {item.likes.length}
                   </Icon.Button>
                   <Icon.Button
                     name="thumbs-down"
                     backgroundColor="gray"
-                    // onPress={() => dislikeComment(userId, item._id)}
+                    onPress={() => dislikeComment(userId, item._id)}
                   >
                     {item.dislikes.length}
                   </Icon.Button>
                   <Icon.Button
                     name="comments"
                     backgroundColor="gray"
-                    onPress={() => SetInputState(!inputState)}
+                    onPress={() =>
+                      SetInputState({
+                        status: !inputState,
+                        commentId: item._id,
+                      })
+                    }
                   >
                     {item.comments.length}
                   </Icon.Button>
@@ -118,12 +151,13 @@ export default function Post({ route }) {
                     onPress={() => console.log("comment")}
                   ></Icon.Button>
                 </View>
+
+                <Text style={{ marginBottom: 1 }}>{item.creator.userName}</Text>
                 <Text style={{ marginBottom: 1 }}>{item.date}</Text>
                 <FlatList
                   data={item.comments}
                   renderItem={({ item }) => (
                     <>
-                      {console.log("ITEM INSIDE ITEM", item)}
                       <View
                         style={{
                           flex: 1,
@@ -136,24 +170,48 @@ export default function Post({ route }) {
                         </View>
 
                         <View>
-                          <Text>{item.creatorLogin}</Text>
-                          <Text>{item.date}</Text>
+                          <Text>Created by: {item.creatorLogin}</Text>
+                          <Text>Created by: {item.date}</Text>
+                        </View>
+                        <View style={styles.icons}>
+                          {console.log()}
+                          <Icon.Button
+                            name="thumbs-up"
+                            thumbs-down
+                            backgroundColor="gray"
+                            onPress={() => likeComment(userId, item._id)}
+                          >
+                            {item.likes.length}
+                          </Icon.Button>
+                          <Icon.Button
+                            name="thumbs-down"
+                            backgroundColor="gray"
+                            onPress={() => dislikeComment(userId, item._id)}
+                          >
+                            {item.dislikes.length}
+                          </Icon.Button>
+                          <Icon.Button
+                            name="comments"
+                            backgroundColor="gray"
+                            onPress={() =>
+                              SetInputState({
+                                status: !inputState,
+                                commentId: item._id,
+                              })
+                            }
+                          >
+                            {item.comments.length}
+                          </Icon.Button>
+                          <Icon.Button
+                            name="ellipsis-h"
+                            backgroundColor="gray"
+                            onPress={() => console.log("comment")}
+                          ></Icon.Button>
                         </View>
                       </View>
                     </>
                   )}
                 />
-                {/* <Input
-                  value={commentToComment}
-                  onChangeText={text => setCommentToComment(text)}
-                  placeholder="Comment"
-                />
-                <Button
-                  onPress={() => {
-                    createCommentToComment(item._id);
-                  }}
-                  title="Sub"
-                /> */}
               </Card>
             )}
             keyExtractor={item => item.id}
@@ -163,8 +221,8 @@ export default function Post({ route }) {
             value={comment}
             onChangeText={text => setComment(text)}
             placeholder="Текст комментария"
-          />
-          <Button
+            />
+            <Button
             onPress={() => {
               createComment();
             }}
@@ -174,16 +232,60 @@ export default function Post({ route }) {
       ) : (
         <></>
       )}
-      {inputState ? (
+      {console.log(767676, inputState)}
+      {inputState.status ? (
         <AddCommentMenu userId={userId} postId={mainPost._id} />
       ) : (
-        <AddReplyMenu userId={userId} postId={mainPost._id} />
+        <AddReplyMenu
+          userId={userId}
+          postId={mainPost._id}
+          fathercomment={inputState.commentId}
+        />
       )}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  //post container
+  div: {
+    width: 400,
+    flexDirection: "column",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#f9fafb",
+    backgroundColor: "#1f2937",
+  },
+  // all data
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    alignItems: "center",
+    fontSize: 13,
+    backgroundColor: "#111827",
+    height: 200,
+  },
+
+  hr: {
+    backgroundColor: "#61dafb",
+    height: 1.3,
+  },
+
+  title: {
+    fontSize: 25,
+    color: "#f9fafb",
+  },
+
+  description: {
+    color: "#f9fafb",
+    fontSize: 20,
+  },
+
+  text: {
+    color: "#f9fafb",
+  },
+
   icons: {
     flex: 1,
     flexDirection: "row",
