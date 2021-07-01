@@ -70,14 +70,6 @@ export default function CreateNewPost() {
       // placeholderTextColor="#cff1f9"
       />
 
-      <TextInput
-        onChangeText={url => setUrl(url)}
-        value={url}
-        style={styles.multilineInput}
-        multiline={true}
-        placeholder="Url"
-      // placeholderTextColor="#cff1f9"
-      />
       {image && <Image source={{ uri: image }} style={{ width: 200 }} />}
 
       <TextInput
