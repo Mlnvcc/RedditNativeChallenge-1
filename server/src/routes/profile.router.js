@@ -4,13 +4,13 @@ const User = require('../models/userModel');
 
 profileRouter.patch('/edit', async (req, res) => {
   try {
-    const { _id, userName, email } = req.body.user;
+    const { _id, userName, email, uri } = req.body.user;
     let updatedUser = await User.findByIdAndUpdate(
       _id,
       {
         userName,
         email,
-        uri: req.body.user.uri,
+        uri,
       },
       { new: true }
     );

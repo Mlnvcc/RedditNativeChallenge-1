@@ -108,7 +108,7 @@ export default function Search({ route }) {
         autoCorrect={false}
         autoCapitalize="none"
         placeholder={searchTag}
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => serachingFunc()}>

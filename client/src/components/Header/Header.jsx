@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     borderColor: "#f9fafb",
     color: "#f9fafb",
     backgroundColor: "#111827",
-    placeholderTextColor: "#cff1f9",
+    // placeholderTextColor: "#cff1f9",
   },
 
   image: {

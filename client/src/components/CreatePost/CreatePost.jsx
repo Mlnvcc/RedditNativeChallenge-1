@@ -59,7 +59,7 @@ export default function CreateNewPost() {
         value={title}
         style={styles.input}
         placeholder="Title"
-        placeholderTextColor="#cff1f9"
+      // placeholderTextColor="#cff1f9"
       />
       <TextInput
         onChangeText={text => setDescription(text)}
@@ -67,7 +67,7 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
-        placeholderTextColor="#cff1f9"
+      // placeholderTextColor="#cff1f9"
       />
 
       <TextInput
@@ -76,18 +76,16 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Url"
-        placeholderTextColor="#cff1f9"
+      // placeholderTextColor="#cff1f9"
       />
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
+      {image && <Image source={{ uri: image }} style={{ width: 200 }} />}
 
       <TextInput
         onChangeText={text => setTags(text)}
         value={tags}
         style={styles.input}
         placeholder="Put some tags separated by ' # '"
-        placeholderTextColor="#cff1f9"
+      // placeholderTextColor="#cff1f9"
       />
 
       <Multer setImage={setImage} />

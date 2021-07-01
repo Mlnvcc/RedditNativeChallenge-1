@@ -19,8 +19,10 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
-  const { colorLike, setColorLike, colorDislike, setColorDislike } =
-    useContext(LikesContext);
+  // const { colorLike, setColorLike, colorDislike, setColorDislike } =
+  //   useContext(LikesContext);
+  const [colorLike, setColorLike] = useState(false);
+  const [colorDislike, setColorDislike] = useState(false);
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -148,7 +150,9 @@ export default function Item({ el }) {
         <Icon.Button
           name="comments"
           backgroundColor="#1f2937"
-          onPress={() => navigation.navigate("OnePostPage", { el })}
+          onPress={() =>
+            navigation.navigate("OnePostPage", { el })
+          }
         >
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>

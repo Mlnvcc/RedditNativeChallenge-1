@@ -76,8 +76,9 @@ const userReducer = (state = initialState, action) => {
         },
       };
     case PROFILE_EDIT: {
-      const userInfo = action.payload;
-      return { ...state, userInfo };
+      const id = action.payload._id;
+      const newUserInfo = action.payload;
+      return { ...state, userInfo: { ...newUserInfo, id } };
     }
 
     case GET_SUBSCRIBE_START: {

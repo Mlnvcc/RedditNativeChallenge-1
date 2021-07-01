@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   footer: {
-    // height: 40,
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#456ba0",

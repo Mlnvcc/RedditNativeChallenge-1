@@ -18,13 +18,13 @@ import {
 } from "../../redux/actions/content";
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
-import { LikesContext } from "../../context/context";
 
 export default function Post({ route }) {
+  console.log(route);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const {colorLike, setColorLike, colorDislike, setColorDislike} = useContext(LikesContext)
+
 
   const mainId = route.params.el._id;
 

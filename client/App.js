@@ -5,16 +5,13 @@ import { Provider } from "react-redux";
 
 import store, { persistor } from "./src/redux/store";
 import Navigate from "./src/navigation/AppNavigator";
-import { LikesStateProvider } from "./src/context/context";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <LikesStateProvider>
       <PersistGate persistor={persistor} loading={null}>
         <Navigate style={styles.container} />
       </PersistGate>
-      </LikesStateProvider>
     </Provider>
   );
 }

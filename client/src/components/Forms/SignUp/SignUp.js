@@ -71,7 +71,7 @@ const SignUp = () => {
       <Image
         style={styles.bgImage}
         source={{
-          uri: "https://i.imgur.com/QQzsrBH.gif",
+          uri: "https://thumbs.gfycat.com/DenseGenerousBoutu-size_restricted.gif",
         }}
       />
       <View style={styles.inputContainer}>
