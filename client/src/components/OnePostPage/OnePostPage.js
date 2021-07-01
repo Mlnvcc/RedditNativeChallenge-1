@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Button, Input } from "react-native-elements";
+
 import Icon from "react-native-vector-icons/FontAwesome";
 import {
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,35 +17,37 @@ import {
   addDislike,
   getContent,
   editPost,
+  addLikeComment,
+  addDislikeComment,
 } from "../../redux/actions/content";
+
 import { createComMain, createComToCom } from "../../redux/actions/comments";
 import AddCommentMenu from "../AddCommentMenu/AddCommentMenu.jsx";
+import AddReplyMenu from "../AddReplyMenu/AddReplyMenu";
 
 export default function Post({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const [inputState, SetInputState] = useState({
+    status: true,
+    commentId: null,
+  });
 
   const mainId = route.params.el._id;
 
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
   const comments = mainPost.comments;
+  // console.log("COMMENTI", comments);
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
 
-  const [commentToComment, setCommentToComment] = useState();
-  const createCommentToComment = commentId => {
-    if (commentToComment.trim().length > 5) {
-      const comment = {
-        text: commentToComment,
-        autorId: userId,
-        commentId,
-        mainId: mainId,
-        postId: mainPost._id,
-      };
-      dispatch(createComToCom(comment));
-    }
+  const likeComment = (userId, commentId) => {
+    dispatch(addLikeComment(userId, commentId));
+  };
+  const dislikeComment = (userId, commentId) => {
+    dispatch(addDislikeComment(userId, commentId));
   };
 
   const like = (userId, postId) => {
@@ -53,9 +57,9 @@ export default function Post({ route }) {
     dispatch(addDislike(userId, postId));
   };
 
-  useEffect(() => {
-    dispatch(getContent());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getContent());
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -66,133 +70,169 @@ export default function Post({ route }) {
           {mainPost.description}
         </Card.Title>
 
-        {mainPost.content ? (
-          <Card.Image>
-            <Text>{mainPost.content}</Text>
-          </Card.Image>
-        ) : (
-          <></>
-        )}
+      {mainPost.content ? (
+        <Card.Image>
+          <Text>{mainPost.content}</Text>
+        </Card.Image>
+      ) : (
+        <></>
+      )}
 
-        <View style={styles.icons}>
-          <Icon.Button
-            color={colorLike ? "#61dafb" : "#f9fafb"}
-            name="thumbs-up"
-            backgroundColor="#1f2937"
-            onPress={() => {
-              like(userId, mainPost._id)
-            }}
-          >
-            <Text style={styles.text}>{likes.length}</Text>
-          </Icon.Button>
-          <Icon.Button
-            color={colorDislike ? "#61dafb" : "#f9fafb"}
-            name="thumbs-down"
-            backgroundColor="#1f2937"
-            onPress={() => {
-              dislike(userId, mainPost._id)
-            }}
-          >
-            <Text style={styles.text}>{mainPost.dislikes.length}</Text>
-          </Icon.Button>
-        </View>
-
-        <TouchableOpacity
+      {/* //   {mainPost.content ? (
+      //   <Image source={{ uri: mainPost.content }} style={{ height: 200 }} />
+      // ) : (
+      //   <></>
+      // )} */}
+      
+      <View style={styles.icons}>
+        <Icon.Button
+          color={"#f9fafb"}
+          name="thumbs-up"
+          backgroundColor="#1f2937"
           onPress={() => {
-            navigation.navigate("DetailPage", {
-              el: mainPost.author,
-            });
+            like(userId, mainPost._id)
           }}
         >
-          <Text style={styles.text}>
-            Created by: {mainPost.author.userName}
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.text}>{mainPost.date}</Text>
+          <Text style={styles.text}>{likes.length}</Text>
+        </Icon.Button>
+        <Icon.Button
+          color={"#f9fafb"}
+          name="thumbs-down"
+          backgroundColor="#1f2937"
+          onPress={() => {
+            dislike(userId, mainPost._id)
+          }}
+        >
+          <Text style={styles.text}>{mainPost.dislikes.length}</Text>
+        </Icon.Button>
+      </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("DetailPage", {
+            el: mainPost.author,
+          });
+        }}
+      >
+        <Text style={styles.text}>
+          Created by: {mainPost.author.userName}
+        </Text>
+      </TouchableOpacity>
+      <Text style={styles.text}>{mainPost.date}</Text>
       </Card>
 
       {/* <Text style={{ alignItems: "center", justifyContent: "center" }}>
         tuta
       </Text> */}
-      {comments.length ? (
-        <>
-          <FlatList
-            data={comments}
-            renderItem={({ item }) => (
-              <Card style={{ height: 30 }}>
-                {console.log(item)}
-                <Card.Image /*source={"ASd"}*/>
-                  <Text style={{ marginBottom: 10 }}>{item.text}</Text>
-                </Card.Image>
+  {
+    comments.length ? (
+      <>
+        <FlatList
+          data={comments}
+          renderItem={({ item }) => (
+            <Card style={{ height: 30 }}>
+              <Card.Image /*source={"ASd"}*/>
+                <Text style={{ marginBottom: 10 }}>{item.text}</Text>
+              </Card.Image>
+              <View style={styles.icons}>
+                <Icon.Button
+                  name="thumbs-up"
+                  thumbs-down
+                  backgroundColor="gray"
+                  onPress={() => likeComment(userId, item._id)}
+                >
+                  {item.likes.length}
+                </Icon.Button>
+                <Icon.Button
+                  name="thumbs-down"
+                  backgroundColor="gray"
+                  onPress={() => dislikeComment(userId, item._id)}
+                >
+                  {item.dislikes.length}
+                </Icon.Button>
+                <Icon.Button
+                  name="comments"
+                  backgroundColor="gray"
+                    onPress={() =>
+                      SetInputState({
+                        status: !inputState,
+                        commentId: item._id,
+                      })
+                    }
+                >
+                  {item.comments.length}
+                </Icon.Button>
+                <Icon.Button
+                  name="ellipsis-h"
+                  backgroundColor="gray"
+                ></Icon.Button>
+              </View>
 
-                <View style={styles.icons}>
-                  <Icon.Button
-                    name="thumbs-up"
-                    thumbs-down
-                    backgroundColor="gray"
-                  // onPress={() => likeComment(userId, item._id)}
-                  >
-                    {item.likes.length}
-                  </Icon.Button>
-                  <Icon.Button
-                    name="thumbs-down"
-                    backgroundColor="gray"
-                  // onPress={() => dislikeComment(userId, item._id)}
-                  >
-                    {item.dislikes.length}
-                  </Icon.Button>
-                  <Icon.Button
-                    name="comments"
-                    backgroundColor="gray"
-                  >
-                    {item.comments.length}
-                  </Icon.Button>
-                  <Icon.Button
-                    name="ellipsis-h"
-                    backgroundColor="gray"
-                  ></Icon.Button>
-                </View>
-                <Text style={{ marginBottom: 1 }}>{item.date}</Text>
-                <FlatList
-                  data={item.comments}
-                  renderItem={({ item }) => (
-                    <>
-                      <View
-                        style={{
-                          flex: 1,
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <View>
-                          <Text>{item.text}</Text>
-                        </View>
-
-                        <View>
-                          <Text>{item.creatorLogin}</Text>
-                          <Text>{item.date}</Text>
-                        </View>
+              <Text style={{ marginBottom: 1 }}>{item.creator.userName}</Text>
+              <Text style={{ marginBottom: 1 }}>{item.date}</Text>
+              <FlatList
+                data={item.comments}
+                renderItem={({ item }) => (
+                  <>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <View>
+                        <Text>{item.text}</Text>
                       </View>
-                    </>
-                  )}
-                />
-                <Input
-                  value={commentToComment}
-                  onChangeText={text => setCommentToComment(text)}
-                  placeholder="Comment"
-                />
-                <Button
-                  onPress={() => {
-                    createCommentToComment(item._id);
-                  }}
-                  title="Sub"
-                />
-              </Card>
-            )}
-            keyExtractor={item => item.id}
-          />
 
-          {/* <Input
+                      <View>
+                        <Text>Created by: {item.creatorLogin}</Text>
+                        <Text>Created by: {item.date}</Text>
+                      </View>
+                      <View style={styles.icons}>
+                        {console.log()}
+                        <Icon.Button
+                          name="thumbs-up"
+                          thumbs-down
+                          backgroundColor="gray"
+                          onPress={() => likeComment(userId, item._id)}
+                        >
+                          {item.likes.length}
+                        </Icon.Button>
+                        <Icon.Button
+                          name="thumbs-down"
+                          backgroundColor="gray"
+                          onPress={() => dislikeComment(userId, item._id)}
+                        >
+                          {item.dislikes.length}
+                        </Icon.Button>
+                        <Icon.Button
+                          name="comments"
+                          backgroundColor="gray"
+                          onPress={() =>
+                            SetInputState({
+                              status: !inputState,
+                              commentId: item._id,
+                            })
+                          }
+                        >
+                          {item.comments.length}
+                        </Icon.Button>
+                        <Icon.Button
+                          name="ellipsis-h"
+                          backgroundColor="gray"
+                          onPress={() => console.log("comment")}
+                        ></Icon.Button>
+                      </View>
+                    </View>
+                  </>
+                )}
+              />
+            </Card>
+          )}
+          keyExtractor={item => item.id}
+        />
+
+        {/* <Input
             value={comment}
             onChangeText={text => setComment(text)}
             placeholder="Текст комментария"
@@ -203,12 +243,24 @@ export default function Post({ route }) {
             }}
             title="Отправить комментарий"
           /> */}
-        </>
-      ) : (
-        <></>
-      )}
+      </>
+    ) : (
+    <></>
+  )
+  }
+  { console.log(767676, inputState) }
+  {
+    inputState.status ? (
       <AddCommentMenu userId={userId} postId={mainPost._id} />
-    </View>
+    ) : (
+    <AddReplyMenu
+      userId={userId}
+      postId={mainPost._id}
+      fathercomment={inputState.commentId}
+    />
+  )
+  }
+    </View >
   );
 }
 

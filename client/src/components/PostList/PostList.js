@@ -16,6 +16,8 @@ export default function PostList() {
 
   const posts = useSelector(state => state.content);
 
+  // posts.sort((a, b) => b.dateNumber - a.dateNumber);
+
   // console.log("POSTS", posts);
 
   const dispatch = useDispatch();
@@ -42,6 +44,9 @@ export default function PostList() {
   // ) {
   //   posts.sort((a, b) => b.dateNumber - a.dateNumber);
   // }
+  useEffect(() => {
+    dispatch(getContent());
+  }, []);
 
   return (
     <>

@@ -19,7 +19,6 @@ export default function CreateNewPost() {
   const userId = user.userInfo.id;
 
   const navigation = useNavigation();
-
   const loadScene = () => {
     navigation.navigate("MainPage");
   };

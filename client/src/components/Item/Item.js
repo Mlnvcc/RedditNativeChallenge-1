@@ -24,7 +24,7 @@ export default function Item({ el }) {
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-
+  // console.log(el);
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
   };
@@ -105,9 +105,7 @@ export default function Item({ el }) {
 
       {el.content ? (
         <>
-          <Card.Image>
-            <Text style={{ marginBottom: 10 }}>{el.content}</Text>
-          </Card.Image>
+          <Image source={{ uri: el.content }} style={{ height: 200 }} />
         </>
       ) : (
         <View></View>
