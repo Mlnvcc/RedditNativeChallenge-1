@@ -9,9 +9,9 @@ import Navigate from "./src/navigation/AppNavigator";
 export default function App() {
   return (
     <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <Navigate style={styles.container} />
-        </PersistGate>
+      <PersistGate persistor={persistor} loading={null}>
+        <Navigate style={styles.container} />
+      </PersistGate>
     </Provider>
   );
 }

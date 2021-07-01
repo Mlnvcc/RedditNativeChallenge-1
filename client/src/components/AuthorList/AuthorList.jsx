@@ -29,6 +29,15 @@ export default function AuthorList({ el }) {
   );
 }
 const styles = StyleSheet.create({
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "#61dafb",
+    marginBottom: 10,
+  },
+
   div: {
     width: 300,
     flexDirection: "column",
