@@ -6,7 +6,7 @@ const checkAuth = require('../middlewares/checkAuth');
 const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
-  // console.log(12312341234);
+  console.log(12312341234);
   try {
     ('comments');
     const posts = await Post.find()

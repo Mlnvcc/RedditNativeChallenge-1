@@ -19,7 +19,8 @@ const Stack = createStackNavigator();
 
 const Navigate = () => {
   const isUserAuthenticated = useSelector(state => state.user.userInfo);
-
+  // console.log(11111, isUserAuthenticated);
+  // const isUserAuthenticated = false;
   return (
     <NavigationContainer>
       <Stack.Navigator>
