@@ -121,6 +121,7 @@ export default function UserProfileView() {
           ) : (
             <View style={styles.modal}>
               <FlatList
+                style={{ height: 430 }}
                 data={autorPost}
                 renderItem={({ item }) => (
                   <TouchableOpacity
@@ -188,8 +189,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   body: {
-    height: 500,
     flexDirection: "column",
+    backgroundColor: "#111827",
   },
   item: {
     padding: 20,
@@ -276,10 +277,13 @@ const styles = StyleSheet.create({
     color: "white",
   },
   modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
-    height: 300,
-    width: 400,
+    borderBottomWidth: 3,
+    borderTopWidth: 3,
+    borderColor: "#61dafb",
+    backgroundColor: "#111827",
   },
 });

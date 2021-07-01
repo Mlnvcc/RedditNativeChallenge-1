@@ -87,8 +87,10 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
-      <Card.Title style={styles.title1}>{el.title}</Card.Title>
-      <Image source={{ uri: el.uri }} style={{ width: 200, height: 200 }} />
+      <View style={styles.imageTitle}>
+        <Card.Title style={styles.title1}>{el.title}</Card.Title>
+        <Image source={{ uri: el.uri }} style={{ width: 200, height: 200 }} />
+      </View>
       <Card.Divider style={styles.hr} />
       {el.content ? (
         <>
@@ -141,9 +143,7 @@ export default function Item({ el }) {
 
 const styles = StyleSheet.create({
   content: {
-    // width: 270,
     height: 200,
-    // borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
@@ -239,5 +239,10 @@ const styles = StyleSheet.create({
 
   text: {
     color: "#f9fafb",
+  },
+
+  imageTitle: {
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
