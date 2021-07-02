@@ -70,169 +70,167 @@ export default function Post({ route }) {
           {mainPost.description}
         </Card.Title>
 
-      {mainPost.content ? (
-        <Card.Image>
-          <Text>{mainPost.content}</Text>
-        </Card.Image>
-      ) : (
-        <></>
-      )}
+        {mainPost.content ? (
+          <Card.Image>
+            <Text>{mainPost.content}</Text>
+          </Card.Image>
+        ) : (
+          <></>
+        )}
 
-      {/* //   {mainPost.content ? (
+        {/* //   {mainPost.content ? (
       //   <Image source={{ uri: mainPost.content }} style={{ height: 200 }} />
       // ) : (
       //   <></>
       // )} */}
-      
-      <View style={styles.icons}>
-        <Icon.Button
-          color={"#f9fafb"}
-          name="thumbs-up"
-          backgroundColor="#1f2937"
+
+        <View style={styles.icons}>
+          <Icon.Button
+            color={"#f9fafb"}
+            name="thumbs-up"
+            backgroundColor="#1f2937"
+            onPress={() => {
+              like(userId, mainPost._id)
+            }}
+          >
+            <Text style={styles.text}>{likes.length}</Text>
+          </Icon.Button>
+          <Icon.Button
+            color={"#f9fafb"}
+            name="thumbs-down"
+            backgroundColor="#1f2937"
+            onPress={() => {
+              dislike(userId, mainPost._id)
+            }}
+          >
+            <Text style={styles.text}>{mainPost.dislikes.length}</Text>
+          </Icon.Button>
+        </View>
+        <TouchableOpacity
           onPress={() => {
-            like(userId, mainPost._id)
+            navigation.navigate("DetailPage", {
+              el: mainPost.author,
+            });
           }}
         >
-          <Text style={styles.text}>{likes.length}</Text>
-        </Icon.Button>
-        <Icon.Button
-          color={"#f9fafb"}
-          name="thumbs-down"
-          backgroundColor="#1f2937"
-          onPress={() => {
-            dislike(userId, mainPost._id)
-          }}
-        >
-          <Text style={styles.text}>{mainPost.dislikes.length}</Text>
-        </Icon.Button>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("DetailPage", {
-            el: mainPost.author,
-          });
-        }}
-      >
-        <Text style={styles.text}>
-          Created by: {mainPost.author.userName}
-        </Text>
-      </TouchableOpacity>
-      <Text style={styles.text}>{mainPost.date}</Text>
+          <Text style={styles.text}>
+            Created by: {mainPost.author.userName}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>{mainPost.date}</Text>
       </Card>
 
       {/* <Text style={{ alignItems: "center", justifyContent: "center" }}>
         tuta
       </Text> */}
-  {
-    comments.length ? (
-      <>
-        <FlatList
-          data={comments}
-          renderItem={({ item }) => (
-            <Card style={{ height: 30 }}>
-              <Card.Image /*source={"ASd"}*/>
-                <Text style={{ marginBottom: 10 }}>{item.text}</Text>
-              </Card.Image>
-              <View style={styles.icons}>
-                <Icon.Button
-                  name="thumbs-up"
-                  thumbs-down
-                  backgroundColor="gray"
-                  onPress={() => likeComment(userId, item._id)}
-                >
-                  {item.likes.length}
-                </Icon.Button>
-                <Icon.Button
-                  name="thumbs-down"
-                  backgroundColor="gray"
-                  onPress={() => dislikeComment(userId, item._id)}
-                >
-                  {item.dislikes.length}
-                </Icon.Button>
-                <Icon.Button
-                  name="comments"
-                  backgroundColor="gray"
-                    onPress={() =>
-                      SetInputState({
-                        status: !inputState,
-                        commentId: item._id,
-                      })
-                    }
-                >
-                  {item.comments.length}
-                </Icon.Button>
-                <Icon.Button
-                  name="ellipsis-h"
-                  backgroundColor="gray"
-                ></Icon.Button>
-              </View>
+      {
+        comments.length ? (
+          <>
+            <FlatList
+              data={comments}
+              renderItem={({ item }) => (
+                <View style={styles.mainDiv}>
+                  <View style={styles.mainComment}>
+                    <Text style={styles.titleComm}>{item.text}</Text>
+                    <Card.Divider style={styles.hrCom} />
+                    <View style={styles.icons}>
+                      <Icon.Button
+                        size={15}
+                        name="thumbs-up"
+                        color={"#f9fafb"}
+                        backgroundColor="#1f2937"
+                        onPress={() => likeComment(userId, item._id)}
+                      >
+                        <Text style={styles.text}>{item.likes.length}</Text>
+                      </Icon.Button>
 
-              <Text style={{ marginBottom: 1 }}>{item.creator.userName}</Text>
-              <Text style={{ marginBottom: 1 }}>{item.date}</Text>
-              <FlatList
-                data={item.comments}
-                renderItem={({ item }) => (
-                  <>
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View>
-                        <Text>{item.text}</Text>
-                      </View>
+                      <Icon.Button
+                        size={15}
+                        name="thumbs-down"
+                        color={"#f9fafb"}
+                        backgroundColor="#1f2937"
+                        onPress={() => dislikeComment(userId, item._id)}
+                      >
+                        <Text style={styles.text}>{item.dislikes.length}</Text>
+                      </Icon.Button>
 
-                      <View>
-                        <Text>Created by: {item.creatorLogin}</Text>
-                        <Text>Created by: {item.date}</Text>
-                      </View>
-                      <View style={styles.icons}>
-                        {console.log()}
-                        <Icon.Button
-                          name="thumbs-up"
-                          thumbs-down
-                          backgroundColor="gray"
-                          onPress={() => likeComment(userId, item._id)}
-                        >
-                          {item.likes.length}
-                        </Icon.Button>
-                        <Icon.Button
-                          name="thumbs-down"
-                          backgroundColor="gray"
-                          onPress={() => dislikeComment(userId, item._id)}
-                        >
-                          {item.dislikes.length}
-                        </Icon.Button>
-                        <Icon.Button
-                          name="comments"
-                          backgroundColor="gray"
-                          onPress={() =>
-                            SetInputState({
-                              status: !inputState,
-                              commentId: item._id,
-                            })
-                          }
-                        >
-                          {item.comments.length}
-                        </Icon.Button>
-                        <Icon.Button
-                          name="ellipsis-h"
-                          backgroundColor="gray"
-                          onPress={() => console.log("comment")}
-                        ></Icon.Button>
-                      </View>
+                      <TouchableOpacity
+                        onPress={() =>
+                          SetInputState({
+                            status: !inputState,
+                            commentId: item._id,
+                          })
+                        }
+                      >
+                        <Text style={styles.textAnswer}>Answer</Text>
+                      </TouchableOpacity>
                     </View>
-                  </>
-                )}
-              />
-            </Card>
-          )}
-          keyExtractor={item => item.id}
-        />
 
-        {/* <Input
+                    <Text style={styles.text}>
+                      Created by: {item.creator.userName}
+                    </Text>
+                    <Text style={styles.text}>Created at: {item.date}</Text>
+                  </View>
+
+                  <FlatList
+                    data={item.comments}
+                    renderItem={({ item }) => (
+                      <View style={styles.comOnComContainer}>
+                        <Text style={styles.titleComm}>{item.text}</Text>
+                        <Card.Divider style={styles.hrCom} />
+
+                        <View style={styles.icons}>
+                          <Icon.Button
+                            size={15}
+                            name="thumbs-up"
+                            color={"#f9fafb"}
+                            backgroundColor="#1f2937"
+                            onPress={() => likeComment(userId, item._id)}
+                          >
+                            <Text style={styles.text}>{item.likes.length}</Text>
+                          </Icon.Button>
+                          <Icon.Button
+                            size={15}
+                            name="thumbs-down"
+                            color={"#f9fafb"}
+                            backgroundColor="#1f2937"
+                            onPress={() => dislikeComment(userId, item._id)}
+                          >
+                            <Text style={styles.text}>
+                              {item.dislikes.length}
+                            </Text>
+                          </Icon.Button>
+                          <TouchableOpacity
+                            onPress={() =>
+                              SetInputState({
+                                status: !inputState,
+                                commentId: item._id,
+                              })
+                            }
+                          >
+                            <Text style={styles.textAnswer}>
+                              Answer
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+
+                        <View>
+                          <Text style={styles.text}>
+                            Created by: {item.creatorLogin}
+                          </Text>
+
+                          <Text style={styles.text}>Created at: {item.date}</Text>
+                        </View>
+
+                      </View>
+                    )}
+                  />
+                </View>
+              )}
+              keyExtractor={item => item.id}
+            />
+
+            {/* <Input
             value={comment}
             onChangeText={text => setComment(text)}
             placeholder="Текст комментария"
@@ -243,28 +241,56 @@ export default function Post({ route }) {
             }}
             title="Отправить комментарий"
           /> */}
-      </>
-    ) : (
-    <></>
-  )
-  }
-  { console.log(767676, inputState) }
-  {
-    inputState.status ? (
-      <AddCommentMenu userId={userId} postId={mainPost._id} />
-    ) : (
-    <AddReplyMenu
-      userId={userId}
-      postId={mainPost._id}
-      fathercomment={inputState.commentId}
-    />
-  )
-  }
+          </>
+        ) : (
+          <></>
+        )
+      }
+      {console.log(767676, inputState)}
+      {
+        inputState.status ? (
+          <AddCommentMenu userId={userId} postId={mainPost._id} />
+        ) : (
+          <AddReplyMenu
+            userId={userId}
+            postId={mainPost._id}
+            fathercomment={inputState.commentId}
+          />
+        )
+      }
     </View >
   );
 }
 
 const styles = StyleSheet.create({
+  mainComment: {
+    width: 300,
+    flexDirection: "column",
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#f9fafb",
+    backgroundColor: "#1f2937",
+  },
+
+  comOnComContainer: {
+    width: 250,
+    flexDirection: "column",
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#f9fafb",
+    backgroundColor: "#1f2937",
+  },
+
+  mainDiv: {
+    margin: 10,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   //post container
   div: {
     width: 400,
@@ -290,6 +316,11 @@ const styles = StyleSheet.create({
     height: 1.3,
   },
 
+  hrCom: {
+    backgroundColor: "#61dafb",
+    height: 0.5,
+  },
+
   title: {
     fontSize: 25,
     color: "#f9fafb",
@@ -304,10 +335,23 @@ const styles = StyleSheet.create({
     color: "#f9fafb",
   },
 
+  textAnswer: {
+    marginTop: 8,
+    color: "#f9fafb",
+  },
+
+  titleComm: {
+    marginBottom: 5,
+    fontSize: 20,
+    color: "#f9fafb",
+  },
+
   icons: {
+    marginBottom: 5,
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+    backgroundColor: "f9fafb",
   },
   content: {
     // width: 270,
@@ -316,8 +360,5 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
-  },
-  text: {
-    color: "#f9fafb",
   },
 });
