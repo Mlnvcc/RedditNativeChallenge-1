@@ -7,16 +7,18 @@ const commentSchema = new Schema({
     type: String,
   },
   creatorLogin: String,
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  comments: [],
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-
+  father: {},
+  postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
   fathercomment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },
-  fatherpost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
 });
 
 const Comment = model('Comment', commentSchema);
 
 module.exports = Comment;
+
+// fathercomment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },

@@ -7,17 +7,16 @@ const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    const posts = await Post.find().populate('comments').populate('author');
-    // .populate({
-    //   path : 'userId',
-    //   populate : {
-    //     path : 'reviewId'
-    //   }
-    // })
-    // const comments = await Comment.find()
-    //   .populate('comments')
-    //   .populate('author');
-    // res.json({ posts, comments });
+    ('comments');
+    const posts = await Post.find()
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'creator',
+        },
+      })
+      .populate('author');
+
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -44,8 +43,11 @@ postRouter.post('/add', checkAuth, async (req, res) => {
 });
 
 postRouter.patch('/likes', async (req, res) => {
+  // console.log('likes', req.body);
   try {
-    const currPost = await Post.findById(req.body.idPost).populate("author").populate("comments");
+    const currPost = await Post.findById(req.body.idPost)
+      .populate('author')
+      .populate('comments');
     if (currPost.dislikes.includes(req.body.idUser)) {
       currPost.dislikes.splice(currPost.dislikes.indexOf(req.body.idUser), 1);
     }
@@ -62,8 +64,11 @@ postRouter.patch('/likes', async (req, res) => {
 });
 
 postRouter.patch('/dislikes', async (req, res) => {
+  console.log('Dislikes', req.body);
   try {
-    const currPost = await Post.findById(req.body.idPost).populate("author").populate("comments");
+    const currPost = await Post.findById(req.body.idPost)
+      .populate('author')
+      .populate('comments');
     if (currPost.likes.includes(req.body.idUser)) {
       currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
     }
@@ -74,6 +79,50 @@ postRouter.patch('/dislikes', async (req, res) => {
     }
     currPost.save();
     res.json({ currPost });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+postRouter.patch('/likescomment', async (req, res) => {
+  // console.log('incomming');
+  const { userId, commentId } = req.body;
+  // console.log('likescomment', req.body);
+  try {
+    const currComment = await Comment.findById(commentId).populate('creator');
+
+    if (currComment.dislikes.includes(userId)) {
+      currComment.dislikes.splice(currComment.dislikes.indexOf(userId), 1);
+    }
+    if (!currComment.likes.includes(userId)) {
+      currComment.likes.push(userId);
+    } else {
+      currComment.likes.splice(currComment.likes.indexOf(userId), 1);
+    }
+    currComment.save();
+    // console.log('find comment', currComment);
+    console.log('cirComment', currComment);
+    res.json({ currComment });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+postRouter.patch('/dislikescomment', async (req, res) => {
+  const { userId, commentId } = req.body;
+  try {
+    const currComment = await Comment.findById(commentId).populate('creator');
+
+    if (currComment.likes.includes(userId)) {
+      currComment.likes.splice(currComment.likes.indexOf(userId), 1);
+    }
+    if (!currComment.dislikes.includes(userId)) {
+      currComment.dislikes.push(userId);
+    } else {
+      currComment.dislikes.splice(currComment.dislikes.indexOf(userId), 1);
+    }
+    currComment.save();
+    res.json({ currComment });
   } catch (err) {
     console.error(err.message);
   }
