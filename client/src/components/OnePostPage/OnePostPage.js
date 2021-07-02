@@ -97,9 +97,7 @@ export default function Post({ route }) {
             name="thumbs-up"
             backgroundColor="#1f2937"
             onPress={() => {
-              // if(likes.includes(userId) === false){
               like(userId, mainPost._id);
-              // setLikeColor(prev => !prev);
               setLikeColor(prev => {
                 if (dislikeColor) setDislikeColor(prevD => !prevD);
                 return !prev;
@@ -113,9 +111,7 @@ export default function Post({ route }) {
             name="thumbs-down"
             backgroundColor="#1f2937"
             onPress={() => {
-              // if(dislikes.includes(userId) === false){
               dislike(userId, mainPost._id);
-              // setDislikeColor(prev => !prev);
               setDislikeColor(prev => {
                 if (likeColor) setLikeColor(prevL => !prevL);
                 return !prev;

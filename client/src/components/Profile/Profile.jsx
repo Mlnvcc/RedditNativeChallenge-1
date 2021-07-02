@@ -54,7 +54,7 @@ export default function UserProfileView() {
     <View style={styles.container}>
       <View>
         <View style={styles.headerContent}>
-          
+
           {uri ?
             <Image
               style={styles.avatar}
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   updateButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "#61dafb",
 
     shadowColor: "#808080",
     shadowOffset: {
