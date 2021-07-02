@@ -7,7 +7,7 @@ const checkAuth = require('../middlewares/checkAuth');
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    const posts = await Post.find()
+    const posts = await Post.find().sort({ _id: -1 })
       .populate('author')
       .populate({
         path: 'comments',

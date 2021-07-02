@@ -15,7 +15,7 @@ import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
 import { getContent } from "../../redux/actions/content";
 
 export default function oneAutorPage({ route }) {
-  const posts = useSelector(state => state.content);
+  const posts = useSelector(state => state.content.content);
   const [status, setStatus] = useState(
     !posts[0].author.subscribers.includes(userId)
   );

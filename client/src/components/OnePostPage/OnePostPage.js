@@ -70,7 +70,15 @@ export default function Post({ route }) {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.div}>
-        <Card.Title style={styles.title}>{mainPost.title}</Card.Title>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Card.Title style={styles.title}>{mainPost.title}</Card.Title>
+          <Image
+            source={{ uri: mainPost.uri }}
+            style={{ width: 300, height: 300 }}
+          />
+        </View>
         <Card.Divider style={styles.hr} />
         <Card.Title style={styles.description}>
           {mainPost.description}
@@ -314,6 +322,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "#f9fafb",
     backgroundColor: "#1f2937",
+    justifyContent: "center",
+    alignContent: "center",
   },
   // all data
   container: {
