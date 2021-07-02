@@ -33,7 +33,7 @@ const AddCommentMenu = ({ userId, postId }) => {
     <View style={styles.footer}>
       <View style={styles.centeredView}>
         <TextInput
-          style={{ color: "#f9fafb", width: 300, height: 50 }}
+          style={{ color: "#f9fafb", width: 300, height: 50, marginTop: 8 }}
           value={comment}
           onChangeText={text => setComment(text)}
           placeholder="Comment"
@@ -42,7 +42,8 @@ const AddCommentMenu = ({ userId, postId }) => {
           style={styles.buttonComment}
           onPress={() => {
             createComment();
-          }}>
+          }}
+        >
           <Text style={styles.text}>Add</Text>
         </TouchableOpacity>
       </View>

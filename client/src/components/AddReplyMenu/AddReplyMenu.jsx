@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, TextInput, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Button, Input } from "react-native-elements";
+import { Card, Button, Text } from "react-native-elements";
 import Header from "../Header/Header";
 import LowerMenu from "../LowerMenu/LowerMenu";
 import PostList from "../PostList/PostList";
@@ -36,17 +36,21 @@ const AddReplyMenu = ({ userId, postId, fathercomment }) => {
   return (
     <View style={styles.footer}>
       <View style={styles.centeredView}>
-        <Input
+        <TextInput
+          style={{ color: "#f9fafb", width: 300, height: 50, marginTop: 8 }}
           value={commentToComment}
           onChangeText={text => setCommentToComment(text)}
-          placeholder="Retry"
-        />
-        <Button
+          placeholder="Answer"
+        ></TextInput>
+        <TouchableOpacity
+          style={styles.buttonComment}
           onPress={() => {
             createCommentToComment();
           }}
           title="Sub"
-        />
+        >
+          <Text style={styles.text}>Add</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -64,7 +64,7 @@ export default function oneAutorPage({ route }) {
           <Icon size={30} name="users" color="#61dafb"></Icon>
           <Text style={styles.info}> Subscribers: {subscribes}</Text>
         </View>
-        {status ? (
+        {!status ? (
           <TouchableOpacity onPress={() => subscribe()}>
             <View style={styles.item}>
               <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>

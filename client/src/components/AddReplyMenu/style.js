@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    // marginTop: 22,
   },
   modalButtons: {
     flex: 1,
@@ -50,11 +49,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   footer: {
-    // height: 40,
+    height: 40,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#456ba0",
+    backgroundColor: "#111827",
   },
+
+  text: {
+    color: "#f9fafb",
+    margin: 3,
+    fontSize: 20,
+  },
+
+  buttonComment: {
+    marginHorizontal: 4,
+    backgroundColor: "#111827",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#61dafb",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
 
   // button: {
   //   alignItems: "center",
