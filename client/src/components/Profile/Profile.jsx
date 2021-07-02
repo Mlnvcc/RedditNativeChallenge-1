@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   updateButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "#61dafb",
 
     shadowColor: "#808080",
     shadowOffset: {

@@ -125,7 +125,6 @@ export default function Item({ el }) {
           name="thumbs-up"
           backgroundColor="#1f2937"
           onPress={() => {
-            // if(arrOfLikes.includes(userId) === false){
             like(userId, el._id);
             setColorLike(prev => {
               if (colorDislike) setColorDislike(prevD => !prevD);
@@ -141,7 +140,6 @@ export default function Item({ el }) {
           name="thumbs-down"
           backgroundColor="#1f2937"
           onPress={() => {
-            // if(arrOfDislikes.includes(userId) === false){
             dislike(userId, el._id);
             setColorDislike(prev => {
               if (colorLike) setColorLike(prevL => !prevL);
