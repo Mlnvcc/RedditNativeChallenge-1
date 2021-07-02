@@ -14,12 +14,17 @@ import {
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const user = useSelector(state => state.user);
   const userId = user.userInfo.id;
-  const navigation = useNavigation();
+  const arrOfLikes = useSelector(state => el.likes);
+  const arrOfDislikes = useSelector(state => el.dislikes);
 
-  const [colorLike, setColorLike] = useState(false);
-  const [colorDislike, setColorDislike] = useState(false);
+  const [colorLike, setColorLike] = useState(arrOfLikes.includes(userId));
+  const [colorDislike, setColorDislike] = useState(
+    arrOfDislikes.includes(userId)
+  );
+
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -33,9 +38,11 @@ export default function Item({ el }) {
   };
 
   useEffect(() => {
-    dispatch(getContent());
-  }, []);
+    setColorLike(arrOfLikes.includes(userId));
+    setColorDislike(arrOfDislikes.includes(userId));
+  }, [el]);
 
+  useEffect(() => {}, []);
   const deletePostFunction = id => {
     dispatch(deletePost(id));
   };
@@ -90,7 +97,7 @@ export default function Item({ el }) {
         <View></View>
       )}
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
-      {el.uri ?
+      {el.uri ? (
         <View>
           <View style={styles.imageTitle}>
             <Image
@@ -100,8 +107,9 @@ export default function Item({ el }) {
           </View>
           <Card.Divider style={styles.hr} />
         </View>
-        : <Text></Text>
-      }
+      ) : (
+        <Text></Text>
+      )}
 
       {el.content ? (
         <>
@@ -119,6 +127,7 @@ export default function Item({ el }) {
           name="thumbs-up"
           backgroundColor="#1f2937"
           onPress={() => {
+            // if(arrOfLikes.includes(userId) === false){
             like(userId, el._id);
             setColorLike(prev => {
               if (colorDislike) setColorDislike(prevD => !prevD);
@@ -134,6 +143,7 @@ export default function Item({ el }) {
           name="thumbs-down"
           backgroundColor="#1f2937"
           onPress={() => {
+            // if(arrOfDislikes.includes(userId) === false){
             dislike(userId, el._id);
             setColorDislike(prev => {
               if (colorLike) setColorLike(prevL => !prevL);
@@ -147,9 +157,7 @@ export default function Item({ el }) {
         <Icon.Button
           name="comments"
           backgroundColor="#1f2937"
-          onPress={() =>
-            navigation.navigate("OnePostPage", { el })
-          }
+          onPress={() => navigation.navigate("OnePostPage", { el })}
         >
           <Text style={styles.text}>{el.comments.length}</Text>
         </Icon.Button>

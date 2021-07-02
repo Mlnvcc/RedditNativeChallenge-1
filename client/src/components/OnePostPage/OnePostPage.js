@@ -23,14 +23,21 @@ export default function Post({ route }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-
   const mainId = route.params.el._id;
 
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
   const comments = mainPost.comments;
-  const likes = mainPost.likes;
+  // const likes = mainPost.likes;
+  // const dislikes = mainPost.dislikes;
   const userId = useSelector(state => state.user.userInfo.id);
+
+  const [likeColor, setLikeColor] = useState(
+    route.params.el.likes.includes(userId)
+  );
+  const [dislikeColor, setDislikeColor] = useState(
+    route.params.el.dislikes.includes(userId)
+  );
 
   const [commentToComment, setCommentToComment] = useState();
   const createCommentToComment = commentId => {
@@ -54,7 +61,8 @@ export default function Post({ route }) {
   };
 
   useEffect(() => {
-    dispatch(getContent());
+    setDislikeColor(mainPost.dislikes.includes(userId));
+    setLikeColor(mainPost.likes.includes(userId));
   }, []);
 
   return (
@@ -76,21 +84,33 @@ export default function Post({ route }) {
 
         <View style={styles.icons}>
           <Icon.Button
-            color={colorLike ? "#61dafb" : "#f9fafb"}
+            color={likeColor ? "#61dafb" : "#f9fafb"}
             name="thumbs-up"
             backgroundColor="#1f2937"
             onPress={() => {
-              like(userId, mainPost._id)
+              // if(likes.includes(userId) === false){
+              like(userId, mainPost._id);
+              // setLikeColor(prev => !prev);
+              setLikeColor(prev => {
+                if (dislikeColor) setDislikeColor(prevD => !prevD);
+                return !prev;
+              });
             }}
           >
-            <Text style={styles.text}>{likes.length}</Text>
+            <Text style={styles.text}>{mainPost.likes.length}</Text>
           </Icon.Button>
           <Icon.Button
-            color={colorDislike ? "#61dafb" : "#f9fafb"}
+            color={dislikeColor ? "#61dafb" : "#f9fafb"}
             name="thumbs-down"
             backgroundColor="#1f2937"
             onPress={() => {
-              dislike(userId, mainPost._id)
+              // if(dislikes.includes(userId) === false){
+              dislike(userId, mainPost._id);
+              // setDislikeColor(prev => !prev);
+              setDislikeColor(prev => {
+                if (likeColor) setLikeColor(prevL => !prevL);
+                return !prev;
+              });
             }}
           >
             <Text style={styles.text}>{mainPost.dislikes.length}</Text>
@@ -130,21 +150,18 @@ export default function Post({ route }) {
                     name="thumbs-up"
                     thumbs-down
                     backgroundColor="gray"
-                  // onPress={() => likeComment(userId, item._id)}
+                    // onPress={() => likeComment(userId, item._id)}
                   >
                     {item.likes.length}
                   </Icon.Button>
                   <Icon.Button
                     name="thumbs-down"
                     backgroundColor="gray"
-                  // onPress={() => dislikeComment(userId, item._id)}
+                    // onPress={() => dislikeComment(userId, item._id)}
                   >
                     {item.dislikes.length}
                   </Icon.Button>
-                  <Icon.Button
-                    name="comments"
-                    backgroundColor="gray"
-                  >
+                  <Icon.Button name="comments" backgroundColor="gray">
                     {item.comments.length}
                   </Icon.Button>
                   <Icon.Button
