@@ -85,7 +85,7 @@ const SignUp = () => {
         />
         <Image
           style={styles.inputIcon}
-          source={{ uri: "https://img.icons8.com/nolan/40/000000/email.png" }}
+          source={{ uri:"https://img.icons8.com/dotty/64/000000/year-of-monkey--v2.png"}}
         />
       </View>
       <View style={styles.inputContainer}>
