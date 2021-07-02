@@ -16,6 +16,7 @@ export default function CreateNewPost() {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  console.log("USER", userId);
   const userId = user.userInfo.id;
 
   const navigation = useNavigation();
@@ -42,11 +43,15 @@ export default function CreateNewPost() {
         tags: allTags,
         uri: image?.toString(),
       };
+      console.log("CREATEPOST", post);
+      if (post.author) {
+        dispatch(createPost(post));
+      }
+
       setTitle("");
       setDescription("");
       setUrl("");
       setTags("");
-      dispatch(createPost(post));
       loadScene();
     }
   };
@@ -58,7 +63,7 @@ export default function CreateNewPost() {
         value={title}
         style={styles.input}
         placeholder="Title"
-      // placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
       <TextInput
         onChangeText={text => setDescription(text)}
@@ -66,7 +71,7 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
-      // placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
 
       {image && <Image source={{ uri: image }} style={{ width: 200 }} />}
@@ -76,7 +81,7 @@ export default function CreateNewPost() {
         value={tags}
         style={styles.input}
         placeholder="Put some tags separated by ' # '"
-      // placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
 
       <Multer setImage={setImage} />

@@ -1,5 +1,5 @@
 import "react-native-gesture-handler"; // мб нужно удалить
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -12,7 +12,7 @@ import OnePostPage from "../components/OnePostPage/OnePostPage";
 import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
 import AuthorList from "../components/AuthorList/AuthorList";
-
+import apiService from "../api/apiService";
 import Search from "../components/Search/Search";
 import EditPost from "../components/EditPostForm/EditPostForm";
 
@@ -21,6 +21,9 @@ const Stack = createStackNavigator();
 const Navigate = () => {
   const isUserAuthenticated = useSelector(state => state.user.userInfo);
 
+  useEffect(() => {
+    apiService.get("/api/v2/auth/check").then(({ data }) => data);
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator>

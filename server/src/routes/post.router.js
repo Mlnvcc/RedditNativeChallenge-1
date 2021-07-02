@@ -1,22 +1,21 @@
+const moment = require('moment');
 const { Router } = require('express');
+const postRouter = Router();
 const Post = require('../models/postModel');
 const Comment = require('../models/commentModel');
-const moment = require('moment');
 const checkAuth = require('../middlewares/checkAuth');
-const postRouter = Router();
 
 postRouter.get('/', checkAuth, async (req, res) => {
   try {
-    ('comments');
     const posts = await Post.find()
+      .populate('author')
       .populate({
         path: 'comments',
         populate: {
           path: 'creator',
         },
-      })
-      .populate('author');
-
+      });
+    // console.log(22, posts);
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -24,6 +23,7 @@ postRouter.get('/', checkAuth, async (req, res) => {
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
+  // console.log('add', req.body);
   try {
     const post = await Post.create({
       title: req.body.title,
@@ -57,6 +57,7 @@ postRouter.patch('/likes', async (req, res) => {
       currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
     }
     currPost.save();
+    console.log(555, currPost);
     res.json({ currPost });
   } catch (err) {
     console.error(err.message);
@@ -64,7 +65,7 @@ postRouter.patch('/likes', async (req, res) => {
 });
 
 postRouter.patch('/dislikes', async (req, res) => {
-  console.log('Dislikes', req.body);
+  // console.log('Dislikes', req.body);
   try {
     const currPost = await Post.findById(req.body.idPost)
       .populate('author')
@@ -100,8 +101,7 @@ postRouter.patch('/likescomment', async (req, res) => {
       currComment.likes.splice(currComment.likes.indexOf(userId), 1);
     }
     currComment.save();
-    // console.log('find comment', currComment);
-    console.log('cirComment', currComment);
+
     res.json({ currComment });
   } catch (err) {
     console.error(err.message);

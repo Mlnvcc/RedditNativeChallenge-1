@@ -5,12 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  addLike,
-  addDislike,
-  getContent,
-  deletePost,
-} from "../../redux/actions/content";
+import { addLike, addDislike, deletePost } from "../../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -29,7 +24,7 @@ export default function Item({ el }) {
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-  // console.log(el);
+  // console.log("EL", el);
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
   };
@@ -48,10 +43,10 @@ export default function Item({ el }) {
   };
 
   if (el.userName) return <></>;
-
+  // return null;
   return (
     <Card containerStyle={styles.div}>
-      {userId === el.author._id ? (
+      {userId === el?.author?._id ? (
         <View>
           <View>
             <Overlay
@@ -166,7 +161,7 @@ export default function Item({ el }) {
           });
         }}
       >
-        <Text style={styles.text}>Created by: {el.author.userName}</Text>
+        <Text style={styles.text}>Created by: {el.author?.userName ?? ""}</Text>
       </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>
     </Card>

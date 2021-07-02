@@ -21,6 +21,7 @@ const initialState = {
 export const userPersistConfig = {
   key: "user",
   storage: AsyncStorage,
+  whitelist: ["jwt", "userInfo"],
 };
 
 const userReducer = (state = initialState, action) => {

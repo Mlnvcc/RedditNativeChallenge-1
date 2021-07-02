@@ -8,7 +8,6 @@ import PostList from "../PostList/PostList";
 import {
   addLike,
   addDislike,
-  getContent,
   createComMain,
   createComToCom,
 } from "../../redux/actions/content";

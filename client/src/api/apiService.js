@@ -27,7 +27,6 @@ apiService.interceptors.request.use(
 
     if (userStateString) {
       accessToken = parsePersistedState(userStateString)?.jwt?.access;
-      // console.log(parsePersistedState(userStateString));
     }
     if (accessToken) {
       config.headers["authorization"] = `Bearer ${accessToken}`;

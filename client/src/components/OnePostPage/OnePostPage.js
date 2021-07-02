@@ -15,8 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addLike,
   addDislike,
-  getContent,
-  editPost,
   addLikeComment,
   addDislikeComment,
 } from "../../redux/actions/content";
@@ -36,9 +34,10 @@ export default function Post({ route }) {
 
   const mainId = route.params.el._id;
 
-  const posts = useSelector(state => state.content);
+  const posts = useSelector(state => state.content.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
   const comments = mainPost.comments;
+
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
 

@@ -34,7 +34,7 @@ export default function UserProfileView() {
   const signOutFunc = () => {
     dispatch(signOutAC());
   };
-  const posts = useSelector(state => state.content);
+  const posts = useSelector(state => state.content.content);
   const autorPost = posts.filter(el => el.author._id == userId);
 
   const editProfileFunction = id => {
