@@ -28,8 +28,8 @@ const AddReplyMenu = ({ userId, postId, fathercomment }) => {
         postId,
         fathercomment,
       };
-      console.log("COMMENT FRONT", commentToComment);
       dispatch(createComToCom(comment));
+      setCommentToComment("");
     }
   };
 

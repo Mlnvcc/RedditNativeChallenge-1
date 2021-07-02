@@ -39,9 +39,15 @@ export default function Post({ route }) {
   const posts = useSelector(state => state.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
   const comments = mainPost.comments;
-  // console.log("COMMENTI", comments);
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
+
+  const [likeColor, setLikeColor] = useState(
+    route.params.el.likes.includes(userId)
+  );
+  const [dislikeColor, setDislikeColor] = useState(
+    route.params.el.dislikes.includes(userId)
+  );
 
   const likeComment = (userId, commentId) => {
     dispatch(addLikeComment(userId, commentId));
@@ -57,9 +63,10 @@ export default function Post({ route }) {
     dispatch(addDislike(userId, postId));
   };
 
-  // useEffect(() => {
-  //   dispatch(getContent());
-  // }, []);
+  useEffect(() => {
+    setDislikeColor(mainPost.dislikes.includes(userId));
+    setLikeColor(mainPost.likes.includes(userId));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -86,21 +93,33 @@ export default function Post({ route }) {
 
         <View style={styles.icons}>
           <Icon.Button
-            color={"#f9fafb"}
+            color={likeColor ? "#61dafb" : "#f9fafb"}
             name="thumbs-up"
             backgroundColor="#1f2937"
             onPress={() => {
-              like(userId, mainPost._id)
+              // if(likes.includes(userId) === false){
+              like(userId, mainPost._id);
+              // setLikeColor(prev => !prev);
+              setLikeColor(prev => {
+                if (dislikeColor) setDislikeColor(prevD => !prevD);
+                return !prev;
+              });
             }}
           >
-            <Text style={styles.text}>{likes.length}</Text>
+            <Text style={styles.text}>{mainPost.likes.length}</Text>
           </Icon.Button>
           <Icon.Button
-            color={"#f9fafb"}
+            color={dislikeColor ? "#61dafb" : "#f9fafb"}
             name="thumbs-down"
             backgroundColor="#1f2937"
             onPress={() => {
-              dislike(userId, mainPost._id)
+              // if(dislikes.includes(userId) === false){
+              dislike(userId, mainPost._id);
+              // setDislikeColor(prev => !prev);
+              setDislikeColor(prev => {
+                if (likeColor) setLikeColor(prevL => !prevL);
+                return !prev;
+              });
             }}
           >
             <Text style={styles.text}>{mainPost.dislikes.length}</Text>
