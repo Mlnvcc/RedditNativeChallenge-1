@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,7 @@ import { getContent } from "../../redux/actions/content";
 export default function oneAutorPage({ route }) {
   const posts = useSelector(state => state.content);
   const [status, setStatus] = useState(
-    posts[0].author.subscribers.includes(userId)
+    !posts[0].author.subscribers.includes(userId)
   );
 
   const author = route.params.el;

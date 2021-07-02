@@ -54,12 +54,22 @@ export default function UserProfileView() {
     <View style={styles.container}>
       <View>
         <View style={styles.headerContent}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: uri,
-            }}
-          />
+          
+          {uri ?
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: uri,
+              }}
+            />
+            :
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: "https://memepedia.ru/wp-content/uploads/2020/10/big-floppa-1-360x270.jpg",
+              }}
+            />
+          }
 
           {showEditForm.status ? (
             <View style={styles.container}>

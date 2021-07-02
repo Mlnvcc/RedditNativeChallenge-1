@@ -10,7 +10,10 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   subscribers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  uri: String,
+  uri: {
+    type: String,
+    default: "https://memepedia.ru/wp-content/uploads/2020/10/big-floppa-meme.png",
+  },
 });
 
 userSchema.methods = {

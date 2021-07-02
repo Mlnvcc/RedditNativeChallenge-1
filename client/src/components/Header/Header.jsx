@@ -57,12 +57,21 @@ export default function Header() {
     <>
       <View style={styles.container}>
         <TouchableOpacity onPress={loadScene}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: uri,
-            }}
-          />
+          {uri ?
+            <Image
+              style={styles.image}
+              source={{
+                uri: uri,
+              }}
+            />
+            :
+            <Image
+              style={styles.image}
+              source={{
+                uri: "https://memepedia.ru/wp-content/uploads/2020/10/big-floppa-1-360x270.jpg",
+              }}
+            />
+          }
         </TouchableOpacity>
 
         <View style={styles.form}>
