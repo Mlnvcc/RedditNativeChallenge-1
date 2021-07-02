@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,13 +15,17 @@ import { signOut as signOutAC } from "../../redux/actions/user.ac";
 import { editProfile } from "../../redux/actions/editProfile";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
+import EditPhoto from "../editPhoto/EditPhoto";
 
 export default function UserProfileView() {
   const navigation = useNavigation();
   const [showEditForm, setshowEditForm] = useState({ status: false });
   const [post, setPost] = useState(false);
+  const [avatarStatus, setAvatarStatus] = useState(false);
+  const [updatePhoto, setUpdatePhoto] = useState();
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.userInfo.userName);
+  const uri = useSelector(state => state.user.userInfo.uri);
   const email = useSelector(state => state.user.userInfo.email);
   const userId = useSelector(state => state.user.userInfo.id);
   const [inputUsername, setInputUsername] = useState(username);
@@ -29,14 +34,16 @@ export default function UserProfileView() {
   const signOutFunc = () => {
     dispatch(signOutAC());
   };
-  const posts = useSelector(state => state.content);
+  const posts = useSelector(state => state.content.content);
   const autorPost = posts.filter(el => el.author._id == userId);
+
   const editProfileFunction = id => {
     if (inputUsername.trim() && inputEmail.trim()) {
       const user = {
         _id: userId,
         userName: inputUsername,
         email: inputEmail,
+        uri: updatePhoto,
       };
       dispatch(editProfile(user));
       setshowEditForm(prev => !prev);
@@ -50,7 +57,7 @@ export default function UserProfileView() {
           <Image
             style={styles.avatar}
             source={{
-              uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
+              uri: uri,
             }}
           />
 
@@ -88,6 +95,25 @@ export default function UserProfileView() {
                   }}
                 />
               </View>
+              {avatarStatus && (
+                <EditPhoto
+                  setUpdatePhoto={setUpdatePhoto}
+                  updatePhoto={updatePhoto}
+                />
+              )}
+              {updatePhoto && (
+                <Image
+                  source={{ uri: updatePhoto }}
+                  style={{ width: 200, height: 200 }}
+                />
+              )}
+              <TouchableOpacity
+                style={[styles.buttonContainer, styles.updateButton]}
+                onPress={() => setAvatarStatus(prev => !prev)}
+              >
+                {" "}
+                <Text style={styles.updateText}>Изменить аватарку</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.updateButton]}
                 onPress={() => editProfileFunction(userId)}
@@ -107,12 +133,12 @@ export default function UserProfileView() {
       <View style={styles.body}>
         <View style={styles.item}>
           <Icon size={30} name="rocket" color="#61dafb"></Icon>
-          <Text style={styles.info}>  Subscribes</Text>
+          <Text style={styles.info}> Subscribes</Text>
         </View>
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
             <Icon size={30} name="inbox" color="#61dafb"></Icon>
-            <Text style={styles.info}>  Posts</Text>
+            <Text style={styles.info}> Posts</Text>
           </View>
         </TouchableOpacity>
         {post ? (
@@ -121,6 +147,7 @@ export default function UserProfileView() {
           ) : (
             <View style={styles.modal}>
               <FlatList
+                style={{ height: 430 }}
                 data={autorPost}
                 renderItem={({ item }) => (
                   <TouchableOpacity
@@ -149,14 +176,14 @@ export default function UserProfileView() {
         >
           <View style={styles.item}>
             <Icon size={30} name="edit" color="#61dafb"></Icon>
-            <Text style={styles.info}>  Edit profile</Text>
+            <Text style={styles.info}> Edit profile</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={signOutFunc}>
           <View style={styles.item}>
             <Icon size={30} name="close" color="#61dafb"></Icon>
-            <Text style={styles.info}>  Logout</Text>
+            <Text style={styles.info}> Logout</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -188,8 +215,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   body: {
-    height: 500,
     flexDirection: "column",
+    backgroundColor: "#111827",
   },
   item: {
     padding: 20,
@@ -276,10 +303,13 @@ const styles = StyleSheet.create({
     color: "white",
   },
   modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
-    height: 300,
-    width: 400,
+    borderBottomWidth: 3,
+    borderTopWidth: 3,
+    borderColor: "#61dafb",
+    backgroundColor: "#111827",
   },
 });

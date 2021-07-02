@@ -80,7 +80,6 @@ const generateRefreshToken = async (req, res) => {
             expiresIn: '24h',
           }
         );
-        // console.log(111, { accessToken: newAccessToken });
         return res.json({ accessToken: newAccessToken });
       }
     }
@@ -101,12 +100,7 @@ const signOut = async (req, res) => {
 };
 
 const checkAuth = async (req, res) => {
-  try {
-    const user = await User.findById(req.session.user.id, { password: 0 });
-    return res.json(user);
-  } catch (error) {
-    return res.sendStatus(500);
-  }
+  return res.sendStatus(201);
 };
 
 module.exports = {

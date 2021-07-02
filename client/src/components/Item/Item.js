@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card, Overlay } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  addLike,
-  addDislike,
-  getContent,
-  deletePost,
-} from "../../redux/actions/content";
+import { addLike, addDislike, deletePost } from "../../redux/actions/content";
 
 export default function Item({ el }) {
   const dispatch = useDispatch();
@@ -18,11 +13,13 @@ export default function Item({ el }) {
   const userId = user.userInfo.id;
   const navigation = useNavigation();
 
+  const [colorLike, setColorLike] = useState(false);
+  const [colorDislike, setColorDislike] = useState(false);
   const [visible, setVisible] = useState(false); // for overlay
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-  // console.log(el);
+  // console.log("EL", el);
   const like = (userId, postId) => {
     dispatch(addLike(userId, postId));
   };
@@ -30,17 +27,15 @@ export default function Item({ el }) {
     dispatch(addDislike(userId, postId));
   };
 
-  useEffect(() => {
-    dispatch(getContent());
-  }, []);
-
   const deletePostFunction = id => {
     dispatch(deletePost(id));
   };
 
+  if (el.userName) return <></>;
+  // return null;
   return (
     <Card containerStyle={styles.div}>
-      {userId === el.author._id ? (
+      {userId === el?.author?._id ? (
         <View>
           <View>
             <Overlay
@@ -79,15 +74,27 @@ export default function Item({ el }) {
               name="ellipsis-v"
               backgroundColor="#9ca3af"
               onPress={toggleOverlay}
-            ></Icon.Button>
+            />
           </View>
         </View>
       ) : (
         <View></View>
       )}
       <Card.Title style={styles.title1}>{el.title}</Card.Title>
+      {el.uri ? (
+        <View>
+          <View style={styles.imageTitle}>
+            <Image
+              source={{ uri: el.uri }}
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+          <Card.Divider style={styles.hr} />
+        </View>
+      ) : (
+        <Text></Text>
+      )}
 
-      <Card.Divider style={styles.hr} />
       {el.content ? (
         <>
           <Image source={{ uri: el.content }} style={{ height: 200 }} />
@@ -95,26 +102,41 @@ export default function Item({ el }) {
       ) : (
         <View></View>
       )}
+
       <View style={styles.icons}>
         <Icon.Button
+          color={colorLike ? "#61dafb" : "#f9fafb"}
           name="thumbs-up"
-          backgroundColor="#9ca3af"
-          onPress={() => like(userId, el._id)}
+          backgroundColor="#1f2937"
+          onPress={() => {
+            like(userId, el._id);
+            setColorLike(prev => {
+              if (colorDislike) setColorDislike(prevD => !prevD);
+              return !prev;
+            });
+          }}
         >
           <Text style={styles.text}> {el.likes.length}</Text>
         </Icon.Button>
 
         <Icon.Button
+          color={colorDislike ? "#61dafb" : "#f9fafb"}
           name="thumbs-down"
-          backgroundColor="#9ca3af"
-          onPress={() => dislike(userId, el._id)}
+          backgroundColor="#1f2937"
+          onPress={() => {
+            dislike(userId, el._id);
+            setColorDislike(prev => {
+              if (colorLike) setColorLike(prevL => !prevL);
+              return !prev;
+            });
+          }}
         >
           <Text style={styles.text}>{el.dislikes.length}</Text>
         </Icon.Button>
 
         <Icon.Button
           name="comments"
-          backgroundColor="#9ca3af"
+          backgroundColor="#1f2937"
           onPress={() => navigation.navigate("OnePostPage", { el })}
         >
           <Text style={styles.text}>{el.comments.length}</Text>
@@ -128,7 +150,7 @@ export default function Item({ el }) {
           });
         }}
       >
-        <Text style={styles.text}>Created by: {el.author.userName}</Text>
+        <Text style={styles.text}>Created by: {el.author?.userName ?? ""}</Text>
       </TouchableOpacity>
       <Text style={styles.text}>{el.date}</Text>
     </Card>
@@ -137,9 +159,7 @@ export default function Item({ el }) {
 
 const styles = StyleSheet.create({
   content: {
-    // width: 270,
     height: 200,
-    // borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
@@ -152,7 +172,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     borderStyle: "solid",
-    borderColor: "#543333",
+    borderColor: "#61dafb",
   },
 
   overlayText: {
@@ -235,5 +255,10 @@ const styles = StyleSheet.create({
 
   text: {
     color: "#f9fafb",
+  },
+
+  imageTitle: {
+    flexDirection: "column",
+    alignItems: "center",
   },
 });

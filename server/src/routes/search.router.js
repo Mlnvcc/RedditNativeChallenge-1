@@ -7,6 +7,7 @@ const searchRouter = Router();
 
 searchRouter.post('/', async (req, res) => {
   const { sesrchText, searchTag } = req.body;
+  console.log(sesrchText);
   switch (searchTag) {
     case "Title": {
       if (sesrchText.trim()) {
@@ -33,6 +34,11 @@ searchRouter.post('/', async (req, res) => {
     }
 
     case "Users": {
+      if (sesrchText.trim()) {
+        const regex = new RegExp(sesrchText.trim(), 'i');
+        const curUsers = await User.find({ userName: { $regex: regex } });
+        res.json(curUsers);
+      }
       break;
     }
 

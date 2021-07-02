@@ -47,7 +47,9 @@ const SignIn = () => {
     <View style={styles.container}>
       <Image
         style={styles.bgImage}
-        source={{ uri: "https://lorempixel.com/900/1400/nightlife/2/" }}
+        source={{
+          uri: "https://i.pinimg.com/originals/f3/36/f4/f336f483d30551426051ce690b8d2d68.gif",
+        }}
       />
 
       <View style={styles.inputContainer}>
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   loginButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "#61dafb",
 
     shadowColor: "#808080",
     shadowOffset: {
@@ -173,6 +175,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "white",
+    fontWeight: "bold",
   },
   bgImage: {
     flex: 1,

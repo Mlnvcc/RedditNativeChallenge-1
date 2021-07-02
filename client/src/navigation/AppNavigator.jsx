@@ -1,5 +1,5 @@
 import "react-native-gesture-handler"; // мб нужно удалить
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,7 +11,8 @@ import UserProfileView from "../components/Profile/Profile";
 import OnePostPage from "../components/OnePostPage/OnePostPage";
 import oneAutorPage from "../components/OneAutorPage/OneAuthorPage";
 import CreateNewPost from "../components/CreatePost/CreatePost";
-
+import AuthorList from "../components/AuthorList/AuthorList";
+import apiService from "../api/apiService";
 import Search from "../components/Search/Search";
 import EditPost from "../components/EditPostForm/EditPostForm";
 
@@ -19,8 +20,10 @@ const Stack = createStackNavigator();
 
 const Navigate = () => {
   const isUserAuthenticated = useSelector(state => state.user.userInfo);
-  // console.log(11111, isUserAuthenticated);
-  // const isUserAuthenticated = false;
+
+  useEffect(() => {
+    apiService.get("/api/v2/auth/check").then(({ data }) => data);
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -120,7 +123,22 @@ const Navigate = () => {
               name="EditPost"
               component={EditPost}
               options={{
-                title: "Edit Post",
+                title: "",
+                headerStyle: {
+                  backgroundColor: "#0f172a",
+                },
+                headerTitleStyle: {
+                  color: "#e2e8f0",
+                },
+                headerTintColor: "#e2e8f0",
+              }}
+            />
+
+            <Stack.Screen
+              name="AuthorList"
+              component={AuthorList}
+              options={{
+                title: "",
                 headerStyle: {
                   backgroundColor: "#0f172a",
                 },
@@ -163,34 +181,6 @@ const Navigate = () => {
             />
           </>
         )}
-        {/* <Stack.Screen
-          name="MainPage"
-          component={MainPage}
-          options={{ title: "Main Page" }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={UserProfileView}
-          options={{ title: "Your profile" }}
-        />
-
-        <Stack.Screen
-          name="CreatePost"
-          component={CreateNewPost}
-          options={{ title: "Add new Post" }}
-        />
-
-        <Stack.Screen
-          name="OnePostPage"
-          component={OnePostPage}
-          options={{ title: "Post" }}
-        />
-
-        <Stack.Screen
-          name="Search"
-          component={Search}
-          options={{ title: "Search" }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

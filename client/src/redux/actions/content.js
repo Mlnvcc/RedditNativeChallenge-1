@@ -10,7 +10,12 @@ import {
   CREATE_COMMENT_TO_COMMENT,
   SET_DISLIKE_TO_COMMENT,
   SET_LIKE_TO_COMMENT,
+  DISABLE_LOADER,
+  ENABLE_LOADER,
 } from "../types/content";
+
+const enableLoader = () => ({ type: ENABLE_LOADER });
+const disableLoader = () => ({ type: DISABLE_LOADER });
 
 const getContentStart = payload => ({ type: GET_CONTENT_START, payload });
 const getPostCreate = payload => ({ type: POST_CREATE, payload });
@@ -41,13 +46,20 @@ const setDislikeToComment = currComment => ({
 });
 
 export const getContent = () => async dispatch => {
-  apiService.get("/post").then(({ data }) => dispatch(getContentStart(data)));
+  dispatch(enableLoader());
+
+  apiService.get("/post").then(response => {
+    dispatch(getContentStart(response.data));
+  });
+
+  dispatch(disableLoader());
 };
 
 export const createPost = description => async dispatch => {
-  apiService
-    .post("/post/add", description)
-    .then(({ data }) => dispatch(getPostCreate(data)));
+  apiService.post("/post/add", description).then(({ data }) => {
+    console.log("createPostDATA", data);
+    dispatch(getPostCreate(data));
+  });
 };
 
 export const addLike = (idUser, idPost) => async dispatch => {

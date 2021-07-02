@@ -70,7 +70,9 @@ const SignUp = () => {
     <View style={styles.container}>
       <Image
         style={styles.bgImage}
-        source={{ uri: "https://lorempixel.com/900/1400/nightlife/2/" }}
+        source={{
+          uri: "https://thumbs.gfycat.com/DenseGenerousBoutu-size_restricted.gif",
+        }}
       />
       <View style={styles.inputContainer}>
         <TextInput
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   loginButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "#61dafb",
 
     shadowColor: "#808080",
     shadowOffset: {
@@ -211,6 +213,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "white",
+    fontWeight: "bold",
   },
   bgImage: {
     flex: 1,

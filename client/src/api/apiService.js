@@ -3,8 +3,11 @@ import deviceStorage from "../asyncStorage";
 import { userPersistConfig } from "../redux/reduce/userReducer";
 import { refreshToken as apiRefreshToken } from "./auth";
 
+//const host = "http://192.168.1.140:8080"; //vlad
+const host = "http://localhost:8080"; //main
+
 const apiService = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: host,
 });
 
 const parsePersistedState = state =>
@@ -24,7 +27,6 @@ apiService.interceptors.request.use(
 
     if (userStateString) {
       accessToken = parsePersistedState(userStateString)?.jwt?.access;
-      // console.log(parsePersistedState(userStateString));
     }
     if (accessToken) {
       config.headers["authorization"] = `Bearer ${accessToken}`;

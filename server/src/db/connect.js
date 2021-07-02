@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const { dbConnectionURL, options } = require('./config');
+const { connectionURL, options } = require('./config');
 
 function connect() {
-  mongoose.connect('mongodb://localhost:27017/Reddit', options, err => {
+  mongoose.connect(connectionURL, options, err => {
     if (err) console.log('Ошибка с подключением к БД!');
     console.log('Подключение к БД произошло успешно!');
   });

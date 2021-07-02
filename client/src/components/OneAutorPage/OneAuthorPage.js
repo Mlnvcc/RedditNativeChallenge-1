@@ -12,8 +12,14 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Item from "../Item/Item";
 import { useNavigation } from "@react-navigation/native";
 import { goToSubscribe, goToDisSubscribe } from "../../redux/actions/user.ac";
+import { getContent } from "../../redux/actions/content";
 
 export default function oneAutorPage({ route }) {
+  const posts = useSelector(state => state.content);
+  const [status, setStatus] = useState(
+    posts[0].author.subscribers.includes(userId)
+  );
+
   const author = route.params.el;
   const userId = useSelector(state => state.user.userInfo.id);
   const navigation = useNavigation();
@@ -26,26 +32,23 @@ export default function oneAutorPage({ route }) {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToDisSubscribe(data));
     setSubscribes(prev => prev - 1);
+    setStatus(prev => !prev);
   };
   const subscribe = () => {
     const data = { autorId: author._id, userId: userId };
     dispatch(goToSubscribe(data));
     setSubscribes(prev => prev + 1);
+    setStatus(prev => !prev);
   };
 
-  const posts = useSelector(state => state.content);
+  // const arrayWithSubscribers = posts.filter();
   const autorPost = posts.filter(el => el.author._id == author._id);
   const likes = autorPost.reduce((a, b) => a + b.likes.length, 0);
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContent}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://cdn.frankerfacez.com/avatar/twitch/80339713",
-          }}
-        />
+        <Image source={{ uri: author.uri }} style={styles.avatar} />
         <Text style={styles.name}> {author.userName}</Text>
       </View>
 
@@ -61,20 +64,25 @@ export default function oneAutorPage({ route }) {
           <Icon size={30} name="users" color="#61dafb"></Icon>
           <Text style={styles.info}> Subscribers: {subscribes}</Text>
         </View>
-
-        <TouchableOpacity onPress={() => subscribe()}>
-          <View style={styles.item}>
-            <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>
-            <Text style={styles.info}> Subscribe on {author.userName}</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => disSubscribe()}>
-          <View style={styles.item}>
-            <Icon size={30} name="times-circle-o" color="#61dafb"></Icon>
-            <Text style={styles.info}> Unsubscribe {author.userName}</Text>
-          </View>
-        </TouchableOpacity>
+        {status ? (
+          <TouchableOpacity onPress={() => subscribe()}>
+            <View style={styles.item}>
+              <Icon size={30} name="check-circle-o" color="#61dafb"></Icon>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Subscribe on {author.userName}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => disSubscribe()}>
+            <View style={styles.item}>
+              <Icon size={30} name="times-circle-o" color="#61dafb"></Icon>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}>Unsubscribe {author.userName}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity onPress={() => setPost(prev => !prev)}>
           <View style={styles.item}>
@@ -88,6 +96,7 @@ export default function oneAutorPage({ route }) {
           ) : (
             <View style={styles.modal}>
               <FlatList
+                style={{ height: 430 }}
                 data={autorPost}
                 renderItem={({ item }) => (
                   <TouchableOpacity
@@ -108,18 +117,11 @@ export default function oneAutorPage({ route }) {
           <Text></Text>
         )}
       </View>
-    </View>
+    </View >
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#DCDCDC",
-  },
-  headerContent: {
-    padding: 30,
-    alignItems: "center",
-  },
   avatar: {
     width: 130,
     height: 130,
@@ -127,6 +129,13 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "#61dafb",
     marginBottom: 10,
+  },
+  header: {
+    backgroundColor: "#DCDCDC",
+  },
+  headerContent: {
+    padding: 30,
+    alignItems: "center",
   },
   name: {
     fontSize: 24,
@@ -139,7 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   body: {
-    height: 500,
     flexDirection: "column",
   },
   item: {
@@ -227,10 +235,13 @@ const styles = StyleSheet.create({
     color: "white",
   },
   modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#3949ab",
-    height: 300,
-    width: 400,
+    borderBottomWidth: 3,
+    borderTopWidth: 3,
+    borderColor: "#61dafb",
+    backgroundColor: "#111827",
   },
 });

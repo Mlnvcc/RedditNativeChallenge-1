@@ -1,1 +1,28 @@
-{"ast":null,"code":"var host = \"http://localhost:8080\";\nvar host1 = \"192.168.1.140\";\nexport var signUp = function signUp() {\n  return host + \"/api/v2/auth/signup\";\n};\nexport var signIn = function signIn() {\n  return host + \"/api/v2/auth/signin\";\n};\nexport var signOut = function signOut() {\n  return host + \"/api/v2/auth/signout\";\n};\nexport var checkAuth = function checkAuth() {\n  return host + \"/api/v2/auth/check\";\n};\nexport var getAllUsers = function getAllUsers() {\n  return host + \"/api/v2/users\";\n};\nexport var editUser = function editUser(id) {\n  return host + \"/api/v2/users/\" + id;\n};\nexport var getUser = function getUser(id) {\n  return host + \"/api/v2/users/\" + id;\n};","map":{"version":3,"sources":["/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/config/endPoints.js"],"names":["host","host1","signUp","signIn","signOut","checkAuth","getAllUsers","editUser","id","getUser"],"mappings":"AAEA,IAAMA,IAAI,GAAG,uBAAb;AACA,IAAMC,KAAK,GAAG,eAAd;AAEA,OAAO,IAAMC,MAAM,GAAG,SAATA,MAAS;AAAA,SAASF,IAAT;AAAA,CAAf;AAEP,OAAO,IAAMG,MAAM,GAAG,SAATA,MAAS;AAAA,SAASH,IAAT;AAAA,CAAf;AACP,OAAO,IAAMI,OAAO,GAAG,SAAVA,OAAU;AAAA,SAASJ,IAAT;AAAA,CAAhB;AACP,OAAO,IAAMK,SAAS,GAAG,SAAZA,SAAY;AAAA,SAASL,IAAT;AAAA,CAAlB;AAEP,OAAO,IAAMM,WAAW,GAAG,SAAdA,WAAc;AAAA,SAASN,IAAT;AAAA,CAApB;AACP,OAAO,IAAMO,QAAQ,GAAG,SAAXA,QAAW,CAAAC,EAAE;AAAA,SAAOR,IAAP,sBAA4BQ,EAA5B;AAAA,CAAnB;AACP,OAAO,IAAMC,OAAO,GAAG,SAAVA,OAAU,CAAAD,EAAE;AAAA,SAAOR,IAAP,sBAA4BQ,EAA5B;AAAA,CAAlB","sourcesContent":["// const { REACT_APP_HOST: host } = process.env;\n\nconst host = \"http://localhost:8080\";\nconst host1 = \"192.168.1.140\";\n// console.log(\"http://localhost:8080/api/v2/auth/signup\");\nexport const signUp = () => `${host}/api/v2/auth/signup`;\n// (\"http://localhost:8080/api/v2/auth/signup\");\nexport const signIn = () => `${host}/api/v2/auth/signin`;\nexport const signOut = () => `${host}/api/v2/auth/signout`;\nexport const checkAuth = () => `${host}/api/v2/auth/check`;\n\nexport const getAllUsers = () => `${host}/api/v2/users`;\nexport const editUser = id => `${host}/api/v2/users/${id}`;\nexport const getUser = id => `${host}/api/v2/users/${id}`;\n"]},"metadata":{},"sourceType":"module"}
+{
+  "ast": null,
+  "code": "var host = \"http://localhost:8080\";\nvar host1 = \"192.168.1.140\";\nexport var signUp = function signUp() {\n  return host + \"/api/v2/auth/signup\";\n};\nexport var signIn = function signIn() {\n  return host + \"/api/v2/auth/signin\";\n};\nexport var signOut = function signOut() {\n  return host + \"/api/v2/auth/signout\";\n};\nexport var checkAuth = function checkAuth() {\n  return host + \"/api/v2/auth/check\";\n};\nexport var getAllUsers = function getAllUsers() {\n  return host + \"/api/v2/users\";\n};\nexport var editUser = function editUser(id) {\n  return host + \"/api/v2/users/\" + id;\n};\nexport var getUser = function getUser(id) {\n  return host + \"/api/v2/users/\" + id;\n};",
+  "map": {
+    "version": 3,
+    "sources": [
+      "/Users/user/Documents/elbrus/phase 3/RedditNativeChallenge/client/src/config/endPoints.js"
+    ],
+    "names": [
+      "host",
+      "host1",
+      "signUp",
+      "signIn",
+      "signOut",
+      "checkAuth",
+      "getAllUsers",
+      "editUser",
+      "id",
+      "getUser"
+    ],
+    "mappings": "AAEA,IAAMA,IAAI,GAAG,uBAAb;AACA,IAAMC,KAAK,GAAG,eAAd;AAEA,OAAO,IAAMC,MAAM,GAAG,SAATA,MAAS;AAAA,SAASF,IAAT;AAAA,CAAf;AAEP,OAAO,IAAMG,MAAM,GAAG,SAATA,MAAS;AAAA,SAASH,IAAT;AAAA,CAAf;AACP,OAAO,IAAMI,OAAO,GAAG,SAAVA,OAAU;AAAA,SAASJ,IAAT;AAAA,CAAhB;AACP,OAAO,IAAMK,SAAS,GAAG,SAAZA,SAAY;AAAA,SAASL,IAAT;AAAA,CAAlB;AAEP,OAAO,IAAMM,WAAW,GAAG,SAAdA,WAAc;AAAA,SAASN,IAAT;AAAA,CAApB;AACP,OAAO,IAAMO,QAAQ,GAAG,SAAXA,QAAW,CAAAC,EAAE;AAAA,SAAOR,IAAP,sBAA4BQ,EAA5B;AAAA,CAAnB;AACP,OAAO,IAAMC,OAAO,GAAG,SAAVA,OAAU,CAAAD,EAAE;AAAA,SAAOR,IAAP,sBAA4BQ,EAA5B;AAAA,CAAlB",
+    "sourcesContent": [
+      "// const { REACT_APP_HOST: host } = process.env;\n\nconst host = \"http://localhost:8080\";\nconst host1 = \"192.168.1.140\";\n// console.log(\"http://localhost:8080/api/v2/auth/signup\");\nexport const signUp = () => `${host}/api/v2/auth/signup`;\n// (\"http://localhost:8080/api/v2/auth/signup\");\nexport const signIn = () => `${host}/api/v2/auth/signin`;\nexport const signOut = () => `${host}/api/v2/auth/signout`;\nexport const checkAuth = () => `${host}/api/v2/auth/check`;\n\nexport const getAllUsers = () => `${host}/api/v2/users`;\nexport const editUser = id => `${host}/api/v2/users/${id}`;\nexport const getUser = id => `${host}/api/v2/users/${id}`;\n"
+    ]
+  },
+  "metadata": {},
+  "sourceType": "module"
+}

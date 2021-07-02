@@ -16,10 +16,10 @@ export default function CreateNewPost() {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  console.log("USER", userId);
   const userId = user.userInfo.id;
 
   const navigation = useNavigation();
-
   const loadScene = () => {
     navigation.navigate("MainPage");
   };
@@ -41,13 +41,17 @@ export default function CreateNewPost() {
         description,
         content: url,
         tags: allTags,
-        // uri: image.toString(),
+        uri: image?.toString(),
       };
+      console.log("CREATEPOST", post);
+      if (post.author) {
+        dispatch(createPost(post));
+      }
+
       setTitle("");
       setDescription("");
       setUrl("");
       setTags("");
-      dispatch(createPost(post));
       loadScene();
     }
   };
@@ -59,7 +63,7 @@ export default function CreateNewPost() {
         value={title}
         style={styles.input}
         placeholder="Title"
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
       <TextInput
         onChangeText={text => setDescription(text)}
@@ -67,7 +71,7 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
 
       <TextInput
@@ -76,24 +80,23 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Url"
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
-      {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-      )}
+      {image && <Image source={{ uri: image }} style={{ width: 200 }} />}
 
       <TextInput
         onChangeText={text => setTags(text)}
         value={tags}
         style={styles.input}
         placeholder="Put some tags separated by ' # '"
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       />
+
+      <Multer setImage={setImage} />
 
       <TouchableOpacity style={styles.button} onPress={submtForm}>
         <Text style={styles.text}>Create Post</Text>
       </TouchableOpacity>
-      <Multer setImage={setImage} />
     </SafeAreaView>
   );
 }
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    margin: 15,
+    margin: 5,
     marginHorizontal: 4,
     backgroundColor: "#475569",
     borderWidth: 2,

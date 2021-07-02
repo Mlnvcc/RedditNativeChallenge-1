@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Button, Input } from "react-native-elements";
 
@@ -15,8 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addLike,
   addDislike,
-  getContent,
-  editPost,
   addLikeComment,
   addDislikeComment,
 } from "../../redux/actions/content";
@@ -36,10 +34,10 @@ export default function Post({ route }) {
 
   const mainId = route.params.el._id;
 
-  const posts = useSelector(state => state.content);
+  const posts = useSelector(state => state.content.content);
   const mainPost = posts.filter(post => post._id == mainId)[0];
   const comments = mainPost.comments;
-  // console.log("COMMENTI", comments);
+
   const likes = mainPost.likes;
   const userId = useSelector(state => state.user.userInfo.id);
 
@@ -57,10 +55,6 @@ export default function Post({ route }) {
     dispatch(addDislike(userId, postId));
   };
 
-  // useEffect(() => {
-  //   dispatch(getContent());
-  // }, []);
-
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.div}>
@@ -69,26 +63,41 @@ export default function Post({ route }) {
         <Card.Title style={styles.description}>
           {mainPost.description}
         </Card.Title>
+
         {mainPost.content ? (
-          <Image source={{ uri: mainPost.content }} style={{ height: 200 }} />
+          <Card.Image>
+            <Text>{mainPost.content}</Text>
+          </Card.Image>
         ) : (
           <></>
         )}
-        в
+
+        {/* //   {mainPost.content ? (
+      //   <Image source={{ uri: mainPost.content }} style={{ height: 200 }} />
+      // ) : (
+      //   <></>
+      // )} */}
+
         <View style={styles.icons}>
           <Icon.Button
+            color={"#f9fafb"}
             name="thumbs-up"
-            backgroundColor="#9ca3af"
-            onPress={() => like(userId, mainPost._id)}
+            backgroundColor="#1f2937"
+            onPress={() => {
+              like(userId, mainPost._id);
+            }}
           >
-            {likes.length}
+            <Text style={styles.text}>{likes.length}</Text>
           </Icon.Button>
           <Icon.Button
+            color={"#f9fafb"}
             name="thumbs-down"
-            backgroundColor="#9ca3af"
-            onPress={() => dislike(userId, mainPost._id)}
+            backgroundColor="#1f2937"
+            onPress={() => {
+              dislike(userId, mainPost._id);
+            }}
           >
-            {mainPost.dislikes.length}
+            <Text style={styles.text}>{mainPost.dislikes.length}</Text>
           </Icon.Button>
         </View>
         <TouchableOpacity
@@ -148,7 +157,6 @@ export default function Post({ route }) {
                   <Icon.Button
                     name="ellipsis-h"
                     backgroundColor="gray"
-                    onPress={() => console.log("comment")}
                   ></Icon.Button>
                 </View>
 
@@ -298,5 +306,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
+  },
+  text: {
+    color: "#f9fafb",
   },
 });

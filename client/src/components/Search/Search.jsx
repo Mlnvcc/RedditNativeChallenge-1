@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 import Item from "../Item/Item";
+import AuthorList from "../AuthorList/AuthorList";
 import { BottomSheet, ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,8 @@ import { searchInit } from "../../redux/actions/search";
 
 export default function Search({ route }) {
   const { data } = route.params;
-  const posts = useSelector(state => state.search);
+  console.log("<><><", data);
+  let posts = useSelector(state => state.search);
 
   const [isVisible, setIsVisible] = useState(false);
   const [searchTag, setSearchTag] = useState("Title");
@@ -31,6 +33,10 @@ export default function Search({ route }) {
   const serachingFunc = () => {
     dispatch(searchInit(formData, searchTag));
   };
+
+  useEffect(() => {
+    posts = [];
+  }, [searchTag]);
 
   const list = [
     {
@@ -64,7 +70,10 @@ export default function Search({ route }) {
       title: "Cancel",
       containerStyle: { backgroundColor: "#543333" },
       titleStyle: { color: "#f9fafb" },
-      onPress: () => setIsVisible(false),
+      onPress: () => {
+        setSearchTag(list[3].title);
+        setIsVisible(false);
+      },
     },
   ];
 
@@ -98,14 +107,14 @@ export default function Search({ route }) {
         autoCorrect={false}
         autoCapitalize="none"
         placeholder={searchTag}
-        placeholderTextColor="#cff1f9"
+        // placeholderTextColor="#cff1f9"
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => serachingFunc()}>
         <Text style={styles.text}>Search</Text>
       </TouchableOpacity>
 
-      {posts.length ? (
+      {posts.length && searchTag !== "Users" ? (
         <FlatList
           data={posts}
           renderItem={({ item }) => (
@@ -123,6 +132,26 @@ export default function Search({ route }) {
         />
       ) : (
         <Text style={styles.text}>Nothing was found :(</Text>
+      )}
+
+      {posts.length && searchTag === "Users" ? (
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("DetailPage", {
+                  el: item,
+                });
+              }}
+            >
+              <AuthorList el={item} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <Text></Text>
       )}
     </View>
   );

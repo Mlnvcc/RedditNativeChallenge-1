@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Button, Image, View, Platform } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useDispatch } from "react-redux";
 
 export default function Multer({ setImage }) {
   useEffect(() => {
@@ -30,8 +29,27 @@ export default function Multer({ setImage }) {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-    </View>
+    <TouchableOpacity style={styles.button} onPress={pickImage}>
+      <Text style={styles.text}>Pick an image from camera roll</Text>
+    </TouchableOpacity>
   );
 }
+const styles = StyleSheet.create({
+  text: {
+    color: "#f9fafb",
+    margin: 3,
+    fontSize: 20,
+  },
+
+  button: {
+    margin: 15,
+    marginHorizontal: 4,
+    backgroundColor: "#475569",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: "solid",
+    borderColor: "#61dafb",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
