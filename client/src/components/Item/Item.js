@@ -37,16 +37,17 @@ export default function Item({ el }) {
     setColorDislike(arrOfDislikes.includes(userId));
   }, [el]);
 
-  useEffect(() => {}, []);
   const deletePostFunction = id => {
     dispatch(deletePost(id));
   };
+
+  console.log(userId, el);
 
   if (el.userName) return <></>;
   // return null;
   return (
     <Card containerStyle={styles.div}>
-      {userId === el?.author?._id ? (
+      {userId === el?.author?._id || userId === el?.author ? (
         <View>
           <View>
             <Overlay
@@ -56,7 +57,10 @@ export default function Item({ el }) {
             >
               <TouchableOpacity
                 style={styles.overlayOpacity}
-                onPress={() => deletePostFunction(el._id)}
+                onPress={() => {
+                  deletePostFunction(el._id);
+                  setVisible(prev => !prev);
+                }}
               >
                 <Text style={styles.overlayText}>Delete</Text>
               </TouchableOpacity>

@@ -5,7 +5,7 @@ const Post = require('../models/postModel');
 const Comment = require('../models/commentModel');
 const checkAuth = require('../middlewares/checkAuth');
 
-postRouter.get('/', checkAuth, async (req, res) => {
+postRouter.get('/', async (req, res) => {
   try {
     const posts = await Post.find().sort({ _id: -1 })
       .populate('author')
@@ -15,7 +15,6 @@ postRouter.get('/', checkAuth, async (req, res) => {
           path: 'creator',
         },
       });
-    // console.log(22, posts);
     res.json(posts);
   } catch (err) {
     console.error(err.message);

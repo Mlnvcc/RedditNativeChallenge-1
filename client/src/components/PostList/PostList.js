@@ -15,12 +15,12 @@ export default function PostList() {
   const navigation = useNavigation();
 
   const posts = useSelector(state => state.content.content);
-  console.log("POSTI", posts);
   const loader = useSelector(state => state.content.loader);
-  console.log("LOADER", loader);
   const dispatch = useDispatch();
 
   const status = useSelector(state => state.user.statusSearch);
+
+  const user = useSelector(state => state.user);
 
   if (status.likes) {
     posts.sort((a, b) => b.likes.length - a.likes.length);
