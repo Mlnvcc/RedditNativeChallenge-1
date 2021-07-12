@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Text, Platform } from "react-native";
+import { TouchableOpacity, Text, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+
+import styles from "./style";
 
 export default function Multer({ setImage }) {
   useEffect(() => {
@@ -34,22 +36,3 @@ export default function Multer({ setImage }) {
     </TouchableOpacity>
   );
 }
-const styles = StyleSheet.create({
-  text: {
-    color: "#f9fafb",
-    margin: 3,
-    fontSize: 20,
-  },
-
-  button: {
-    margin: 15,
-    marginHorizontal: 4,
-    backgroundColor: "#475569",
-    borderWidth: 2,
-    borderRadius: 5,
-    borderStyle: "solid",
-    borderColor: "#61dafb",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

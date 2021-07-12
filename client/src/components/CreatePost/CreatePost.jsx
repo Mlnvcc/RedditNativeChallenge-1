@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import {
   SafeAreaView,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   Text,
   Image,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { createPost } from "../../redux/actions/content";
 import { useNavigation } from "@react-navigation/native";
+
+import { createPost } from "../../redux/actions/content";
+
 import Multer from "../Multer/Multer";
+import styles from "./style";
 
 export default function CreateNewPost() {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  console.log("USER", userId);
+
   const userId = user.userInfo.id;
 
   const navigation = useNavigation();
+
   const loadScene = () => {
     navigation.navigate("MainPage");
   };
@@ -43,7 +46,7 @@ export default function CreateNewPost() {
         tags: allTags,
         uri: image?.toString(),
       };
-      console.log("CREATEPOST", post);
+
       if (post.author) {
         dispatch(createPost(post));
       }
@@ -63,7 +66,6 @@ export default function CreateNewPost() {
         value={title}
         style={styles.input}
         placeholder="Title"
-        // placeholderTextColor="#cff1f9"
       />
       <TextInput
         onChangeText={text => setDescription(text)}
@@ -71,7 +73,6 @@ export default function CreateNewPost() {
         style={styles.multilineInput}
         multiline={true}
         placeholder="Description"
-        // placeholderTextColor="#cff1f9"
       />
 
       {image && <Image source={{ uri: image }} style={{ width: 200 }} />}
@@ -81,7 +82,6 @@ export default function CreateNewPost() {
         value={tags}
         style={styles.input}
         placeholder="Put some tags separated by ' # '"
-        // placeholderTextColor="#cff1f9"
       />
 
       <Multer setImage={setImage} />
@@ -92,56 +92,3 @@ export default function CreateNewPost() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 13,
-    backgroundColor: "#111827",
-  },
-
-  input: {
-    fontSize: 15,
-    paddingBottom: 7,
-    width: 240,
-    height: 50,
-    borderStyle: "solid",
-    borderRadius: 7,
-    borderWidth: 2,
-    borderColor: "#f9fafb",
-    color: "#f9fafb",
-    backgroundColor: "#1f2937",
-  },
-
-  multilineInput: {
-    fontSize: 15,
-    height: 100,
-    width: 240,
-    margin: 15,
-    color: "#f9fafb",
-    borderStyle: "solid",
-    borderColor: "#f9fafb",
-    borderWidth: 2,
-    borderRadius: 5,
-    backgroundColor: "#1f2937",
-  },
-
-  button: {
-    margin: 5,
-    marginHorizontal: 4,
-    backgroundColor: "#475569",
-    borderWidth: 2,
-    borderRadius: 5,
-    borderStyle: "solid",
-    borderColor: "#61dafb",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: "#f9fafb",
-    margin: 3,
-    fontSize: 20,
-  },
-});

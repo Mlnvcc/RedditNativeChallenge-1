@@ -57,13 +57,11 @@ export const getContent = () => async dispatch => {
 
 export const createPost = description => async dispatch => {
   apiService.post("/post/add", description).then(({ data }) => {
-    console.log("createPostDATA", data);
     dispatch(getPostCreate(data));
   });
 };
 
 export const addLike = (idUser, idPost) => async dispatch => {
-  console.log("addLike", { idUser, idPost });
   apiService
     .patch("/post/likes", { idUser, idPost })
     .then(({ data }) => dispatch(setLike(data.currPost)));
@@ -95,7 +93,6 @@ export const createComMain = description => async dispatch => {
 
 export const createComToCom = description => async dispatch => {
   apiService.post("/comment/addcomtocom", description).then(({ data }) => {
-    console.log("DATA", data, description);
     dispatch(getComToComtCreate({ data, description }));
   });
 };
@@ -104,7 +101,6 @@ export const addLikeComment = (userId, commentId) => async dispatch => {
   apiService
     .patch("/post/likescomment", { userId, commentId })
     .then(({ data }) => {
-      console.log("11DATA", data);
       dispatch(setLikeToComment(data.currComment));
     });
 };

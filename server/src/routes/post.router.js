@@ -7,13 +7,19 @@ const checkAuth = require('../middlewares/checkAuth');
 
 postRouter.get('/', async (req, res) => {
   try {
-    const posts = await Post.find().sort({ _id: -1 })
+    const posts = await Post.find()
+      .sort({ _id: -1 })
       .populate('author')
       .populate({
         path: 'comments',
-        populate: {
-          path: 'creator',
-        },
+        populate: [
+          {
+            path: 'creator',
+          },
+          {
+            path: 'comments',
+          },
+        ],
       });
     res.json(posts);
   } catch (err) {
@@ -22,7 +28,6 @@ postRouter.get('/', async (req, res) => {
 });
 
 postRouter.post('/add', checkAuth, async (req, res) => {
-  // console.log('add', req.body);
   try {
     const post = await Post.create({
       title: req.body.title,
@@ -42,7 +47,6 @@ postRouter.post('/add', checkAuth, async (req, res) => {
 });
 
 postRouter.patch('/likes', async (req, res) => {
-  // console.log('likes', req.body);
   try {
     const currPost = await Post.findById(req.body.idPost)
       .populate('author')
@@ -56,7 +60,7 @@ postRouter.patch('/likes', async (req, res) => {
       currPost.likes.splice(currPost.likes.indexOf(req.body.idUser), 1);
     }
     currPost.save();
-    console.log(555, currPost);
+
     res.json({ currPost });
   } catch (err) {
     console.error(err.message);
@@ -64,7 +68,6 @@ postRouter.patch('/likes', async (req, res) => {
 });
 
 postRouter.patch('/dislikes', async (req, res) => {
-  // console.log('Dislikes', req.body);
   try {
     const currPost = await Post.findById(req.body.idPost)
       .populate('author')
@@ -85,9 +88,8 @@ postRouter.patch('/dislikes', async (req, res) => {
 });
 
 postRouter.patch('/likescomment', async (req, res) => {
-  // console.log('incomming');
   const { userId, commentId } = req.body;
-  // console.log('likescomment', req.body);
+
   try {
     const currComment = await Comment.findById(commentId).populate('creator');
 

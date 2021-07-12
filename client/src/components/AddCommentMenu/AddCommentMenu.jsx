@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, TextInput } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Input, Text } from "react-native-elements";
-import Header from "../Header/Header";
-import LowerMenu from "../LowerMenu/LowerMenu";
-import PostList from "../PostList/PostList";
-import {
-  addLike,
-  addDislike,
-  getContent,
-  createComMain,
-  createComToCom,
-} from "../../redux/actions/content";
+import { useDispatch } from "react-redux";
+import { Text } from "react-native-elements";
 
+import { createComMain } from "../../redux/actions/content";
 import styles from "./style";
 
 const AddCommentMenu = ({ userId, postId }) => {
   const dispatch = useDispatch();
 
-  // const [commentToComment, setCommentToComment] = useState();
   const [comment, setComment] = useState();
 
   const createComment = () => {
-    if (comment.trim().length > 5) {
+    if (comment.trim().length > 2) {
       const post = { text: comment, autorId: userId, postId };
       dispatch(createComMain(post));
       setComment("");

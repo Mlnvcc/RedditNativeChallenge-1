@@ -7,33 +7,36 @@ const searchRouter = Router();
 
 searchRouter.post('/', async (req, res) => {
   const { sesrchText, searchTag } = req.body;
-  console.log(sesrchText);
+
   switch (searchTag) {
-    case "Title": {
+    case 'Title': {
       if (sesrchText.trim()) {
         const regex = new RegExp(sesrchText.trim(), 'i');
         const curPosts = await Post.find({ title: { $regex: regex } });
         res.json(curPosts);
-      }
-      else {
+      } else {
         res.json([]);
       }
       break;
     }
 
-    case "Tags": {
+    case 'Tags': {
       if (sesrchText.trim()) {
-        const resCheck = sesrchText.trim().split(" ").map(el => el.toLowerCase());
-        const curPosts = await Post.find({ tags: { $elemMatch: { $in: resCheck } } })
+        const resCheck = sesrchText
+          .trim()
+          .split(' ')
+          .map(el => el.toLowerCase());
+        const curPosts = await Post.find({
+          tags: { $elemMatch: { $in: resCheck } },
+        });
         res.json(curPosts);
-      }
-      else {
+      } else {
         res.json([]);
       }
       break;
     }
 
-    case "Users": {
+    case 'Users': {
       if (sesrchText.trim()) {
         const regex = new RegExp(sesrchText.trim(), 'i');
         const curUsers = await User.find({ userName: { $regex: regex } });
@@ -45,6 +48,6 @@ searchRouter.post('/', async (req, res) => {
     default:
       break;
   }
-})
+});
 
 module.exports = searchRouter;

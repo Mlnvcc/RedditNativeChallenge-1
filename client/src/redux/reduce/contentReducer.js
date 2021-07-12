@@ -59,7 +59,7 @@ const contentReducer = (state = initialState, action) => {
 
     case CREATE_COMMENT: {
       const { postId } = payload.description;
-
+      console.log("COMMENT", payload.data);
       return {
         ...state,
         content: state.content.map(el =>
@@ -81,7 +81,7 @@ const contentReducer = (state = initialState, action) => {
                 ...post,
                 comments: [
                   ...post.comments.map(comment =>
-                    comment.id === payload.description.commentId
+                    comment._id === payload.data.father._id
                       ? {
                           ...comment,
                           comments: [...comment.comments, payload.data],
@@ -96,11 +96,7 @@ const contentReducer = (state = initialState, action) => {
     }
 
     case SET_LIKE_TO_COMMENT: {
-      console.log("payID", payload);
-
       if (payload.father.uri || payload.father.content) {
-        console.log("FATHERPOST");
-
         return {
           ...state,
           content: state.content.map(post =>
@@ -109,7 +105,9 @@ const contentReducer = (state = initialState, action) => {
                   ...post,
                   comments: [
                     ...post.comments.map(comment =>
-                      comment._id === payload._id ? payload : comment
+                      comment._id === payload._id
+                        ? { ...payload, comments: comment.comments }
+                        : comment
                     ),
                   ],
                 }
@@ -118,7 +116,6 @@ const contentReducer = (state = initialState, action) => {
         };
       }
       if (payload.postId) {
-        console.log("FATHERCOMMENT");
         return {
           ...state,
           content: state.content.map(post =>
@@ -148,10 +145,7 @@ const contentReducer = (state = initialState, action) => {
     }
 
     case SET_DISLIKE_TO_COMMENT: {
-      console.log("FATHERPOST", payload);
-      console.log("FATHERCOMMENT", payload.postId);
       if (payload.father.uri || payload.father.content) {
-        console.log("FATHERPOST");
         return {
           ...state,
           content: state.content.map(post =>
@@ -160,7 +154,9 @@ const contentReducer = (state = initialState, action) => {
                   ...post,
                   comments: [
                     ...post.comments.map(comment =>
-                      comment._id === payload._id ? payload : comment
+                      comment._id === payload._id
+                        ? { ...payload, comments: comment.comments }
+                        : comment
                     ),
                   ],
                 }
@@ -169,7 +165,6 @@ const contentReducer = (state = initialState, action) => {
         };
       }
       if (payload.postId) {
-        console.log("FATHERCOMMENT");
         return {
           ...state,
           content: state.content.map(post =>

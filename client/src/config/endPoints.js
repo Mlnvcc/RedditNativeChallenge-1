@@ -1,5 +1,4 @@
 const host = "http://localhost:8080";
-//const host = "http://192.168.1.140:8080"; //vlad
 
 export const signUp = () => `${host}/api/v2/auth/signup`;
 export const signIn = () => `${host}/api/v2/auth/signin`;

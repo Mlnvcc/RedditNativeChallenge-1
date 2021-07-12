@@ -48,17 +48,25 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
+  // footer: {
+  //   height: 40,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   backgroundColor: "#456ba0",
+  // },
   footer: {
-    height: 40,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#456ba0",
+    backgroundColor: "#1f2937",
+    borderTopWidth: 0.1,
+    borderStyle: "solid",
+    borderColor: "#f9fafb",
   },
 
   // button: {
   //   alignItems: "center",
   //   width: 50,
-  //   backgroundColor: "#507cba",
+  //   backgroundColor: "#61dafb",
   //   borderRadius: 7,
   // },
 });

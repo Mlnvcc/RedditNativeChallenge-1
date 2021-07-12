@@ -2,10 +2,10 @@ const userModel = require('../models/userModel');
 
 const editUser = async (req, res) => {
   let updatedFields = Object.entries(req.body).filter(el => el[1].trim());
+
   if (updatedFields.length) {
     updatedFields = Object.fromEntries(updatedFields);
     try {
-      // eslint-disable-next-line max-len
       const updatedUser = await userModel.findByIdAndUpdate(
         req.session.user.id,
         updatedFields,

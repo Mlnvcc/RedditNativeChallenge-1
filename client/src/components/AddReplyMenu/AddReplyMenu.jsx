@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { Card, Button, Text } from "react-native-elements";
-import Header from "../Header/Header";
-import LowerMenu from "../LowerMenu/LowerMenu";
-import PostList from "../PostList/PostList";
-import {
-  addLike,
-  addDislike,
-  createComMain,
-  createComToCom,
-} from "../../redux/actions/content";
+import { useDispatch } from "react-redux";
+import { Text } from "react-native-elements";
 
+import { createComToCom } from "../../redux/actions/content";
 import styles from "./style";
 
 const AddReplyMenu = ({ userId, postId, fathercomment }) => {
   const dispatch = useDispatch();
-  console.log("BATYANAFRoNTE", fathercomment);
+
   const [commentToComment, setCommentToComment] = useState();
 
   const createCommentToComment = () => {

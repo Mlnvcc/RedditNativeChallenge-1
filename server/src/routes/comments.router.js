@@ -1,57 +1,55 @@
 const { Router } = require('express');
+const moment = require('moment');
 const Comment = require('../models/commentModel');
-const Reply = require('../models/replyModel');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
-const moment = require('moment');
 
 const commentRouter = Router();
 
 commentRouter.post('/add', async (req, res) => {
-  // console.log('comment', req.body);
   try {
     const father = await Post.findById(req.body.postId);
-    console.log(123123, father);
-    let comment = await Comment.create({
+
+    const comment = await Comment.create({
       text: req.body.text,
       date: moment().subtract(6, 'days').calendar(),
       creator: req.body.autorId,
       father,
     });
+
     const PostMain = await Post.findById({ _id: req.body.postId });
 
     PostMain.comments.push(comment._id);
     PostMain.save();
 
-    res.json(comment);
+    const commentToFront = await Comment.findById(comment._id).populate(
+      'creator'
+    );
+
+    res.json(commentToFront);
   } catch (err) {
     console.error(err.message);
   }
 });
 
 commentRouter.post('/addComToCom', async (req, res) => {
-  console.log(123123, req.body);
-  const creatorLogin = await User.findById(req.body.autorId);
-  // console.log('ADDCOMTOCOM', req.body);
-  const allComment = await Comment.find();
-  // console.log(123, allComment);
-  const father = allComment.filter(
-    comment => comment._id == req.body.fathercomment
-  );
-  // console.log('BATYA', father);
-  const comment = await Comment.create({
+  const creator = await User.findById(req.body.autorId);
+
+  const сomment = await Comment.findById(req.body.fathercomment);
+
+  const reply = await Comment.create({
     text: req.body.text,
     date: moment().subtract(6, 'days').calendar(),
     creator: req.body.autorId,
-    creatorLogin: creatorLogin.userName,
+    creatorLogin: creator.userName,
     postId: req.body.postId,
-    father: father[0],
+    father: сomment,
   });
-  const MainComment = await Comment.findById(req.body.fathercomment);
 
-  MainComment.comments.push(comment);
-  MainComment.save();
-  res.json(comment);
+  сomment.comments.push(reply._id);
+  сomment.save();
+
+  res.json(reply);
 });
 
 module.exports = commentRouter;

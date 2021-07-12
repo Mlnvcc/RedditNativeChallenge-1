@@ -1,10 +1,8 @@
 import axios from "axios";
 import deviceStorage from "../asyncStorage";
-import { userPersistConfig } from "../redux/reduce/userReducer";
 import { refreshToken as apiRefreshToken } from "./auth";
 
-//const host = "http://192.168.1.140:8080"; //vlad
-const host = "http://localhost:8080"; //main
+const host = "http://localhost:8080";
 
 const apiService = axios.create({
   baseURL: host,

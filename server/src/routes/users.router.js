@@ -20,9 +20,9 @@ usersRouter.post('/subscribe', async (req, res) => {
 });
 usersRouter.post('/subdisscribe', async (req, res) => {
   const author = await User.findById({ _id: req.body.autorId });
-  // const user = await User.findById({ _id: req.body.userId });
+
   const arr = author.subscribers.filter(el => el != req.body.userId);
-  author.subscribers = arr
+  author.subscribers = arr;
   author.save();
   res.json({ asdads: 'Asdads' });
 });

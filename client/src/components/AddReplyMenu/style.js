@@ -71,14 +71,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-
-  // button: {
-  //   alignItems: "center",
-  //   width: 50,
-  //   backgroundColor: "#507cba",
-  //   borderRadius: 7,
-  // },
 });
 
 export default styles;
