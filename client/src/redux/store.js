@@ -24,7 +24,6 @@ const saveUserInStorage = async () => {
 
 store.subscribe(() => {
   saveUserInStorage();
-  // console.log("Store =>", store.getState());
 });
 
 export default store;

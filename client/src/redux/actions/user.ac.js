@@ -117,36 +117,3 @@ export const signOut = () => async (dispatch, getState) => {
 
   dispatch(disableLoader());
 };
-
-export const checkAuth = () => async dispatch => {
-  //   const response = await fetch(endPoints.checkAuth(), {
-  //     // credentials: "include",
-  //   });
-  //   if (response.status === 200) {
-  //     const user = await response.json();
-  //     dispatch(setUser(user));
-  //   }
-};
-
-export const editUser = (user, history) => async (dispatch, getState) => {
-  // const {
-  //   user: { _id: userId },
-  // } = getState();
-  // dispatch(enableLoader());
-  // const response = await fetch(endPoints.editUser(userId), {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   // credentials: "include",
-  //   body: JSON.stringify(user),
-  // });
-  // if (response.status === 200) {
-  //   const user = await response.json();
-  //   dispatch(setUser(user));
-  //   history.replace(`/users/${user._id}`);
-  // } else {
-  //   history.replace("/");
-  // }
-  // dispatch(disableLoader());
-};
